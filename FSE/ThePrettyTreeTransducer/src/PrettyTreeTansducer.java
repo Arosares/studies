@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
 
 
 /**
@@ -18,6 +20,46 @@ public class PrettyTreeTansducer {
 	 */
 	public String printTreePretty(ArrayList<String> input) {
 		// TODO ADD YOUR CODE HERE !!!
+		
+		int nodeCounter = 0;
+		String output;
+		LinkedList<Integer> ids = new LinkedList<>();
+		LinkedList<Node> nodes = new LinkedList<>(); 
+		LinkedList<Node> children = new LinkedList<>(); 
+
+		
+//		System.out.println("Print the inputFile: \n" + input);
+		char[] chars;
+		Collections.sort(input);
+		
+		for (String line : input) {
+			
+			
+			line = line.replaceAll(",", "");
+			chars = line.toCharArray();
+			
+			if (nodeCounter == 0){
+				Node node = new Node(1);
+				node.setRoot(true);
+				nodes.add(node);
+			} else {
+				Node node = new Node(Character.getNumericValue(chars[0]));
+				
+				for (Node n : nodes) {
+					if (Character.getNumericValue(chars[1]) == n.getID()){
+						n.addChild(Character.getNumericValue(chars[1]));
+					}	
+				}
+			}
+			
+			
+			ids.add(Character.getNumericValue(chars[0]));
+			for (int i = 3; i < chars.length; i++) {
+				
+			}
+			nodeCounter++;
+		}
+		 
 		return null;
 	}
 	
