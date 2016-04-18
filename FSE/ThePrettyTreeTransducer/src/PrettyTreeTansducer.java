@@ -22,7 +22,6 @@ public class PrettyTreeTansducer {
 		// TODO ADD YOUR CODE HERE !!!
 		
 		int nodeCounter = 0;
-		String output;
 		LinkedList<Integer> ids = new LinkedList<>();
 		LinkedList<Node> nodes = new LinkedList<>(); 
 		LinkedList<Node> children = new LinkedList<>(); 
@@ -31,12 +30,12 @@ public class PrettyTreeTansducer {
 //		System.out.println("Print the inputFile: \n" + input);
 		char[] chars;
 		Collections.sort(input);
-		
 		for (String line : input) {
 			
 			
 			line = line.replaceAll(",", "");
 			chars = line.toCharArray();
+			
 			
 			if (nodeCounter == 0){
 				Node node = new Node(1);
@@ -45,22 +44,55 @@ public class PrettyTreeTansducer {
 			} else {
 				Node node = new Node(Character.getNumericValue(chars[0]));
 				
-				for (Node n : nodes) {
-					if (Character.getNumericValue(chars[1]) == n.getID()){
-						n.addChild(Character.getNumericValue(chars[1]));
-					}	
+				addChildren(nodes, chars, node);
+				
+				nodes.add(node);
+				
+				//adds values to node
+				for (int i = 2; i < chars.length; i++) {
+					node.addValue(Character.getNumericValue(chars[i]));
+					System.out.println(node.getValues());
 				}
 			}
 			
 			
-			ids.add(Character.getNumericValue(chars[0]));
-			for (int i = 3; i < chars.length; i++) {
-				
-			}
+//			ids.add(Character.getNumericValue(chars[0]));
+			
 			nodeCounter++;
 		}
 		 
-		return null;
+		String output = nodes.getFirst().getID() + " : " +  nodes.getFirst().getValues() + " -> " + "computed values\n" + "|\n";
+		nodes.removeFirst();
+		
+		String lastNode =  "+- " + nodes.getLast().getID() + " : " +  nodes.getLast().getValues() + " -> " + "computed values\n";
+		nodes.removeLast();
+		
+		for (Node node : nodes) {
+			if(node.isHasChildren()){
+				String spaces =  " ";
+				output += "+- " + node.getID() + " : " +  node.getValues() + " -> " + "computed values\n" + "|\n" + "   " + "|\n";
+			} else {
+				output += "+- " + node.getID() + " : " +  node.getValues() + " -> " + "computed values\n" + "|\n";
+
+			}
+		}
+		
+		output += lastNode;
+		return output;
+	}
+
+
+	private void addChildren(LinkedList<Node> nodes, char[] chars, Node node) {
+		for (Node n : nodes) {
+
+			//gets the parent from the string
+			int parent = Character.getNumericValue(chars[1]);
+			if (parent == n.getID()){
+				//adds the node as child to an existing node
+				n.addChild(node.getID());
+				n.setHasChildren(true);
+			}
+		}
 	}
 	
 	

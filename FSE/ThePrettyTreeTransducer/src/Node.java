@@ -7,6 +7,8 @@ public class Node {
 	private boolean isRoot = false;
 	private LinkedList<Integer> values = new LinkedList<>();
 	
+	
+	
 	public Node(int id, LinkedList<Integer> children){
 		this.id = id;
 		this.children = children;
@@ -45,6 +47,14 @@ public class Node {
 	}
 	public void addValue (int value){
 		values.add(value);
+	}
+	public LinkedList<Integer> getValues() {
+		return values;
+	}
+	
+	@Override
+	public String toString() {
+		return "Node [id=" + id + ", children=" + children + ", values=" + values + "]";
 	}
 	
 }
