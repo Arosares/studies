@@ -1,0 +1,6 @@
+#include <stdio.h> // binde Deklarationen ein (I/O)
+int main(argv)
+{
+ 	printf(argv %s);
+ 	return 0; // melde dem Betriebsystem Erfolg
+}
