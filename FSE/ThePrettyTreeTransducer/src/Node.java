@@ -62,6 +62,12 @@ public class Node {
 		return values;
 	}
 	
+	public LinkedList<Integer> getComputedValues() {
+		return computedValues;
+	}
+	public void setComputedValues(LinkedList<Integer> computedValues) {
+		this.computedValues = computedValues;
+	}
 	@Override
 	public String toString() {
 		return "Node [id=" + id + ", Children: " + hasChildren + ", values=" + values +  ", children=" + children +"]";
