@@ -2,14 +2,17 @@ import java.util.LinkedList;
 
 public class Node {
 	private int id = 0;
-	private LinkedList<Integer> children = new LinkedList<>();
+	private LinkedList<Node> children = new LinkedList<>();
 	private boolean hasChildren;
 	private boolean isRoot = false;
 	private LinkedList<Integer> values = new LinkedList<>();
 	
+	//v means just print out the values
+	private char operator = 'v';
 	
 	
-	public Node(int id, LinkedList<Integer> children){
+	
+	public Node(int id, LinkedList<Node> children){
 		this.id = id;
 		this.children = children;
 		hasChildren = true;
@@ -24,10 +27,16 @@ public class Node {
 	public void setID(int id) {
 		this.id = id;
 	}
-	public LinkedList<Integer> getChildren() {
+	public char getOperator() {
+		return operator;
+	}
+	public void setOperator(char operator) {
+		this.operator = operator;
+	}
+	public LinkedList<Node> getChildren() {
 		return children;
 	}
-	public void setChildren(LinkedList<Integer> children) {
+	public void setChildren(LinkedList<Node> children) {
 		this.children = children;
 	}
 	public boolean isHasChildren() {
@@ -42,7 +51,7 @@ public class Node {
 	public void setRoot(boolean isRoot) {
 		this.isRoot = isRoot;
 	}
-	public void addChild (int child){
+	public void addChild (Node child){
 		children.add(child);
 	}
 	public void addValue (int value){
