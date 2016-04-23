@@ -26,37 +26,29 @@ public class PrettyTreeTansducer {
 		
 		Node rootNode;
 		LinkedList<Node> nodes = new LinkedList<>(); 
-		LinkedList<Integer> childValuesU = new LinkedList<>();
-		LinkedList<Integer> childValuesI = new LinkedList<>();
-		LinkedList<Integer> valueHelper = new LinkedList<>();
-		LinkedList<Integer> childValues = new LinkedList<>();
-
+		
 		
 		createNodes(input, nodes);
-		System.out.println(nodes);
 
 		
 		//computing values
-		//TODO: USE SETCOMPUTED VALUES INSTEAD OF LOCAL LISTS
-		computeValues(nodes, childValuesU, childValuesI);
-		
+		computeValues(nodes);
+
 		
 		//creating string
-		
-		return createString(nodes, childValuesU, childValuesI);
+		return createString(nodes);
 	}
 
 
-	private String createString(LinkedList<Node> nodes, LinkedList<Integer> childValuesU,
-			LinkedList<Integer> childValuesI) {
+	private String createString(LinkedList<Node> nodes) {
 		String output = "";
 		switch (nodes.getFirst().getOperator()) {
 		case 'U':
-			output = nodes.getFirst().getID() + " : " +  'U' + " -> " + childValuesU + "\n";
+			output = nodes.getFirst().getID() + " : " +  'U' + " -> " + nodes.getFirst().getComputedValues() + "\n";
 			nodes.removeFirst();
 			break;
 		case 'I':
-			output = nodes.getFirst().getID() + " : " +  'I' + " -> " + childValuesI + "\n";
+			output = nodes.getFirst().getID() + " : " +  'I' + " -> " + nodes.getFirst().getComputedValues() + "\n";
 			nodes.removeFirst();
 			break;
 		default:
@@ -64,15 +56,15 @@ public class PrettyTreeTansducer {
 		}
 		
 		
-		String lastNode =  "+- " + nodes.getLast().getID() + " : " +  nodes.getLast().getValues() + " -> " + "computed values\n";
+		String lastNode =  "+- " + nodes.getLast().getID() + " : " +  nodes.getLast().getValues() + " -> " + nodes.getLast().getComputedValues() +"\n";
 		nodes.removeLast();
 		
 		for (Node node : nodes) {
 			if(node.isHasChildren()){
-				computeValues(node.getChildren(), childValuesU, childValuesI);
-				output += "+- " + node.getID() + " : " +  node.getValues() + " -> " + "computed values\n" + "|\n" + "   " + "|\n";
+				computeValues(node.getChildren());
+				output += "+- " + node.getID() + " : " +  node.getValues() + " -> " + node.getComputedValues() + "\n" + "|\n" + "   " + "|\n";
 			} else {
-				output += "+- " + node.getID() + " : " +  node.getValues() + " -> " + "computed values\n" + "|\n";
+				output += "+- " + node.getID() + " : " +  node.getValues() + " -> " +  node.getComputedValues() + "\n" + "|\n";
 
 			}
 		}
@@ -121,9 +113,10 @@ public class PrettyTreeTansducer {
 	}
 
 
-	private void computeValues(LinkedList<Node> nodes, LinkedList<Integer> childValuesU,
-			LinkedList<Integer> childValuesI) {
-		LinkedList<Integer> valueHelper;
+	private void computeValues(LinkedList<Node> nodes) {
+		LinkedList<Integer> childValues = new LinkedList<>();
+		LinkedList<Integer> valueHelper = new LinkedList<>();
+
 		for (Node node : nodes) {
 			
 
@@ -131,8 +124,14 @@ public class PrettyTreeTansducer {
 			switch (node.getOperator()) {
 			case 'U':
 				for (Node child : node.getChildren()) {
-					childValuesU.addAll(child.getValues());
+					if (child.isHasChildren()) {
+						computeValues(child.getChildren());
+					} else {
+					childValues.addAll(child.getValues());
+					}
 				}
+				Collections.sort(childValues);
+				node.setComputedValues(childValues);
 				break;
 			case 'I':
 				
@@ -145,16 +144,22 @@ public class PrettyTreeTansducer {
 				for (Node child : children) {
 					 LinkedList<Integer> values = child.getValues();
 					 for (Integer value : values) {
-						valueHelper.stream().filter(e -> (e == value)).forEach(e -> childValuesI.add(e));
+						valueHelper.stream().filter(e -> (e == value)).forEach(e -> childValues.add(e));
 					}
 				}
+				Collections.sort(childValues);
+				node.setComputedValues(childValues);
 				break;
 				
 			default:
+				node.setComputedValues(node.getValues());
 				break;
 			}
+			
+			
+			
 		}
-		Collections.sort(childValuesU);
+		
 	}
 
 

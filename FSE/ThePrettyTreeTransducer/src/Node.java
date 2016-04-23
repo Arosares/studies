@@ -70,7 +70,7 @@ public class Node {
 	}
 	@Override
 	public String toString() {
-		return "Node [id=" + id + ", Children: " + hasChildren + ", values=" + values +  ", children=" + children +"]";
+		return "Node [id=" + id + ", Children: " + hasChildren + ", values=" + values +  ", computedValues: " + computedValues + ", children=" + children +"]";
 	}
 	
 }
