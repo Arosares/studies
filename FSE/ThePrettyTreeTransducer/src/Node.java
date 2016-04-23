@@ -6,6 +6,7 @@ public class Node {
 	private boolean hasChildren;
 	private boolean isRoot = false;
 	private LinkedList<Integer> values = new LinkedList<>();
+	private LinkedList<Integer> computedValues = new LinkedList<>();
 	
 	//v means just print out the values
 	private char operator = 'v';
@@ -63,7 +64,7 @@ public class Node {
 	
 	@Override
 	public String toString() {
-		return "Node [id=" + id + ", children=" + children + ", values=" + values + "]";
+		return "Node [id=" + id + ", Children: " + hasChildren + ", values=" + values +  ", children=" + children +"]";
 	}
 	
 }

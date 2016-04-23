@@ -24,13 +24,65 @@ public class PrettyTreeTansducer {
 	public String printTreePretty(ArrayList<String> input) {
 		// TODO ADD YOUR CODE HERE !!!
 		
-		int nodeCounter = 0;
-		LinkedList<Integer> ids = new LinkedList<>();
+		Node rootNode;
 		LinkedList<Node> nodes = new LinkedList<>(); 
-//		LinkedList<Node> children = new LinkedList<>(); 
+		LinkedList<Integer> childValuesU = new LinkedList<>();
+		LinkedList<Integer> childValuesI = new LinkedList<>();
+		LinkedList<Integer> valueHelper = new LinkedList<>();
+		LinkedList<Integer> childValues = new LinkedList<>();
 
 		
-//		System.out.println("Print the inputFile: \n" + input);
+		createNodes(input, nodes);
+		System.out.println(nodes);
+
+		
+		//computing values
+		//TODO: USE SETCOMPUTED VALUES INSTEAD OF LOCAL LISTS
+		computeValues(nodes, childValuesU, childValuesI);
+		
+		
+		//creating string
+		
+		return createString(nodes, childValuesU, childValuesI);
+	}
+
+
+	private String createString(LinkedList<Node> nodes, LinkedList<Integer> childValuesU,
+			LinkedList<Integer> childValuesI) {
+		String output = "";
+		switch (nodes.getFirst().getOperator()) {
+		case 'U':
+			output = nodes.getFirst().getID() + " : " +  'U' + " -> " + childValuesU + "\n";
+			nodes.removeFirst();
+			break;
+		case 'I':
+			output = nodes.getFirst().getID() + " : " +  'I' + " -> " + childValuesI + "\n";
+			nodes.removeFirst();
+			break;
+		default:
+			break;
+		}
+		
+		
+		String lastNode =  "+- " + nodes.getLast().getID() + " : " +  nodes.getLast().getValues() + " -> " + "computed values\n";
+		nodes.removeLast();
+		
+		for (Node node : nodes) {
+			if(node.isHasChildren()){
+				computeValues(node.getChildren(), childValuesU, childValuesI);
+				output += "+- " + node.getID() + " : " +  node.getValues() + " -> " + "computed values\n" + "|\n" + "   " + "|\n";
+			} else {
+				output += "+- " + node.getID() + " : " +  node.getValues() + " -> " + "computed values\n" + "|\n";
+
+			}
+		}
+		
+		output += lastNode;
+		return output;
+	}
+
+
+	private void createNodes(ArrayList<String> input, LinkedList<Node> nodes) {
 		char[] chars;
 		Collections.sort(input);
 		for (String line : input) {
@@ -44,37 +96,34 @@ public class PrettyTreeTansducer {
 			Node node = new Node(Character.getNumericValue(chars[0]));
 			
 			addChildren(nodes, chars, node);
-			
 			nodes.add(node);
+			
+
 			
 			//adds values/operator to node
 			for (int i = 2; i < chars.length; i++) {
 				switch (chars[i]) {
 				case 'U':
 					node.setOperator('U');
+//					node.setHasChildren(true);
 					break;
 				case 'I':
 					node.setOperator('I');
+//					node.setHasChildren(true);
 					break;
 					
 				default:
 					node.addValue(Character.getNumericValue(chars[i]));
 					break;
 				}
-				
 			}
-			
-//		ids.add(Character.getNumericValue(chars[0]));
-			
-		nodeCounter++;
 		}
-		
-		//computing values
-		LinkedList<Integer> childValuesU = new LinkedList<>();
-		LinkedList<Integer> childValuesI = new LinkedList<>();
-		LinkedList<Integer> valueHelper = new LinkedList<>();
-		LinkedList<Integer> childValues = new LinkedList<>();
-		
+	}
+
+
+	private void computeValues(LinkedList<Node> nodes, LinkedList<Integer> childValuesU,
+			LinkedList<Integer> childValuesI) {
+		LinkedList<Integer> valueHelper;
 		for (Node node : nodes) {
 			
 
@@ -98,53 +147,14 @@ public class PrettyTreeTansducer {
 					 for (Integer value : values) {
 						valueHelper.stream().filter(e -> (e == value)).forEach(e -> childValuesI.add(e));
 					}
-					
 				}
-				
 				break;
-			case 'v':
 				
-				childValues = node.getValues();
-				
+			default:
 				break;
 			}
 		}
-		
 		Collections.sort(childValuesU);
-		
-		
-		//creating string
-		
-		String output = "";
-		switch (nodes.getFirst().getOperator()) {
-		case 'U':
-			output = nodes.getFirst().getID() + " : " +  'U' + " -> " + childValuesU + "\n";
-			nodes.removeFirst();
-			break;
-		case 'I':
-			output = nodes.getFirst().getID() + " : " +  'I' + " -> " + childValuesI + "\n";
-			nodes.removeFirst();
-			break;
-		default:
-			break;
-		}
-		
-		
-		String lastNode =  "+- " + nodes.getLast().getID() + " : " +  nodes.getLast().getValues() + " -> " + "computed values\n";
-		nodes.removeLast();
-		
-		for (Node node : nodes) {
-			if(node.isHasChildren()){
-				String spaces =  " ";
-				output += "+- " + node.getID() + " : " +  node.getValues() + " -> " + "computed values\n" + "|\n" + "   " + "|\n";
-			} else {
-				output += "+- " + node.getID() + " : " +  node.getValues() + " -> " + "computed values\n" + "|\n";
-
-			}
-		}
-		
-		output += lastNode;
-		return output;
 	}
 
 
