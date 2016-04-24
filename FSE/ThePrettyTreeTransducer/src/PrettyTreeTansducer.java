@@ -170,6 +170,9 @@ public class PrettyTreeTansducer {
 	
 	private String printV (LinkedList<Integer> values){
 		String value = "";
+		if (values.isEmpty()) {
+			return "{}";
+		}
 		for (Integer v : values) {
 			if (values.getLast()==v) {
 				value += v + "}";
