@@ -1,9 +1,11 @@
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.List;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
+import java.util.Queue;
+import java.util.Set;
+
 
 
 /**
@@ -24,64 +26,28 @@ public class PrettyTreeTansducer {
 	public String printTreePretty(ArrayList<String> input) {
 		// TODO ADD YOUR CODE HERE !!!
 		
-		Node rootNode;
 		LinkedList<Node> nodes = new LinkedList<>(); 
-		
-		
-		createNodes(input, nodes);
 
+		createNodes(input, nodes);
 		
 		//computing values
-		computeValues(nodes);
-
+//		nodes.stream().forEach(e -> computeValues(e));
+		computeChilds(nodes.getFirst());
+		
+		computeValues(nodes.getFirst());
 		
 		//creating string
-		return createString(nodes);
+		String prettyTree = createString(nodes.getFirst(), "");
+		return prettyTree;
 	}
-
-
-	private String createString(LinkedList<Node> nodes) {
-		String output = "";
-		switch (nodes.getFirst().getOperator()) {
-		case 'U':
-			output = nodes.getFirst().getID() + " : " +  'U' + " -> " + nodes.getFirst().getComputedValues() + "\n";
-			nodes.removeFirst();
-			break;
-		case 'I':
-			output = nodes.getFirst().getID() + " : " +  'I' + " -> " + nodes.getFirst().getComputedValues() + "\n";
-			nodes.removeFirst();
-			break;
-		default:
-			break;
-		}
-		
-		
-		String lastNode =  "+- " + nodes.getLast().getID() + " : " +  nodes.getLast().getValues() + " -> " + nodes.getLast().getComputedValues() +"\n";
-		nodes.removeLast();
-		
-		for (Node node : nodes) {
-			if(node.isHasChildren()){
-				computeValues(node.getChildren());
-				output += "+- " + node.getID() + " : " +  node.getValues() + " -> " + node.getComputedValues() + "\n" + "|\n" + "   " + "|\n";
-			} else {
-				output += "+- " + node.getID() + " : " +  node.getValues() + " -> " +  node.getComputedValues() + "\n" + "|\n";
-
-			}
-		}
-		
-		output += lastNode;
-		return output;
-	}
-
-
+	
 	private void createNodes(ArrayList<String> input, LinkedList<Node> nodes) {
-		char[] chars;
 		Collections.sort(input);
 		for (String line : input) {
 			
 			
 			line = line.replaceAll(",", "");
-			chars = line.toCharArray();
+			char[] chars = line.toCharArray();
 			
 			
 			//create Node
@@ -97,11 +63,9 @@ public class PrettyTreeTansducer {
 				switch (chars[i]) {
 				case 'U':
 					node.setOperator('U');
-//					node.setHasChildren(true);
 					break;
 				case 'I':
 					node.setOperator('I');
-//					node.setHasChildren(true);
 					break;
 					
 				default:
@@ -111,56 +75,105 @@ public class PrettyTreeTansducer {
 			}
 		}
 	}
-
-
-	private void computeValues(LinkedList<Node> nodes) {
-		LinkedList<Integer> childValues = new LinkedList<>();
-		LinkedList<Integer> valueHelper = new LinkedList<>();
-
-		for (Node node : nodes) {
-			
-
-
+	
+	private void computeChilds(Node node) {
 			switch (node.getOperator()) {
 			case 'U':
 				for (Node child : node.getChildren()) {
-					if (child.isHasChildren()) {
-						computeValues(child.getChildren());
-					} else {
-					childValues.addAll(child.getValues());
-					}
+					computeChilds(child);
 				}
-				Collections.sort(childValues);
-				node.setComputedValues(childValues);
 				break;
 			case 'I':
-				
-				LinkedList<Node> children = node.getChildren();
-				
-				valueHelper = children.getFirst().getValues();
-				children.removeFirst();
-				
-				
-				for (Node child : children) {
-					 LinkedList<Integer> values = child.getValues();
-					 for (Integer value : values) {
-						valueHelper.stream().filter(e -> (e == value)).forEach(e -> childValues.add(e));
-					}
+				for (Node child : node.getChildren()) {
+					computeChilds(child);
 				}
-				Collections.sort(childValues);
-				node.setComputedValues(childValues);
+				
 				break;
 				
 			default:
 				node.setComputedValues(node.getValues());
 				break;
 			}
+	}
+	
+	private void computeValues(Node node){
+		
+		switch (node.getOperator()) {
+		case 'U':
+			node.getChildren().stream().forEach(child -> {
+				boolean hasChild = child.isHasChildren();
+				if (hasChild) {
+					computeValues(child);	
+				} 
+					
+				LinkedList<Integer> testValues = node.getChildren().getFirst().getComputedValues();
+				node.setComputedValues(union(testValues, child.getComputedValues()));
+				
+			});
+
+			break;
+		case 'I':
 			
+			node.getChildren().stream().forEach(child -> {
+				boolean hasChild = child.isHasChildren();
+				if (hasChild) {
+					computeValues(child);	
+				} 
+				LinkedList<Integer> testValues = node.getChildren().getFirst().getComputedValues();
+				node.setComputedValues(intersection(testValues, child.getComputedValues()));
+			});
 			
-			
+			break;
+		}
+	}
+
+	private String createString(Node node, String output) {
+		String prettyTree = output;
+		LinkedList<Node> children = node.getChildren();
+		switch (node.getOperator()) {
+		case 'U':
+			prettyTree += node.getID() + " : " +  'U' + " -> " + node.getComputedValues() + "\n" + "|\n";
+				
+				for (Node child : children) {
+					prettyTree = createString(child, prettyTree);
+				}
+			break;
+		case 'I':
+			prettyTree += node.getID() + " : " +  'I' + " -> " + node.getComputedValues() + "\n" +"|\n";
+				for (Node child : children) {
+					prettyTree = createString(child, prettyTree);
+			}
+			break;
+		default:
+			prettyTree += "+- " + node.getID() + " : " + node.getValues() + " -> " + node.getComputedValues() + "\n|\n";
+			break;
 		}
 		
+		return prettyTree;
 	}
+
+	private <T> LinkedList<T> union(LinkedList<T> list1, LinkedList<T> list2) {
+        Set<T> set = new HashSet<T>();
+
+        set.addAll(list1);
+        set.addAll(list2);
+
+        return new LinkedList<T>(set);
+    }
+	private <T> LinkedList<T> intersection(LinkedList<T> list1, LinkedList<T> list2) {
+		LinkedList<T> list = new LinkedList<>();
+
+        for (T t : list1) {
+            if(list2.contains(t)) {
+                list.add(t);
+            }
+        }
+
+        return list;
+    }
+
+
+    
 
 
 	private void addChildren(LinkedList<Node> nodes, char[] chars, Node node) {

@@ -2,7 +2,9 @@ import java.util.LinkedList;
 
 public class Node {
 	private int id = 0;
+	private int parent = 0;
 	private LinkedList<Node> children = new LinkedList<>();
+	
 	private boolean hasChildren;
 	private boolean isRoot = false;
 	private LinkedList<Integer> values = new LinkedList<>();
@@ -24,6 +26,12 @@ public class Node {
 	}
 	public int getID() {
 		return id;
+	}
+	public int getParent() {
+		return parent;
+	}
+	public void setParent(int parent) {
+		this.parent = parent;
 	}
 	public void setID(int id) {
 		this.id = id;
@@ -70,7 +78,7 @@ public class Node {
 	}
 	@Override
 	public String toString() {
-		return "Node [id=" + id + ", Children: " + hasChildren + ", values=" + values +  ", computedValues: " + computedValues + ", children=" + children +"]";
+		return "Node [id=" + id + ", Children: " + hasChildren + ", Operator: " + operator + ", values=" + values +  ", computedValues: " + computedValues + ", children=" + children +"]";
 	}
 	
 }
