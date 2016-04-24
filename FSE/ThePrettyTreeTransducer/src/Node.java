@@ -7,6 +7,7 @@ public class Node {
 	
 	private boolean hasChildren;
 	private boolean isRoot = false;
+	private boolean isLast = false;
 	private LinkedList<Integer> values = new LinkedList<>();
 	private LinkedList<Integer> computedValues = new LinkedList<>();
 	
@@ -59,6 +60,12 @@ public class Node {
 	}
 	public void setRoot(boolean isRoot) {
 		this.isRoot = isRoot;
+	}
+	public boolean isLast() {
+		return isLast;
+	}
+	public void setLast(boolean isLast) {
+		this.isLast = isLast;
 	}
 	public void addChild (Node child){
 		children.add(child);

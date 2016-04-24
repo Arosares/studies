@@ -1,9 +1,7 @@
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.Queue;
 import java.util.Set;
 
 
@@ -29,15 +27,18 @@ public class PrettyTreeTansducer {
 		LinkedList<Node> nodes = new LinkedList<>(); 
 
 		createNodes(input, nodes);
+		nodes.getFirst().setRoot(true);
+		
+		//marks last child of a node, needed for printing
+		nodes.stream().filter(n -> n.isHasChildren()).forEach(n -> n.getChildren().getLast().setLast(true));
 		
 		//computing values
-//		nodes.stream().forEach(e -> computeValues(e));
 		computeChilds(nodes.getFirst());
 		
 		computeValues(nodes.getFirst());
 		
 		//creating string
-		String prettyTree = createString(nodes.getFirst(), "");
+		String prettyTree = createString(nodes.getFirst(), "", 0);
 		return prettyTree;
 	}
 	
@@ -54,9 +55,8 @@ public class PrettyTreeTansducer {
 			Node node = new Node(Character.getNumericValue(chars[0]));
 			
 			addChildren(nodes, chars, node);
-			nodes.add(node);
 			
-
+			nodes.add(node);
 			
 			//adds values/operator to node
 			for (int i = 2; i < chars.length; i++) {
@@ -127,25 +127,41 @@ public class PrettyTreeTansducer {
 		}
 	}
 
-	private String createString(Node node, String output) {
+	private String createString(Node node, String output, int level) {
 		String prettyTree = output;
 		LinkedList<Node> children = node.getChildren();
 		switch (node.getOperator()) {
 		case 'U':
-			prettyTree += node.getID() + " : " +  'U' + " -> " + node.getComputedValues() + "\n" + "|\n";
-				
-				for (Node child : children) {
-					prettyTree = createString(child, prettyTree);
-				}
+			if (!node.isRoot()) {
+				prettyTree += "+- ";
+			}
+			
+			prettyTree += node.getID() + " : " +  'U' + " -> " + node.getComputedValues() + "\n|\n";
+			
+			for (Node child : children) {
+				prettyTree = createString(child, prettyTree, level);
+			}
+			
 			break;
 		case 'I':
-			prettyTree += node.getID() + " : " +  'I' + " -> " + node.getComputedValues() + "\n" +"|\n";
-				for (Node child : children) {
-					prettyTree = createString(child, prettyTree);
+			if (!node.isRoot()) {
+				prettyTree += "+- ";
 			}
+			
+			prettyTree += node.getID() + " : " +  'I' + " -> " + node.getComputedValues() + "\n|\n";
+			
+			for (Node child : children) {
+					prettyTree = createString(child, prettyTree, level);
+			}
+			
 			break;
 		default:
-			prettyTree += "+- " + node.getID() + " : " + node.getValues() + " -> " + node.getComputedValues() + "\n|\n";
+			prettyTree += "+- " + node.getID() + " : " + node.getValues() + " -> " + node.getComputedValues()+ "\n";
+			if(!node.isLast()){
+				prettyTree +=  "|\n";
+			} else {
+				prettyTree += "\n";
+			}
 			break;
 		}
 		
