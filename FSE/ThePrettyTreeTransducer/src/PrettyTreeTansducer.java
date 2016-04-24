@@ -136,7 +136,7 @@ public class PrettyTreeTansducer {
 				prettyTree += "+- ";
 			}
 			
-			prettyTree += node.getID() + " : " +  'U' + " -> " + node.getComputedValues() + "\n|\n";
+			prettyTree += node.getID() + " : " +  'U' + " -> " + printV(node.getComputedValues()) + "\n|\n";
 			
 			for (Node child : children) {
 				prettyTree = createString(child, prettyTree, level);
@@ -148,7 +148,7 @@ public class PrettyTreeTansducer {
 				prettyTree += "+- ";
 			}
 			
-			prettyTree += node.getID() + " : " +  'I' + " -> " + node.getComputedValues() + "\n|\n";
+			prettyTree += node.getID() + " : " +  'I' + " -> " + printV(node.getComputedValues()) + "\n|\n";
 			
 			for (Node child : children) {
 					prettyTree = createString(child, prettyTree, level);
@@ -156,7 +156,7 @@ public class PrettyTreeTansducer {
 			
 			break;
 		default:
-			prettyTree += "+- " + node.getID() + " : " + node.getValues() + " -> " + node.getComputedValues()+ "\n";
+			prettyTree += "+- " + node.getID() + " : " + printV(node.getValues()) + " -> " + printV(node.getComputedValues()) + "\n";
 			if(!node.isLast()){
 				prettyTree +=  "|\n";
 			} else {
@@ -167,7 +167,19 @@ public class PrettyTreeTansducer {
 		
 		return prettyTree;
 	}
-
+	
+	private String printV (LinkedList<Integer> values){
+		String value = "";
+		for (Integer v : values) {
+			if (values.getLast()==v) {
+				value += v + "}";
+			} else {
+				value += v + ", ";
+			}
+		}
+		return "{"+value;
+	}
+	
 	private <T> LinkedList<T> union(LinkedList<T> list1, LinkedList<T> list2) {
         Set<T> set = new HashSet<T>();
 
