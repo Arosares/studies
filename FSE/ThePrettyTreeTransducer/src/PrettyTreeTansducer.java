@@ -39,6 +39,10 @@ public class PrettyTreeTansducer {
 		
 		//creating string
 		String prettyTree = createString(nodes.getFirst(), "", 0);
+		
+		//remove last 2 Strings, bc they are wrong at the end
+		prettyTree = prettyTree.substring(0, prettyTree.length()-2);
+		
 		return prettyTree;
 	}
 	
@@ -130,41 +134,48 @@ public class PrettyTreeTansducer {
 	private String createString(Node node, String output, int level) {
 		String prettyTree = output;
 		LinkedList<Node> children = node.getChildren();
-		switch (node.getOperator()) {
-		case 'U':
-			if (!node.isRoot()) {
-				prettyTree += "+- ";
+		
+		for (int i = 0; i < level; i++) {
+			prettyTree += "|  ";
+		}
+		
+		if(!node.isRoot()){
+			level++;
+		}
+		
+		if (node.isHasChildren()) {
+			if (node.isRoot()) {
+				prettyTree += node.getID() + " : " +  node.getOperator() + " -> " + printV(node.getComputedValues()) + "\n|\n";
+			} else {
+				prettyTree += "+- " + node.getID() + " : " +  node.getOperator() + " -> " + printV(node.getComputedValues()) + "\n|";
+
 			}
 			
-			prettyTree += node.getID() + " : " +  'U' + " -> " + printV(node.getComputedValues()) + "\n|\n";
+			for (int i = 0; i < level; i++) {
+				prettyTree += "  |";
+			}
+			if (level > 0) {
+				prettyTree += "\n";
+			}
 			
 			for (Node child : children) {
 				prettyTree = createString(child, prettyTree, level);
+				
 			}
 			
-			break;
-		case 'I':
-			if (!node.isRoot()) {
-				prettyTree += "+- ";
-			}
+		} else {
 			
-			prettyTree += node.getID() + " : " +  'I' + " -> " + printV(node.getComputedValues()) + "\n|\n";
-			
-			for (Node child : children) {
-					prettyTree = createString(child, prettyTree, level);
-			}
-			
-			break;
-		default:
 			prettyTree += "+- " + node.getID() + " : " + printV(node.getValues()) + " -> " + printV(node.getComputedValues()) + "\n";
 			if(!node.isLast()){
-				prettyTree +=  "|\n";
+				for (int i = 0; i < level; i++) {
+					prettyTree += "|  ";
+				}
+				prettyTree +=  "\n";
 			} else {
-				prettyTree += "\n";
+				prettyTree += "|\n";
 			}
-			break;
 		}
-		
+			
 		return prettyTree;
 	}
 	
