@@ -1,0 +1,9 @@
+#Plot will be stored as sensorPlot.png
+
+set terminal png
+set output "sensorPlot.png"
+
+set grid
+set xlabel 'Zeit in Stunden'
+set ylabel 'Temperatur in °C'
+plot './sensordata.dat' using ($1/3600):2

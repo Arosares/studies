@@ -21,23 +21,24 @@ int main(int argc, char* argv[]) {
     fOutput = fopen(argOut, "w");//Outputfile oeffnen, "w" fuer write
 
     if(fInput == NULL || fOutput == NULL) { //ueberpruefen ob Input-/Outputfile ok
-      printf("Eingabe-/Ausgabedatei konnte nicht geoeffnet werden" );
+      printf("Eingabe-/Ausgabedatei konnte nicht geoeffnet werden\n" );
       fclose(fInput); //Stream schliessen
       fclose(fOutput);//Stream schliessen
       return -1;
     }
 
+
     //Header in Outputfile drucken
-    fprintf(fOutput,"%s \n","Zeit in Sekunden;   Temperatur in Celsius");
+    fprintf(fOutput,"%s \n","# Zeit in Sekunden;   Temperatur in Celsius");
 
     int args = 3; //3 gueltige Werte pro gelesener Zeile
     while(args == 3) { //iteriere Zeilenweise ueber Inputfile
-      args = fscanf(fInput, "%d %f %f", &timeStamp, &voltage, &temperatureF);
+      args = fscanf(fInput, "%d %f %f \n", &timeStamp, &voltage, &temperatureF);
       if(args) { //wenn 3 Argumente eingelesen wurden, konvertiere Temperaturformat und printe Werte in Outputfile
         temperatureC = (((temperatureF/10)-32)/1.8);
         fprintf(fOutput,"%d          %f \n",timeStamp,temperatureC);//Zeile mit konvertierter Temperatur in Outputfile schreiben
       } else {
-        printf("Falsches Format!");
+        printf("Falsches Format!\n");
         return -1;
       }
     }
@@ -45,7 +46,7 @@ int main(int argc, char* argv[]) {
     fclose(fOutput);//Stream schliessen
     return 0;
   } else {//ungueltiger Aufruf
-    printf("Bitte Eingabe-/Ausgabedatei angeben");
+    printf("Bitte Eingabe-/Ausgabedatei angeben\n");
     return -1;
   }
 }
