@@ -1,18 +1,29 @@
+/* Tobias Hecht, Frank Kessler */
+
 #include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
 
 #define NUM_THREADS 	1
+
 void *perform_work(void *argument)
 {
-	int passed_in_value;
- 
-	passed_in_value = *((int *) argument);
-	printf("Hello World! It's me, thread with argument %d!\n Waiting for your Input!\n", passed_in_value);
+ 	
+ 	int loop = 1;
+ 		
+	while(loop){
+		printf("Waiting for your Input!\n");
+		char input;
+		scanf(" %c", &input);
 
-	 
-   /* optionally: insert more useful stuff here */
+		if(input == 'q') {
+			printf("Quitting..\n");
+			loop = 0;
+		}
+	
+		printf("Input: %c \n", input);
+	}
  
 	return NULL;
 }
@@ -26,7 +37,7 @@ int main(void)
    // create all threads one by one
    for (index = 0; index < NUM_THREADS; ++index) {
       thread_args[index] = index;
-      printf("In main: creating thread %d\n", index);
+      
       result_code = pthread_create(&threads[index], NULL, perform_work, (void *) &thread_args[index]);
       assert(0 == result_code);
    }
@@ -35,10 +46,10 @@ int main(void)
    for (index = 0; index < NUM_THREADS; ++index) {
       // block until thread 'index' completes
       result_code = pthread_join(threads[index], NULL);
-      printf("In main: thread %d has completed\n", index);
+      
       assert(0 == result_code);
    }
  
-   printf("In main: All threads completed successfully\n");
+   
    exit(EXIT_SUCCESS);
 }
