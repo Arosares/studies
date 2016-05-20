@@ -21,15 +21,54 @@ public class ArraySearching {
 	public long testRuntime(int n, int runs, double max, long seed1, long seed2, SearchOption searchOption){
 		
 		// TODO: hier bitte das zu durchsuchende Array S erzeugen
-		
+		System.out.println("Generating S..");
 		double[] arrayS = generateRandomSortedArray(n, max, seed1);
 //		
 //		// TODO: hier bitte das Array R erzeugen
-//		
-		double[] arrayR = generateRandomSortedArray(n, max, seed2);
+		System.out.println("Generating R..");
+		double[] arrayR = generateRandomSortedArray(runs, max, seed2);
 		
-		long totalTime= 0;
+		long totalTime = 0;
+		long startTime = 0;
+		long endTime = 0;
 		// TODO Laufzeitmessungen durchfuehren
+		
+		System.out.print("Start searching .. ");
+		switch (searchOption) {
+		case LINEAR:
+			System.out.println("LINEAR");
+			startTime = System.nanoTime();
+			
+			for (int i = 0; i < arrayR.length; i++) {
+				getClosestLinearSearch(arrayS, arrayR[i]);
+			}
+			
+			endTime = System.nanoTime();
+			
+			totalTime = endTime - startTime;
+			
+			//in milliseconds
+			
+			totalTime /= 1000000;
+			
+			
+			break;
+		case BINARY:
+			System.out.println("BINARY");
+			startTime = System.nanoTime();
+			
+			for (int i = 0; i < arrayR.length; i++) {
+				getClosestBinarySearch(arrayS, arrayR[i]);
+			}
+			
+			endTime = System.nanoTime();
+			
+			totalTime = endTime - startTime;
+			
+			//in milliseconds
+			totalTime /= 1000000;
+			break;
+		}
 		
 		return totalTime;
 	}
@@ -54,7 +93,8 @@ public class ArraySearching {
 			
 			array[i] = rng.nextDouble()*max; 
 		}
-		
+		Arrays.sort(array);
+//		ascendingSort(array);  commented it out because it takes forever in big arrays
 		return array;
 	}
 	
@@ -77,10 +117,13 @@ public class ArraySearching {
 		for (int i = 1; i < S.length; i++) {
 			double diffHelper = Math.abs(c - S[i]);
 			
-			if (diff > diffHelper){
+			if (diffHelper < diff){
 				diff = diffHelper;
 				closest = S[i];
 				
+			} else {
+				//since array is sorted, we can stop searching when difference is not getting smaller anymore
+				break;
 			}
 		}
 		
@@ -100,7 +143,7 @@ public class ArraySearching {
 	public double getClosestBinarySearch(double[] S, double c){
 		
 		// TODO Implementieren Sie hier bitte die Methode und passen Sie den Rueckgabewert an.
-		bubbleSort(S);
+		
 		
 		int low = 0; 
 		int high = S.length-1;
@@ -114,25 +157,24 @@ public class ArraySearching {
 	private double closestBinary(double[] S, double c, int low, int high) {
 		int mid = (low+high)/2;
 		
-		System.out.println(S.length);
-		if (mid == low) {
-			mid++;
-		}
+//		System.out.println("low " + low +" mid " + mid +" high "+ high);
 		if (mid == high) {
-			mid--;
+			return S[mid];
+		}
+		
+		//to avoid index out of bounds exception
+		if (mid == 0) {
+			mid++;
 		}
 		double diff1 = Math.abs(S[mid] - c);
 		double diff2 = Math.abs(S[mid-1] - c);
 		double diff3 = Math.abs(S[mid+1] - c);
 
-		if (diff1 <= diff2 && diff1 <= diff3) {
-			System.out.println("diff1");
+		if (diff1 < diff2 && diff1 < diff3) {
 			return S[mid];
-		} else if (diff2 <= diff1 && diff2 <= diff3) {
-			System.out.println("diff2");
+		} else if (diff2 < diff1 && diff2 < diff3) {
 			return closestBinary(S, c, 0, mid-1);
 		} else {
-			System.out.println("diff3");
 			return closestBinary(S, c, mid+1, high);
 		}
 	}
@@ -151,19 +193,19 @@ public class ArraySearching {
 		double[] S = as.generateRandomSortedArray(n, max, seed);
 		
 		// finde aehnlichsten Wert per linearer Suche (4.2)
-		double c = 0.1;
+		double c = 50.7;
 		double closest = as.getClosestLinearSearch(S, c);
 		System.out.println("closest value to " + c + " in " + Arrays.toString(S) + ": " + closest);
 		System.out.println();
 		
 		// finde aehnlichsten Wert per binaerer Suche (4.3)
-		c = 95.7;
+		c = 50.7;
 		closest = as.getClosestBinarySearch(S, c);
 		System.out.println("closest value to " + c + " in " + Arrays.toString(S) + ": " + closest);
 		System.out.println();
 		
 		/* L A U F Z E I T M E S S U N G E N (4.4) */
-		n = 10; int runs = 100000; max = 10000; long seed1 = 4711; long seed2 = 322;
+		n = 1000000; int runs = 1000000; max = 10000; long seed1 = 4711; long seed2 = 322;
 		long time = as.testRuntime(n, runs, max, seed1, seed2, SearchOption.LINEAR);
 		System.out.println("time for linear search: " + time);
 		System.out.println();
@@ -172,49 +214,29 @@ public class ArraySearching {
 		System.out.println("time for binary search: " + time);
 	}
 	
-	public void bubbleSort(double[] array) {
-	    
-		boolean swapped = true;
-	    double j = 0;
-	    double tmp;
-	    while (swapped) {
-	        swapped = false;
-	        j++;
-	        for (int i = 0; i < array.length - j; i++) {
-	            if (array[i] > array[i + 1]) {
-	                tmp = array[i];
-	                array[i] = array[i + 1];
-	                array[i + 1] = tmp;
-	                swapped = true;
-	            }
-	        }
-	    }
+	//from TL1 changed to double and to ascending sort
+	//seems like it takes forever in big arrays, not very useful here
+	private static void ascendingSort(double[] x) {
+		System.out.println("start sorting");
+		for (int e = 0; e < x.length; e++) {
+			for (int i = 0; i < e; i++) {
+				double elem = x[e];
+				double prev = x[i];
+				System.out.println(elem);
+				if (prev > elem) {
+					swap(x, e, i);
+				}
+			}
+		}
+
 	}
-
 	
-//	private double[] sort(double[] array){
-//		for (int e = 0; e < array.length; e++) {
-//			for (int i = 0; i < e; i++) {
-//				double elem = array[e];
-//				double prev = array[i];
-//				if (prev < elem) {
-//					swap(array, e, i);
-//				}
-//			}
-//		}
-//
-//		return array;
-//	}
-//	
-//
-//	public double[] swap(double[] x, double i, double j) {
-//		double ii = x[i];
-//		double jj = x[j];
-//	
-//		x[i] = jj;
-//		x[j] = ii;
-//	
-//		return x;
-//	}
+	private static void swap(double[] x, int i, int j) {
+		double ii = x[i];
+		double jj = x[j];
 
+		x[i] = jj;
+		x[j] = ii;
+
+	}
 }
