@@ -1,12 +1,14 @@
-/* Tobias Hecht, Frank Kessler */
+/* Author: Tobias Hecht, Frank Kessler */
 
 #include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
+#include <sys/select.h>
 
 #define NUM_THREADS 	1
 
+//
 void *perform_work(void *argument)
 {
  	
@@ -33,6 +35,9 @@ int main(void)
    pthread_t threads[NUM_THREADS];
    int thread_args[NUM_THREADS];
    int result_code, index;
+ 
+ 	
+ 
  
    // create all threads one by one
    for (index = 0; index < NUM_THREADS; ++index) {

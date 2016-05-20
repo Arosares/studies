@@ -105,76 +105,39 @@ public class ArraySearching {
 		int low = 0; 
 		int high = S.length-1;
 		
+		double closest = closestBinary(S, c, low, high);
 		
 		
+		return closest;
+	}
+
+	private double closestBinary(double[] S, double c, int low, int high) {
+		int mid = (low+high)/2;
 		
-		return closestBinary(S, low, high, c);
+		System.out.println(S.length);
+		if (mid == low) {
+			mid++;
+		}
+		if (mid == high) {
+			mid--;
+		}
+		double diff1 = Math.abs(S[mid] - c);
+		double diff2 = Math.abs(S[mid-1] - c);
+		double diff3 = Math.abs(S[mid+1] - c);
+
+		if (diff1 <= diff2 && diff1 <= diff3) {
+			System.out.println("diff1");
+			return S[mid];
+		} else if (diff2 <= diff1 && diff2 <= diff3) {
+			System.out.println("diff2");
+			return closestBinary(S, c, 0, mid-1);
+		} else {
+			System.out.println("diff3");
+			return closestBinary(S, c, mid+1, high);
+		}
 	}
 	
-	private double closestBinary(double[] S, int low, int high, double c){
-		
-			    if (high < low){
-			        try {
-						throw new Exception("not found");
-					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-			    }
-			     int mid = (low + high)/2;
-			    if (S[mid] == c)
-			        return S[mid];
-			    else if (S[mid] < c){
-			        return closestBinary(S, low, mid+1, c);
-			    } else {
-			        return closestBinary(S, low, high-1, c);
-			    }
-//		if (S.length==1) {
-//			return S[0];
-//		}
-//		
-//		int mid = (low + high+1) / 2;
-//		
-//		double diff1 = Math.abs(S[mid] - c);
-//		double diff2 = Math.abs(S[mid-1] - c);
-//		double diff3 = Math.abs(S[mid] +1 - c);
-//		double closest = 0;
-//		double[] tmp; 
-//		
-//		System.out.println(Arrays.toString(S));
-//		System.out.println("Diff1: "+diff1 +"\nDiff2: "+diff2+"\nDiff3: "+ diff3);
-//		if (diff1 < diff2 && diff1 < diff3) {
-//			System.out.println("Diff1");
-//			closest = S[mid];
-//		}
-//		
-//		if (diff2 < diff1 && diff2 < diff3) {
-//			System.out.println("Diff2: " + low + ", " + mid + ", "+ c);
-//			
-//			tmp = new double[S.length-mid];
-//			
-//			for (int i = 0 + 1; i < tmp.length; i++) {
-//				tmp[i] = S[mid - (mid+i)];
-//			}
-//			
-//			closest = closestBinary(tmp, low, mid, c);
-//		}
-//		
-//		if (diff3 < diff1 && diff3 < diff2) {
-//			System.out.println("Diff3"+ " low " + low +" high " + high +"mid "+ mid );
-//			tmp = new double[S.length-mid];
-//			
-//			for (int i = 0 + 1; i < tmp.length; i++) {
-//				tmp[i] = S[i+mid-1];
-//			}
-//			
-//			System.out.println(Arrays.toString(tmp));
-//			closest = closestBinary(tmp, mid, high, c);
-//		}
-//		
-//		return closest;
-		
-	}
+	
 	
 	// Main-Methode zum Testen
 	public static void main(String[] args) {
@@ -182,7 +145,7 @@ public class ArraySearching {
 		// Initialisierung
 		ArraySearching as = new ArraySearching();
 		// Parameter
-		int n = 8; double max = 50; long seed = 133;
+		int n = 10; double max = 100; long seed = 1337;
 		
 		// erzeuge Array (4.1)
 		double[] S = as.generateRandomSortedArray(n, max, seed);
@@ -194,7 +157,7 @@ public class ArraySearching {
 		System.out.println();
 		
 		// finde aehnlichsten Wert per binaerer Suche (4.3)
-		c = 20.0;
+		c = 95.7;
 		closest = as.getClosestBinarySearch(S, c);
 		System.out.println("closest value to " + c + " in " + Arrays.toString(S) + ": " + closest);
 		System.out.println();
