@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Random;
 
+import org.omg.CosNaming.IstringHelper;
+
 public class ArraySearching {
 
 	/**
@@ -28,17 +30,18 @@ public class ArraySearching {
 	 *            Lineare Suche oder Binaere Suche?
 	 * @return
 	 */
-	public long testRuntime(int n, int runs, double max, long seed1,
-			long seed2, SearchOption searchOption) {
+	public long testRuntime(int n, int runs, double max, long seed1, long seed2, SearchOption searchOption) {
 
-		// TODO: hier bitte das zu durchsuchende Array S erzeugen
+		//  hier bitte das zu durchsuchende Array S erzeugen
+		
 		System.out.println("Generating S..");
 		double[] arrayS = generateRandomSortedArray(n, max, seed1);
-		//
-		// // TODO: hier bitte das Array R erzeugen
+		
+		//  hier bitte das Array R erzeugen
 		System.out.println("Generating R..");
 		double[] arrayR = generateRandomSortedArray(runs, max, seed2);
 
+		// initiate time measurement
 		long totalTime = 0;
 		long startTime = 0;
 		long endTime = 0;
@@ -48,29 +51,38 @@ public class ArraySearching {
 		switch (searchOption) {
 		case LINEAR:
 			System.out.println("LINEAR");
+
+			// get current system-time in nanoseconds
 			startTime = System.nanoTime();
 
 			for (int i = 0; i < arrayR.length; i++) {
 				getClosestLinearSearch(arrayS, arrayR[i]);
 			}
 
+			// get current system-time in nanoseconds after Linear search
+			// finished
 			endTime = System.nanoTime();
 
+			// Get the difference as duration
 			totalTime = endTime - startTime;
 
-			// in milliseconds
+			// divide by 1000000 from nano to milliseconds
 
 			totalTime /= 1000000;
 
 			break;
 		case BINARY:
 			System.out.println("BINARY");
+			
+			// get current system-time in nanoseconds
 			startTime = System.nanoTime();
 
 			for (int i = 0; i < arrayR.length; i++) {
 				getClosestBinarySearch(arrayS, arrayR[i]);
 			}
-
+			
+			// get current system-time in nanoseconds after Binary search
+			// finished
 			endTime = System.nanoTime();
 
 			totalTime = endTime - startTime;
@@ -103,26 +115,30 @@ public class ArraySearching {
 		// Rueckgabewert an.
 		Random rng = new Random(seed);
 
-		HashSet<Double> hashList = new HashSet<Double>(); // wir sollen Hashset
-															// benutzen
+		//creating HashSet
+		HashSet<Double> hashList = new HashSet<Double>(); 
+		
 		double randomNumber;
+		
+		//adding random numbers between zero(inclusiv) and max(exclusiv) to Hashset
 		for (int i = 0; i < size; i++) {
-			randomNumber = rng.nextDouble() * max % max; // Modulo damit es nicht �ber
-													// max kommt
-													//*max trotzdem nötig, da sonst nur von 0-1 generiert wird.
+			randomNumber = rng.nextDouble() * max; 													
 			hashList.add(randomNumber);
 		}
-
+		
+		//transform haslist to ObjectArray
 		Object[] array = hashList.toArray();
+		
 		double newArray[] = new double[size];
-
+		
+		//copy from object to array with safecast
 		for (int i = 0; i < size; i++) {
-			newArray[i] =  (double) array[i];
+			if (array[i] instanceof Double) {
+				newArray[i] = (double) array[i];
+			}
 		}
 
 		Arrays.sort(newArray);
-		// ascendingSort(array); commented it out because it takes forever in
-		// big arrays
 		return newArray;
 	}
 
@@ -143,10 +159,12 @@ public class ArraySearching {
 	public double getClosestLinearSearch(double[] S, double c) {
 		// TODO Implementieren Sie hier bitte die Methode und passen Sie den
 		// Rueckgabewert an.
-
+		
+		//Get difference for first element in S and c
 		double diff = Math.abs(c - S[0]);
 		double closest = S[0];
 
+		//compare difference of following elements with S[i-1]
 		for (int i = 1; i < S.length; i++) {
 			double diffHelper = Math.abs(c - S[i]);
 
@@ -232,25 +250,22 @@ public class ArraySearching {
 		// finde aehnlichsten Wert per linearer Suche (4.2)
 		double c = 50.7;
 		double closest = as.getClosestLinearSearch(S, c);
-		System.out.println("closest value to " + c + " in "
-				+ Arrays.toString(S) + ": " + closest);
+		System.out.println("closest value to " + c + " in " + Arrays.toString(S) + ": " + closest);
 		System.out.println();
 
 		// finde aehnlichsten Wert per binaerer Suche (4.3)
 		c = 50.7;
 		closest = as.getClosestBinarySearch(S, c);
-		System.out.println("closest value to " + c + " in "
-				+ Arrays.toString(S) + ": " + closest);
+		System.out.println("closest value to " + c + " in " + Arrays.toString(S) + ": " + closest);
 		System.out.println();
 
 		/* L A U F Z E I T M E S S U N G E N (4.4) */
-		n = 10000;
-		int runs = 100000;
+		n = 1000;
+		int runs = 10000;
 		max = 10000;
 		long seed1 = 4711;
 		long seed2 = 322;
-		long time = as.testRuntime(n, runs, max, seed1, seed2,
-				SearchOption.LINEAR);
+		long time = as.testRuntime(n, runs, max, seed1, seed2, SearchOption.LINEAR);
 		System.out.println("time for linear search: " + time);
 		System.out.println();
 
@@ -258,29 +273,4 @@ public class ArraySearching {
 		System.out.println("time for binary search: " + time);
 	}
 
-	// from TL1 changed to double and to ascending sort
-	// seems like it takes forever in big arrays, not very useful here
-	private static void ascendingSort(double[] x) {
-		System.out.println("start sorting");
-		for (int e = 0; e < x.length; e++) {
-			for (int i = 0; i < e; i++) {
-				double elem = x[e];
-				double prev = x[i];
-				System.out.println(elem);
-				if (prev > elem) {
-					swap(x, e, i);
-				}
-			}
-		}
-
-	}
-
-	private static void swap(double[] x, int i, int j) {
-		double ii = x[i];
-		double jj = x[j];
-
-		x[i] = jj;
-		x[j] = ii;
-
-	}
 }

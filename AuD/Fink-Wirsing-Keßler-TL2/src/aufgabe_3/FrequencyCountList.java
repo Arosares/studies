@@ -22,15 +22,12 @@ public class FrequencyCountList {
 	 */
 	public FrequencyCountList(ListType type) {
 
-		switch (type) {
-		case ARRAYLIST:
+		if (type == ListType.ARRAYLIST) {
 			list = new ArrayList<ListElem>();
-
-			break;
-		case LINKEDLIST:
-			
+		} else if (type == ListType.LINKEDLIST) {
 			list = new LinkedList<ListElem>();
-			break;
+		} else {
+			System.out.println("Wrong List Type!");
 		}
 	}
 
@@ -79,16 +76,20 @@ public class FrequencyCountList {
 	 */
 	public ListElem find(int id, LoopType loopType) {
 		if (loopType == LoopType.FOREACHLOOP) {
+			int counter = 0;
 			for (ListElem elem : list) {
 				if (isElem(elem, id)) {
+					adjustPosition(counter, elem);
 					return elem;
 				}
+				counter++;
 			}
 		} else if (loopType == LoopType.FORLOOP) {
 			for (int i = 0; i < getSize(); i++) {
 				try {
 					ListElem elem = list.get(i);
 					if (isElem(elem, i)) {
+						adjustPosition(i, elem);
 						return elem;
 					}
 				} catch (IndexOutOfBoundsException e) {
@@ -104,7 +105,6 @@ public class FrequencyCountList {
 	private boolean isElem(ListElem elem, int id) {
 		if (elem.getId() == id) {
 			elem.incrementCounter();
-			adjustPosition(id, elem);
 			return true;
 		} else {
 			return false;
@@ -126,15 +126,37 @@ public class FrequencyCountList {
 	 */
 	private void adjustPosition(int startIdx, ListElem elem) {
 		int freq = elem.getCounter();
+		System.out.println("start adjust");
+		printList();
 		for (int i = startIdx - 1; i > 0; i--) {
 			try {
-				ListElem prevElem = list.get(i);
-				int prevFreq = prevElem.getCounter();
-				if (prevFreq < freq) { // richtige Abfrage?
-					list.add(i, elem);
+				ListElem nextElem = list.get(i);
+				int nextFreq = nextElem.getCounter();
+				if (nextFreq == freq) { // richtige Abfrage?
+					list.remove(startIdx);
+					list.add(i + 1, elem);
+					
 					break;
-				} else if (prevFreq == freq) {
-					list.add(i - 1, elem);
+				} else if (nextFreq < freq) {
+					
+					
+					int counter = i-1;
+					while(counter >= 0){
+						nextElem = list.get(counter);
+						nextFreq = nextElem.getCounter();
+						if (counter == 0) {
+							list.remove(startIdx);
+							list.add(0, elem);
+						}
+						if (nextFreq > freq) {
+							list.remove(startIdx);
+							list.add(counter+1, elem);
+							
+							break;
+						} else {
+							counter--;
+						}
+					}
 					break;
 				}
 			} catch (IndexOutOfBoundsException e) {
@@ -163,41 +185,44 @@ public class FrequencyCountList {
 		// simple test: 10 elements and 10 search iterations
 		FrequencyCountList arraySimple = Operation.generateList(
 				ListType.ARRAYLIST, 10);
+		arraySimple.printList();
 		double timeArraySimple = Operation.effortMeter(arraySimple, 10, 20,
 				LoopType.FOREACHLOOP);
 		arraySimple.printList();
-		System.out.println(timeArraySimple + " ms\n");
+		System.out
+				.println("ArrayList - For-Each: " + timeArraySimple + " ms\n");
 
 		FrequencyCountList linkedSimple = Operation.generateList(
 				ListType.LINKEDLIST, 10);
+		linkedSimple.printList();
 		double timeLinkedSimple = Operation.effortMeter(linkedSimple, 10, 20,
 				LoopType.FOREACHLOOP);
-		arraySimple.printList();
-		System.out.println(timeLinkedSimple + " ms\n");
+		linkedSimple.printList();
+		System.out.println("LinkedList - For-Each: " + timeLinkedSimple
+				+ " ms\n");
 
-		// //some bigger lists
-		// arraylist
-		FrequencyCountList arrayList = Operation.generateList(
-				ListType.ARRAYLIST, 10000);
-		double timeArray = Operation.effortMeter(arrayList, 1000, 20,
-				LoopType.FOREACHLOOP);
-		System.out.println(timeArray + " ms\n");
-		arrayList = Operation.generateList(ListType.ARRAYLIST, 10000);
-		timeArray = Operation
-				.effortMeter(arrayList, 1000, 20, LoopType.FORLOOP);
-		System.out.println(timeArray + " ms\n");
-
-		// linkedlist
-		FrequencyCountList linkedList = Operation.generateList(
-				ListType.LINKEDLIST, 10000);
-		double timeLinked = Operation.effortMeter(linkedList, 1000, 20,
-				LoopType.FOREACHLOOP);
-		System.out.println(timeLinked + " ms\n");
-		linkedList = Operation.generateList(ListType.LINKEDLIST, 10000);
-		timeLinked = Operation.effortMeter(linkedList, 1000, 20,
-				LoopType.FORLOOP);
-		System.out.println(timeLinked + " ms\n");
-
+		/*
+		 * // variables for the itertations and arraysize int iter = 10; int
+		 * arrSize = 1000;
+		 * 
+		 * // arraylist FrequencyCountList arrayList = Operation.generateList(
+		 * ListType.ARRAYLIST, arrSize); double timeArray =
+		 * Operation.effortMeter(arrayList, iter, 20, LoopType.FOREACHLOOP);
+		 * System.out.println("Array-List- For-Each: " + timeArray + " ms\n");
+		 * arrayList = Operation.generateList(ListType.ARRAYLIST, arrSize);
+		 * timeArray = Operation .effortMeter(arrayList, iter, 20,
+		 * LoopType.FORLOOP); System.out.println("Array-List- For: " + timeArray
+		 * + " ms\n");
+		 * 
+		 * // linkedlist FrequencyCountList linkedList = Operation.generateList(
+		 * ListType.LINKEDLIST, arrSize); double timeLinked =
+		 * Operation.effortMeter(linkedList, iter, 20, LoopType.FOREACHLOOP);
+		 * System.out.println("Linked-List For-Each: " + timeLinked + " ms\n");
+		 * linkedList = Operation.generateList(ListType.LINKEDLIST, arrSize);
+		 * timeLinked = Operation.effortMeter(linkedList, iter, 20,
+		 * LoopType.FORLOOP); System.out.println("Linked-List For: " +
+		 * timeLinked + " ms\n");
+		 */
 	}
 
 }
