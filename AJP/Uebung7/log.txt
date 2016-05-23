@@ -1,0 +1,4 @@
+[patter.strategy]: INFO - 17.06.15 13:08 - Great Weather Today
+[patter.strategy]: DEBUG - 17.06.15 13:08 - Debug here
+[patter.strategy]: ERROR - 17.06.15 13:08 - Found Error!
+[patter.strategy]: WARN - 17.06.15 13:08 - WARNING

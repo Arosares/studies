@@ -1,0 +1,7 @@
+Kommentar:
+Wir haben uns bei den nicht vorhandenen Leerzeichen heillos verrannt (bestimmt so 20+ Stunden lang^^).
+
+Dinge, die tatsächlich vorhanden sind: 
+- Validierung + Schema, fehlerhaft
+- Wenige Methoden der Logik
+- Ein guter Teil der UI, wenn auch mit meist nicht vorhandener Funktion (Logik)

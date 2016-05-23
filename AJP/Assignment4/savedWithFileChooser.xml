@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<project>
+    <issue severity="trivial" state="open" type="feature">
+        <description>Drink a beer.</description>
+        <id>i1</id>
+        <name>Motivate project members</name>
+    </issue>
+    <issue severity="major" state="closed" type="bug">
+        <description>Fix networking bug A1234 : Possible race conditions
+			on login
+		</description>
+        <id>i2</id>
+        <name>Fix A1234</name>
+    </issue>
+    <issue severity="major" state="open" type="feature">
+        <dependencies>i2</dependencies>
+        <description>Build a shiny login screen</description>
+        <id>i3</id>
+        <name>Login screen</name>
+    </issue>
+    <issue severity="minor" state="open" type="bug">
+        <description>description</description>
+        <id>A1</id>
+        <name>Error 1</name>
+    </issue>
+    <issue severity="critical" state="open" type="bug">
+        <dependencies>A1</dependencies>
+        <description>Files Not Found</description>
+        <id>A2</id>
+        <name>Critical 404</name>
+    </issue>
+    <issue severity="critical" state="open" type="feature">
+        <dependencies>A1</dependencies>
+        <dependencies>A2</dependencies>
+        <description>It Broke Completely</description>
+        <id>A3</id>
+        <name>What Happened?</name>
+    </issue>
+</project>
