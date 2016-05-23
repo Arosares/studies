@@ -113,67 +113,7 @@ public class ArraySearching {
 	
 	private double closestBinary(double[] S, int low, int high, double c){
 		
-			    if (high < low){
-			        try {
-						throw new Exception("not found");
-					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-			    }
-			     int mid = (low + high)/2;
-			    if (S[mid] == c)
-			        return S[mid];
-			    else if (S[mid] < c){
-			        return closestBinary(S, low, mid+1, c);
-			    } else {
-			        return closestBinary(S, low, high-1, c);
-			    }
-//		if (S.length==1) {
-//			return S[0];
-//		}
-//		
-//		int mid = (low + high+1) / 2;
-//		
-//		double diff1 = Math.abs(S[mid] - c);
-//		double diff2 = Math.abs(S[mid-1] - c);
-//		double diff3 = Math.abs(S[mid] +1 - c);
-//		double closest = 0;
-//		double[] tmp; 
-//		
-//		System.out.println(Arrays.toString(S));
-//		System.out.println("Diff1: "+diff1 +"\nDiff2: "+diff2+"\nDiff3: "+ diff3);
-//		if (diff1 < diff2 && diff1 < diff3) {
-//			System.out.println("Diff1");
-//			closest = S[mid];
-//		}
-//		
-//		if (diff2 < diff1 && diff2 < diff3) {
-//			System.out.println("Diff2: " + low + ", " + mid + ", "+ c);
-//			
-//			tmp = new double[S.length-mid];
-//			
-//			for (int i = 0 + 1; i < tmp.length; i++) {
-//				tmp[i] = S[mid - (mid+i)];
-//			}
-//			
-//			closest = closestBinary(tmp, low, mid, c);
-//		}
-//		
-//		if (diff3 < diff1 && diff3 < diff2) {
-//			System.out.println("Diff3"+ " low " + low +" high " + high +"mid "+ mid );
-//			tmp = new double[S.length-mid];
-//			
-//			for (int i = 0 + 1; i < tmp.length; i++) {
-//				tmp[i] = S[i+mid-1];
-//			}
-//			
-//			System.out.println(Arrays.toString(tmp));
-//			closest = closestBinary(tmp, mid, high, c);
-//		}
-//		
-//		return closest;
-		
+			   return 0.0;
 	}
 	
 	// Main-Methode zum Testen
