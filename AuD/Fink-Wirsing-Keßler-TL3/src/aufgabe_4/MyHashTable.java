@@ -2,6 +2,8 @@ package aufgabe_4;
 
 import java.util.List;
 
+import javax.management.RuntimeErrorException;
+
 public class MyHashTable implements HashTable4Dict {
 
 	// repraesentiert die Hashtabelle; eine Liste repraesentiert einen Bucket
@@ -51,6 +53,17 @@ public class MyHashTable implements HashTable4Dict {
 	public boolean contains(Object object) throws RuntimeException {
 		
 		// TODO implementieren Sie die Methode und passen Sie den Rueckgabewert an
+		if (!(object instanceof String)) {
+			throw new RuntimeException("Object is not a String!");
+		}
+		
+		for (List<Object> list : data) {
+			for (Object obj : list) {
+				if (object == obj) { // not sure if '==' or 'object.equals(obj)' is correct
+					return true;
+				}
+			}
+		}
 		
 		return false;
 	}
@@ -63,8 +76,15 @@ public class MyHashTable implements HashTable4Dict {
 	public int getMaxChainLength() {
 		
 		// TODO implementieren Sie die Methode und passen Sie den Rueckgabewert an
+		int maximum = 0;
 		
-		return -1;
+		for (List<Object> list : data) {
+			if (list.size() > maximum) {
+				maximum = list.size();
+			}
+		}
+		
+		return maximum;
 	}
 
 	/**
@@ -79,7 +99,18 @@ public class MyHashTable implements HashTable4Dict {
 		
 		// TODO implementieren Sie die Methode und passen Sie den Rueckgabewert an
 		
-		return -1;
+	int minimum = getMaxChainLength();
+	
+	if (minimum == 0) {
+		throw new RuntimeException("Buckets are empty!");
+	}
+	for (List<Object> list : data) {
+		int size = list.size();
+		if (size > 0 && size < minimum) {
+			minimum = size;
+		}
+	}
+		return minimum;
 	}
 	
 	/**
