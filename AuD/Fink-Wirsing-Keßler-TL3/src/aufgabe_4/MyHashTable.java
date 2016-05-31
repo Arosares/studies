@@ -1,8 +1,8 @@
 package aufgabe_4;
 
+import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
-
-import javax.management.RuntimeErrorException;
 
 public class MyHashTable implements HashTable4Dict {
 
@@ -18,6 +18,17 @@ public class MyHashTable implements HashTable4Dict {
 		// TODO pruefen Sie die Parameter auf Korrektheit
 		// TODO initialisieren Sie data
 		// TODO setzen Sie die HashOption
+		
+		if(numBuckets <= 0 || hashoption != HashOption.BAEZAYATES || hashoption != HashOption.HASHCODE){
+			System.out.println("Buckets müssen größer null sein und die Hashoption BaezaYates oder Hashcode!");
+		}else {
+			
+			data = new ArrayList[numBuckets];
+			for(int i = 0; i<numBuckets; i++){
+				data[i] = new ArrayList<Object>();
+			}
+			this.hashoption = hashoption;
+		}
 		
 	}
 	
@@ -37,7 +48,15 @@ public class MyHashTable implements HashTable4Dict {
 	public void insert(Object object) throws RuntimeException {
 		
 		// TODO implementieren Sie die Methode
-		
+		if (object instanceof String) {
+			if (hashoption == HashOption.BAEZAYATES) {
+				data[getHashCode(object)].add(object);
+			} else {
+				data[getBaezaYates(object)].add(object);
+			}
+		} else {
+			throw new RuntimeException("The given object is no String!");
+		}
 	}
 
 	/**
@@ -148,7 +167,8 @@ public class MyHashTable implements HashTable4Dict {
 		
 		// TODO implementieren Sie die Methode und passen Sie den Rueckgabewert an
 		
-		return -1;
+		return (object.hashCode() % data.length);
+		
 	}
 	
 	/**
@@ -164,8 +184,22 @@ public class MyHashTable implements HashTable4Dict {
 	private int getBaezaYates(Object object){
 
 		// TODO implementieren Sie die Methode und passen Sie den Rueckgabewert an
-		
-		return -1;
+		BigInteger w = BigInteger.valueOf(32);
+		BigInteger b = BigInteger.valueOf(131);
+		String string = object.toString();
+		BigInteger sum = BigInteger.ZERO;
+
+		for (int i = 0; i < string.length(); i++) {
+			String actualChar = string.substring(string.length() - i,
+					string.length() - i);
+			BigInteger hash = BigInteger.valueOf(actualChar.hashCode());
+			sum = sum.add(hash.multiply((w.pow(i))));
+		}
+
+		sum = (sum.mod((BigInteger.valueOf(2).pow(32))));
+		int baeza = sum.intValue() % data.length;
+
+		return baeza;
 	}
 
 }

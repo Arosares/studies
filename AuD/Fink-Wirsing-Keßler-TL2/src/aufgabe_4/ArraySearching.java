@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Random;
 
-import org.omg.CosNaming.IstringHelper;
 
 public class ArraySearching {
 
@@ -203,7 +202,8 @@ public class ArraySearching {
 
 		int low = 0;
 		int high = S.length - 1;
-
+		
+		//call recursive helper function
 		double closest = closestBinary(S, c, low, high);
 
 		return closest;
@@ -212,7 +212,7 @@ public class ArraySearching {
 	private double closestBinary(double[] S, double c, int low, int high) {
 		int mid = (low + high) / 2;
 
-		// System.out.println("low " + low +" mid " + mid +" high "+ high);
+		//case that last element is closest to c
 		if (mid == high) {
 			return S[mid];
 		}
@@ -221,14 +221,16 @@ public class ArraySearching {
 		if (mid == 0) {
 			mid++;
 		}
+		
+		//calculate the 3 diffeences
 		double diff1 = Math.abs(S[mid] - c);
 		double diff2 = Math.abs(S[mid - 1] - c);
 		double diff3 = Math.abs(S[mid + 1] - c);
 
 		if (diff1 < diff2 && diff1 < diff3) {
-			return S[mid];
+			return S[mid];			
 		} else if (diff2 < diff1 && diff2 < diff3) {
-			return closestBinary(S, c, 0, mid - 1);
+			return closestBinary(S, c, low, mid - 1);
 		} else {
 			return closestBinary(S, c, mid + 1, high);
 		}
@@ -254,14 +256,14 @@ public class ArraySearching {
 		System.out.println();
 
 		// finde aehnlichsten Wert per binaerer Suche (4.3)
-		c = 50.7;
+		c = 15.7;
 		closest = as.getClosestBinarySearch(S, c);
 		System.out.println("closest value to " + c + " in " + Arrays.toString(S) + ": " + closest);
 		System.out.println();
 
 		/* L A U F Z E I T M E S S U N G E N (4.4) */
-		n = 1000;
-		int runs = 10000;
+		n = 100000;
+		int runs = 1000000;
 		max = 10000;
 		long seed1 = 4711;
 		long seed2 = 322;
