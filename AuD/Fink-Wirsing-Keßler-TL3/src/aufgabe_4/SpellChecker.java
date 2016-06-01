@@ -1,26 +1,20 @@
 package aufgabe_4;
 
 import java.io.BufferedReader;
-import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
-import java.nio.file.FileSystemAlreadyExistsException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.Arrays;
 
 public class SpellChecker {
 
 	// die Hashtabelle
-	private MyHashTable hashtable = null;
-	private String dictionaryFile;
-	private int linecounter = 0;
+	private MyHashTable hashtable;
 
 	/**
 	 * Konstruktor.
@@ -41,11 +35,16 @@ public class SpellChecker {
 	 * 
 	 * @throws IOException
 	 */
-	public SpellChecker(String dictionaryFile, int numBuckets, HashOption hashoption) throws IOException {
-		this.dictionaryFile = dictionaryFile;
+	public SpellChecker(String dictionaryFile, int numBuckets,
+			HashOption hashoption) throws IOException {
 		hashtable = new MyHashTable(numBuckets, hashoption);
-		// TODO implementieren Sie den Konstruktor
-
+		
+		// file in hashtable einfuegen
+		
+		Files.readAllLines(Paths.get(dictionaryFile)).stream().forEach(line -> hashtable.insert(line));
+		
+		
+		
 	}
 
 	/**
@@ -64,18 +63,16 @@ public class SpellChecker {
 	 * @throws FileNotFoundException
 	 */
 	public void spellCheck(String documentFile) throws FileNotFoundException {
-
-		// TODO implementieren Sie die Methode
 		try {
-			Files.readAllLines(Paths.get(documentFile)).stream()
-				.filter(word -> !hashtable.contains(word))
-				.forEach(e -> {
-//				linecounter++;
-
-				System.out.println("The word: " + e + "ist not spelled correct");
-			});
+			Files.readAllLines(Paths.get(documentFile))
+					.stream()
+					.filter(word -> !hashtable.contains(word))
+					.forEach(
+							e -> {
+								System.out.println("The word: " + e
+										+ "ist not spelled correctly");
+							});
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			System.err.println("Line could not be read! " + e.getMessage());
 		}
 
