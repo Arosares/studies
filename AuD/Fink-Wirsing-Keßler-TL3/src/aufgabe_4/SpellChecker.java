@@ -80,7 +80,7 @@ public class SpellChecker {
 
 	public static void main(String[] args) throws IOException {
 		// TODO Messen & Testen
-		String dictionaryFile = "resources\\dict.txt";
+		String dictionaryFile = "resources/dict.txt";
 		SpellChecker checker = null;
 
 		System.out.print("numBuckets");

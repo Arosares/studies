@@ -48,7 +48,8 @@ public class MyHashTable implements HashTable4Dict {
 	public void insert(Object object) throws RuntimeException {
 		if (object instanceof String) {
 			if (hashoption == HashOption.BAEZAYATES) {
-				data[getBaezaYates(object)].add(object);
+				int baeza = getBaezaYates(object);
+				data[baeza].add(object);
 			} else {
 				data[getHashCode(object)].add(object);
 			}
@@ -140,7 +141,7 @@ public class MyHashTable implements HashTable4Dict {
 				collisions++;
 			}
 		}
-
+//		System.out.println("Collision: "+ collisions);
 		return collisions;
 	}
 
@@ -185,25 +186,32 @@ public class MyHashTable implements HashTable4Dict {
 	 */
 	private int getBaezaYates(Object object) {
 		BigInteger b = BigInteger.valueOf(131);
-		String stringObject = object.toString();
+		char[] charArray = object.toString().toCharArray();
 		BigInteger sum = BigInteger.ZERO;
-
+		
+		
 		// Durchlaufen des String-Objects Buchstabe für Buchstabe
-		for (int i = 0; i < stringObject.length(); i++) {
+		for (int i = 0; i < charArray.length; i++) {
 			// Auslesen des aktuellen Buchstabens
-			String actualChar = stringObject.substring(stringObject.length()
-					- i, stringObject.length() - i);
+//			Object actualChar = stringObject.substring(stringObject.length()
+//					- i, stringObject.length() - i); 
+			Object c = charArray[i];
+			
 			// HashCode des aktuellen Buchstabens
-			BigInteger hash = BigInteger.valueOf(actualChar.hashCode());
+			int hashInt = c.hashCode();
+			BigInteger hash = BigInteger.valueOf(hashInt);
+			
+			
 			// Addieren von B^i * den Hashwert
 			sum = sum.add(hash.multiply((b.pow(i))));
 		}
 
-		// Summe modulo 2^w
-		sum = (sum.mod((BigInteger.valueOf(2).pow(32))));
-		// Summe modulo m
-		int baeza = sum.intValue() % (data.length + 1);
-
+		// Summe modulo 2^w modulo m
+		sum = (sum.mod((BigInteger.valueOf(2).pow(32)))).mod(BigInteger.valueOf(data.length));
+		
+		
+		int baeza = sum.intValue();
+		
 		return baeza;
 	}
 
