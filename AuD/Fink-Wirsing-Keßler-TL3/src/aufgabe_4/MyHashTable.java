@@ -1,5 +1,6 @@
 package aufgabe_4;
 
+
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
@@ -137,11 +138,10 @@ public class MyHashTable implements HashTable4Dict {
 		int collisions = 0;
 		for (List<Object> list : data) {
 			int size = list.size();
-			if (size > 0) {
-				collisions++;
+			if (size > 1) {
+				collisions += size - 1;
 			}
 		}
-//		System.out.println("Collision: "+ collisions);
 		return collisions;
 	}
 
@@ -193,8 +193,6 @@ public class MyHashTable implements HashTable4Dict {
 		// Durchlaufen des String-Objects Buchstabe für Buchstabe
 		for (int i = 0; i < charArray.length; i++) {
 			// Auslesen des aktuellen Buchstabens
-//			Object actualChar = stringObject.substring(stringObject.length()
-//					- i, stringObject.length() - i); 
 			Object c = charArray[i];
 			
 			// HashCode des aktuellen Buchstabens
@@ -203,11 +201,11 @@ public class MyHashTable implements HashTable4Dict {
 			
 			
 			// Addieren von B^i * den Hashwert
-			sum = sum.add(hash.multiply((b.pow(i))));
+			sum = sum.add(hash.multiply(Utility.pow(b,BigInteger.valueOf(i))));
 		}
 
 		// Summe modulo 2^w modulo m
-		sum = (sum.mod((BigInteger.valueOf(2).pow(32)))).mod(BigInteger.valueOf(data.length));
+		sum = (sum.mod(Utility.pow(BigInteger.valueOf(2), BigInteger.valueOf(32)))).mod(BigInteger.valueOf(data.length));
 		
 		
 		int baeza = sum.intValue();

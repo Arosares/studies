@@ -1,15 +1,9 @@
 package aufgabe_4;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Arrays;
 
 public class SpellChecker {
 
@@ -35,16 +29,13 @@ public class SpellChecker {
 	 * 
 	 * @throws IOException
 	 */
-	public SpellChecker(String dictionaryFile, int numBuckets,
-			HashOption hashoption) throws IOException {
+	public SpellChecker(String dictionaryFile, int numBuckets, HashOption hashoption) throws IOException {
 		hashtable = new MyHashTable(numBuckets, hashoption);
-		
+
 		// file in hashtable einfuegen
-		
+
 		Files.readAllLines(Paths.get(dictionaryFile)).stream().forEach(line -> hashtable.insert(line));
-		
-		
-		
+
 	}
 
 	/**
@@ -64,14 +55,9 @@ public class SpellChecker {
 	 */
 	public void spellCheck(String documentFile) throws FileNotFoundException {
 		try {
-			Files.readAllLines(Paths.get(documentFile))
-					.stream()
+			Files.readAllLines(Paths.get(documentFile)).stream()
 					.filter(word -> !hashtable.contains(word))
-					.forEach(
-							e -> {
-								System.out.println("The word: " + e
-										+ "ist not spelled correctly");
-							});
+					.forEach(e -> System.out.println("The word: " + e + " ist not spelled correctly"));
 		} catch (IOException e) {
 			System.err.println("Line could not be read! " + e.getMessage());
 		}
@@ -80,6 +66,18 @@ public class SpellChecker {
 
 	public static void main(String[] args) throws IOException {
 		// TODO Messen & Testen
+		test(HashOption.BAEZAYATES);
+
+		System.out.println("\n");
+
+		test(HashOption.HASHCODE);
+
+	}
+
+	private static void test(HashOption option) throws IOException {
+
+		System.out.println("Using the Hashoption: " + option);
+
 		String dictionaryFile = "resources/dict.txt";
 		SpellChecker checker = null;
 
@@ -96,9 +94,9 @@ public class SpellChecker {
 		System.out.print("\t");
 		System.out.println();
 
-		HashOption ho = HashOption.BAEZAYATES; // TODO anpassen
+		HashOption ho = option; // TODO anpassen
 
-		for (int i = 1000; i <= 26000; i = i + 5000) {
+		for (int i = 1000; i <= 4201000; i = i + 100000) {
 			int numBuckets = i;
 			checker = new SpellChecker(dictionaryFile, numBuckets, ho);
 
@@ -121,6 +119,5 @@ public class SpellChecker {
 		System.out.println();
 		System.out.println();
 		checker.spellCheck("resources/test.txt");
-
 	}
 }
