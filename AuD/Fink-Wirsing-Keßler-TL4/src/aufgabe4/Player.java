@@ -45,7 +45,19 @@ public class Player implements Comparable<Player> {
 		if(comparePlayer == null){
 			throw new NullPointerException("compare Player is null");
 		}
-		return Integer.compare(bodySize, comparePlayer.getBodySize());
+		//check age
+		int sizeComparison = Integer.compare(bodySize, comparePlayer.getBodySize());
+		
+		if (sizeComparison == 0) {
+			//check lastname
+			sizeComparison = lastName.compareTo(comparePlayer.getLastName());
+			if (sizeComparison == 0) {
+				//check firstname
+				sizeComparison = firstName.compareTo(comparePlayer.getFirstName());
+			}
+		}
+		
+		return sizeComparison;
 	}
 
 	@Override
