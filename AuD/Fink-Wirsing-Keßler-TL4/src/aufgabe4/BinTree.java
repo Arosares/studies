@@ -73,17 +73,19 @@ public class BinTree {
 	public BinTree insertp(Player x, BinTree tail) {
 		// TODO implement
 		if (key.compareTo(x) > 0) {
-			left.insertp(x, tail);
+			left = left.insertp(x, tail);
 		} else {
 			if (key.compareTo(x) < 0) {
 				right = right.insertp(x, tail);
 			} else {
 				if (this == tail) {
 					return new BinTree(tail, x, tail);
+				} else {
+					//Datensatz bereits vorhanden
 				}
 			}
-			return this;
 		}
-		
+		return this;
+
 	}
 }
