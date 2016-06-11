@@ -50,11 +50,14 @@ public class SearchTree {
 	 */
 	public boolean member(Player x) {
 		// TODO implement
-		if (x == root.getKey()){
+		if (root.getKey() == x) {
 			return true;
-		} else {
-			
 		}
+		if (root.getKey().compareTo(x) < 0){
+			root.getLeft();
+		}
+		
+		
 		return false;
 	}
 

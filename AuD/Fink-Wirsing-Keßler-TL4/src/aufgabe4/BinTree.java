@@ -48,7 +48,16 @@ public class BinTree {
 	 */
 	public BinTree search(Player x) {
 		// TODO implement
-		return null;
+	
+		if (key.compareTo(x) < 0){
+			return left.search(x);
+		} else if (key.compareTo(x) > 1) {
+			return right.search(x);
+		} else if (key.compareTo(x) == 0) {
+			return this;
+		} else {
+			return left;   //tail?
+		}
 	}
 
 	/**
@@ -63,6 +72,12 @@ public class BinTree {
 	 */
 	public BinTree insertp(Player x, BinTree tail) {
 		// TODO implement
-		return null;
+		tail.setKey(x);
+
+		if (x.compareTo(key) < 0) {
+			return new BinTree(tail, key, right);
+		} else {
+			return new BinTree(left, key, tail);
+		}
 	}
 }

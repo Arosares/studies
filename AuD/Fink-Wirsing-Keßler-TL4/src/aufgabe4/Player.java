@@ -42,7 +42,10 @@ public class Player implements Comparable<Player> {
 	@Override
 	public int compareTo(Player comparePlayer) {
 		// TODO implement
-		return 0;
+		if(comparePlayer == null){
+			throw new NullPointerException("compare Player is null");
+		}
+		return Integer.compare(bodySize, comparePlayer.getBodySize());
 	}
 
 	@Override
