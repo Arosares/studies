@@ -72,12 +72,18 @@ public class BinTree {
 	 */
 	public BinTree insertp(Player x, BinTree tail) {
 		// TODO implement
-		tail.setKey(x);
-
-		if (x.compareTo(key) < 0) {
-			return new BinTree(tail, key, right);
+		if (key.compareTo(x) > 0) {
+			left.insertp(x, tail);
 		} else {
-			return new BinTree(left, key, tail);
+			if (key.compareTo(x) < 0) {
+				right = right.insertp(x, tail);
+			} else {
+				if (this == tail) {
+					return new BinTree(tail, x, tail);
+				}
+			}
+			return this;
 		}
+		
 	}
 }

@@ -67,6 +67,9 @@ public class SearchTree {
 	 */
 	public void insert(Player x) {
 		// TODO implement
+		tail.setKey(x);
+		root = root.insertp(x, tail);
+		
 	}
 
 	/**
