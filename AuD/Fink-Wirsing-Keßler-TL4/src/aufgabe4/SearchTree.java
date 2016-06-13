@@ -1,5 +1,6 @@
 package aufgabe4;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -80,8 +81,23 @@ public class SearchTree {
 	 */
 	public List<Player> getDepthFirstOrder() {
 		// TODO implement
-		return null;
+		List<Player> players = new LinkedList<>();
+
+		
+		return players;
 	}
+	
+	private void depthFirst(List<Player> players, BinTree root){
+		players.add(root.getKey());
+		
+		if (root.getLeft() != null) {
+				depthFirst(players, root.getLeft());
+		}
+		if (root.getRight() != null) {
+				depthFirst(players, root.getRight());
+		}
+	}
+	
 
 	/**
 	 * Gives a list of all elements of the search tree in breadth-first order.
@@ -91,7 +107,12 @@ public class SearchTree {
 	 */
 	public List<Player> getBreadthFirstOrder() {
 		// TODO implement
-		return null;
+		List<Player> players = new LinkedList<>();
+		
+		players.add(root.getKey());
+		players.add(root.getLeft().getKey());
+		
+		return players;
 	}
 
 	public static void main(String[] args) {
