@@ -62,9 +62,12 @@ public class SearchTree {
 	 */
 	public void insert(Player x) {
 		// TODO implement
-		tail.setKey(x);
-		root = root.insertp(x, tail);
-		
+		if (x == null) {
+			System.err.println("Player is null!");
+		} else {
+			tail.setKey(x);
+			root = root.insertp(x, tail);
+		}
 	}
 
 	/**
