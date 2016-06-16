@@ -2,6 +2,7 @@ package aufgabe4;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 /**
  * Implementation of a binary search tree.
@@ -51,15 +52,8 @@ public class SearchTree {
 	 */
 	public boolean member(Player x) {
 		// TODO implement
-		if (root.getKey() == x) {
-			return true;
-		}
-		if (root.getKey().compareTo(x) < 0){
-			root.getLeft();
-		}
-		
-		
-		return false;
+		tail.setKey(x);
+		return (root.search(x) != tail);
 	}
 
 	/**
@@ -82,20 +76,29 @@ public class SearchTree {
 	public List<Player> getDepthFirstOrder() {
 		// TODO implement
 		List<Player> players = new LinkedList<>();
-
+		
+		if (root!=tail) {
+			depthFirst(players, root);
+		}
+		
 		
 		return players;
 	}
 	
-	private void depthFirst(List<Player> players, BinTree root){
-		players.add(root.getKey());
+	private void depthFirst(List<Player> players, BinTree node){
 		
-		if (root.getLeft() != null) {
-				depthFirst(players, root.getLeft());
+		players.add(node.getKey());
+		
+		if (node.getLeft() != tail) {
+			depthFirst(players, node.getLeft());
 		}
-		if (root.getRight() != null) {
-				depthFirst(players, root.getRight());
+		if (node.getRight() != tail){
+			depthFirst(players, node.getRight());
 		}
+		
+		
+		
+		
 	}
 	
 
@@ -109,12 +112,24 @@ public class SearchTree {
 		// TODO implement
 		List<Player> players = new LinkedList<>();
 		
-		players.add(root.getKey());
-		players.add(root.getLeft().getKey());
+		if (root != tail) {
+			Queue<BinTree> queue = new LinkedList<>();
+			
+			queue.add(root);
+			
+			while (!queue.isEmpty()) {
+				BinTree n = (BinTree) queue.remove();
+					players.add(n.getKey());	
+				if (n.getLeft() != tail)
+					queue.add(n.getLeft());
+				if (n.getRight() != tail)
+					queue.add(n.getRight());
+			}		
+		}
 		
 		return players;
 	}
-
+	
 	public static void main(String[] args) {
 		SearchTree t = new SearchTree();
 		Player gomez = new Player(189, "Gomez", "Mario");
@@ -122,14 +137,18 @@ public class SearchTree {
 		Player khedira = new Player(189, "Khedira", "Sami");
 		Player kroos = new Player(182, "Kroos", "Toni");
 		Player mueller = new Player(186, "Müller", "Thomas");
+		Player oezil = new Player(180, "Oezil", "Mesut");
 		t.insert(gomez);
 		t.insert(neuer);
 		t.insert(khedira);
 		t.insert(kroos);
 		t.insert(mueller);
-
-		System.out.println(t.getDepthFirstOrder());
-		System.out.println(t.getBreadthFirstOrder());
+		t.insert(oezil);
+		
+		System.out.println("Is Member? " + t.member(mueller));
+		System.out.println("Is Member? " + t.member(new Player(123, "test", "asd")));
+		System.out.println("DepthFirstOrder\n" + t.getDepthFirstOrder());
+		System.out.println("BreadthFirstOrder\n" + t.getBreadthFirstOrder() + "\n");
 		BTreePrinter.print(t.root, t.tail);
 	}
 }

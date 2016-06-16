@@ -49,14 +49,14 @@ public class BinTree {
 	public BinTree search(Player x) {
 		// TODO implement
 	
-		if (key.compareTo(x) < 0){
+		if (key.compareTo(x) > 0){
 			return left.search(x);
-		} else if (key.compareTo(x) > 1) {
-			return right.search(x);
-		} else if (key.compareTo(x) == 0) {
-			return this;
 		} else {
-			return left;   //tail?
+			if (key.compareTo(x) < 0) {
+				return right.search(x);
+			} else {
+				return this;
+			}
 		}
 	}
 
@@ -72,19 +72,19 @@ public class BinTree {
 	 */
 	public BinTree insertp(Player x, BinTree tail) {
 		// TODO implement
-		if (key.compareTo(x) > 0) {
-			left = left.insertp(x, tail);
-		} else {
-			if (key.compareTo(x) < 0) {
-				right = right.insertp(x, tail);
+			if (key.compareTo(x) > 0) {
+				left = left.insertp(x, tail);
 			} else {
-				if (this == tail) {
-					return new BinTree(tail, x, tail);
+				if (key.compareTo(x) < 0) {
+					right = right.insertp(x, tail);
 				} else {
-					//Datensatz bereits vorhanden
+					if (this == tail) {
+						return new BinTree(tail, x, tail);
+					} else {
+						//Datensatz bereits vorhanden
+					}
 				}
 			}
-		}
 		return this;
 
 	}
