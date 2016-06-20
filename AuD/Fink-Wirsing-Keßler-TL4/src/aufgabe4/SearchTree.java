@@ -62,11 +62,11 @@ public class SearchTree {
 	 */
 	public void insert(Player x) {
 		// TODO implement
-		if (x == null) {
-			System.err.println("Player is null!");
-		} else {
 			tail.setKey(x);
-			root = root.insertp(x, tail);
+			try {
+				root = root.insertp(x, tail);
+			} catch (Exception e) {
+				e.printStackTrace();
 		}
 	}
 
@@ -79,31 +79,26 @@ public class SearchTree {
 	public List<Player> getDepthFirstOrder() {
 		// TODO implement
 		List<Player> players = new LinkedList<>();
-		
-		if (root!=tail) {
+
+		if (root != tail) {
 			depthFirst(players, root);
 		}
-		
-		
+
 		return players;
 	}
-	
-	private void depthFirst(List<Player> players, BinTree node){
-		
+
+	private void depthFirst(List<Player> players, BinTree node) {
+
 		players.add(node.getKey());
-		
+
 		if (node.getLeft() != tail) {
 			depthFirst(players, node.getLeft());
 		}
-		if (node.getRight() != tail){
+		if (node.getRight() != tail) {
 			depthFirst(players, node.getRight());
 		}
-		
-		
-		
-		
+
 	}
-	
 
 	/**
 	 * Gives a list of all elements of the search tree in breadth-first order.
@@ -114,25 +109,25 @@ public class SearchTree {
 	public List<Player> getBreadthFirstOrder() {
 		// TODO implement
 		List<Player> players = new LinkedList<>();
-		
+
 		if (root != tail) {
 			Queue<BinTree> queue = new LinkedList<>();
-			
+
 			queue.add(root);
-			
+
 			while (!queue.isEmpty()) {
 				BinTree n = (BinTree) queue.remove();
-					players.add(n.getKey());	
+				players.add(n.getKey());
 				if (n.getLeft() != tail)
 					queue.add(n.getLeft());
 				if (n.getRight() != tail)
 					queue.add(n.getRight());
-			}		
+			}
 		}
-		
+
 		return players;
 	}
-	
+
 	public static void main(String[] args) {
 		SearchTree t = new SearchTree();
 		Player gomez = new Player(189, "Gomez", "Mario");
@@ -141,6 +136,7 @@ public class SearchTree {
 		Player kroos = new Player(182, "Kroos", "Toni");
 		Player mueller = new Player(186, "Müller", "Thomas");
 		Player oezil = new Player(180, "Oezil", "Mesut");
+		
 		t.insert(gomez);
 		t.insert(neuer);
 		t.insert(khedira);
@@ -148,10 +144,13 @@ public class SearchTree {
 		t.insert(mueller);
 		t.insert(oezil);
 		
+
 		System.out.println("Is Member? " + t.member(mueller));
-		System.out.println("Is Member? " + t.member(new Player(123, "test", "asd")));
+		System.out.println("Is Member? "
+				+ t.member(new Player(123, "test", "asd")));
 		System.out.println("DepthFirstOrder\n" + t.getDepthFirstOrder());
-		System.out.println("BreadthFirstOrder\n" + t.getBreadthFirstOrder() + "\n");
+		System.out.println("BreadthFirstOrder\n" + t.getBreadthFirstOrder()
+				+ "\n");
 		BTreePrinter.print(t.root, t.tail);
 	}
 }

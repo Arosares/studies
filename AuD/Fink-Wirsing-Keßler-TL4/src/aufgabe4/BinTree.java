@@ -1,11 +1,10 @@
 package aufgabe4;
 
-
 public class BinTree {
-	
+
 	private Player key;
 	private BinTree left, right;
-	
+
 	BinTree(BinTree l, Player x, BinTree r) {
 		this.left = l;
 		this.key = x;
@@ -35,21 +34,24 @@ public class BinTree {
 	public void setRight(BinTree right) {
 		this.right = right;
 	}
-	
+
 	/**
-	 * Searches for <code>Player x</code> in the binary tree.<br/><br/>
+	 * Searches for <code>Player x</code> in the binary tree.<br/>
+	 * <br/>
 	 * 
-	 * Returns the tree node/subtree containing <code>Player x</code> in its root if <code>Player x</code>
-	 * is contained in the tree. Otherwise, it returns the stopping node <code>tail</code>.
+	 * Returns the tree node/subtree containing <code>Player x</code> in its
+	 * root if <code>Player x</code> is contained in the tree. Otherwise, it
+	 * returns the stopping node <code>tail</code>.
 	 * 
-	 * @param x <code>Player</code> to be searched inside the tree
-	 * @return tree node of <code>Player x</code> in case it is contained in the tree, <code>tail</code>
-	 * otherwise
+	 * @param x
+	 *            <code>Player</code> to be searched inside the tree
+	 * @return tree node of <code>Player x</code> in case it is contained in the
+	 *         tree, <code>tail</code> otherwise
 	 */
 	public BinTree search(Player x) {
 		// TODO implement
-	
-		if (key.compareTo(x) > 0){
+
+		if (key.compareTo(x) > 0) {
 			return left.search(x);
 		} else {
 			if (key.compareTo(x) < 0) {
@@ -63,15 +65,23 @@ public class BinTree {
 	/**
 	 * Inserts <code>Player x</code> into the binary tree.
 	 * 
-	 * Returns the newly constructed subtree in case <code>Player x</code> is not in the tree yet.<br/>
-	 * Otherwise, it returns the subtree containing <code>Player x</code> in its root.
+	 * Returns the newly constructed subtree in case <code>Player x</code> is
+	 * not in the tree yet.<br/>
+	 * Otherwise, it returns the subtree containing <code>Player x</code> in its
+	 * root.
 	 * 
-	 * @param x new <code>Player</code> to be inserted
-	 * @param tail stopping node (end of tree)
-	 * @return subtree with <code>Player x</code> in its root 
+	 * @param x
+	 *            new <code>Player</code> to be inserted
+	 * @param tail
+	 *            stopping node (end of tree)
+	 * @return subtree with <code>Player x</code> in its root
+	 * @throws Exception
 	 */
-	public BinTree insertp(Player x, BinTree tail) {
+	public BinTree insertp(Player x, BinTree tail) throws Exception {
 		// TODO implement
+		if (x == null) {
+			System.err.println("Player is not instantiated");
+		} else {
 			if (key.compareTo(x) > 0) {
 				left = left.insertp(x, tail);
 			} else {
@@ -81,10 +91,11 @@ public class BinTree {
 					if (this == tail) {
 						return new BinTree(tail, x, tail);
 					} else {
-						//Datensatz bereits vorhanden
+						throw new Exception("Player exists already.");
 					}
 				}
 			}
+		}
 		return this;
 
 	}
