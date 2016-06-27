@@ -1,4 +1,5 @@
 package aufgabe4;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -15,7 +16,9 @@ public class GraphImpl implements IGraph{
 	@Override
 	public List<Node> topSortGraph() {
 		// TODO implementieren und Rückgabewert anpassen
-		return null;
+		List<Node> nodes = generateNodesFromMatrix(getMatrixFromUserInput());
+		
+		return nodes;
 	}
 	
 	/**
@@ -24,7 +27,30 @@ public class GraphImpl implements IGraph{
 	 */
 	private List<Node> generateNodesFromMatrix(int[][] matrix) {
 		// TODO implementieren und Rückgabewert anpassen
-		return null;
+		List<Node> nodes = new LinkedList<>();
+		
+		
+		for (int i = 0; i < matrix.length; i++) {
+			List<Node> successors = new LinkedList<>();
+			
+			//create Node (starting from 1 ..)
+			Node node = new Node(i+1);
+			for (int j = 0; j < matrix[i].length; j++) {
+				if (matrix[i][j] != 0 && matrix[i][j] != -1) {
+					//add succesor
+					successors.add(new Node(j+1));
+				}
+				node.setSuccessors(successors);
+			}
+			nodes.add(node);
+		}
+		//TODO: Indegree
+		for (Node node : nodes) {
+			for (Node suc : node.getSuccessors()) {
+				suc.setIndegree(suc.getIndegree()+1);
+			}
+		}
+		return nodes;
 		
 	}
 	
