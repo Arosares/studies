@@ -1,4 +1,5 @@
 package aufgabe4;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
@@ -16,8 +17,15 @@ public class GraphImpl implements IGraph{
 	@Override
 	public List<Node> topSortGraph() {
 		// TODO implementieren und Rückgabewert anpassen
+		
+		
 		List<Node> nodes = generateNodesFromMatrix(getMatrixFromUserInput());
 		
+		if (!isTopSortPossible(nodes)) {
+			throw new RuntimeException();
+		}
+		
+		sortNodesWithIndegree(nodes);
 		return nodes;
 	}
 	
@@ -44,11 +52,17 @@ public class GraphImpl implements IGraph{
 			}
 			nodes.add(node);
 		}
-		//TODO: Indegree
+		//set Indegree
 		for (Node node : nodes) {
+			
 			for (Node suc : node.getSuccessors()) {
-				suc.setIndegree(suc.getIndegree()+1);
+				int indegreeIncrement = suc.getIndegree()+1;
+				int id = suc.getId();
+				Node toChange = nodes.get(id-1);
+				toChange.setIndegree(toChange.getIndegree() + indegreeIncrement);
 			}
+			
+			
 		}
 		return nodes;
 		
@@ -59,6 +73,8 @@ public class GraphImpl implements IGraph{
 	 */
 	private void sortNodesWithIndegree(List<Node> nodes) {
 		// TODO implementieren
+		Comparator<Node> comp = new IndegreeComparator();
+		nodes.sort(comp);
 		
 	}
 	
@@ -67,6 +83,11 @@ public class GraphImpl implements IGraph{
 	 */
 	private boolean isTopSortPossible(List<Node> nodes) {
 		// TODO implementieren und Rückgabewert anpassen
+		for (Node node : nodes) {
+			if (node.getIndegree() == 0) {
+				return true;
+			}
+		}
 		return false;
 		
 	}
