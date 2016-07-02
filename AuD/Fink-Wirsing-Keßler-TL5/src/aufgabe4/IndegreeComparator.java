@@ -2,7 +2,6 @@ package aufgabe4;
 
 
 import java.util.Comparator;
-import java.util.List;
 
 public class IndegreeComparator implements Comparator<Node> {
 
@@ -13,10 +12,10 @@ public class IndegreeComparator implements Comparator<Node> {
 		
 		if (comparison == 0) {
 			// if o1 has o2 as successor
-			if (containsSuc(o1, o2)) {
+			if (o1.getSuccessors().contains(o2)) {
 				comparison = -1;
 			// if o2 has o1 as succesor
-			} else if (containsSuc(o2, o1)) {
+			} else if (o2.getSuccessors().contains(o1)) {
 				comparison = 1;
 			} else {
 				comparison = Integer.compare(o1.getId(), o2.getId());
@@ -25,16 +24,4 @@ public class IndegreeComparator implements Comparator<Node> {
 		
 		return comparison;
 	}
-	
-	private boolean containsSuc(Node o1, Node o2){
-		List<Node> sucs = o1.getSuccessors();
-		
-		for (Node suc : sucs) {
-			if (suc.getId() == o2.getId()) {
-				return true;
-			}
-		}
-		return false;
-	}
-
 }

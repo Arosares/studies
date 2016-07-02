@@ -3,6 +3,7 @@ import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 import aufgabe4.Node;
 
@@ -20,15 +21,35 @@ public class GraphImpl implements IGraph{
 		
 		
 		List<Node> nodes = generateNodesFromMatrix(getMatrixFromUserInput());
+		List<Node> topArray = new LinkedList<>();
 		
-		if (!isTopSortPossible(nodes)) {
-			throw new RuntimeException();
+		while (!nodes.isEmpty()) {
+			if (!isTopSortPossible(nodes)) {
+				throw new RuntimeException();
+			}
+			
+			sortNodesByIndegree(nodes);
+			print(nodes);
+			
+			//add nodes that will be deleted to topArray
+			topArray.addAll(nodes.stream().filter(e -> e.getIndegree() == 0).collect(Collectors.toList()));
+			
+			nodes = deleteNodeswithIndegreeZero(nodes);
+			updateIndegrees(nodes);
 		}
 		
-		sortNodesWithIndegree(nodes);
-		return nodes;
+		return topArray;
 	}
 	
+	private void updateIndegrees(List<Node> nodes) {
+		nodes.stream().forEach(e -> e.setIndegree(0));
+		setIndegrees(nodes);
+	}
+
+	private List<Node> deleteNodeswithIndegreeZero(List<Node> nodes) {
+		return nodes.stream().filter(e -> e.getIndegree()!=0).collect(Collectors.toList());
+	}
+
 	/**
 	 * Generates nodes that correspond to the given adjacency matrix and assign
 	 * indegree and successors to them
@@ -36,42 +57,49 @@ public class GraphImpl implements IGraph{
 	private List<Node> generateNodesFromMatrix(int[][] matrix) {
 		// TODO implementieren und Rückgabewert anpassen
 		List<Node> nodes = new LinkedList<>();
-		
+		for (int i = 0; i < matrix.length; i++) {
+			nodes.add(new Node(i+1));
+		}
 		
 		for (int i = 0; i < matrix.length; i++) {
 			List<Node> successors = new LinkedList<>();
 			
-			//create Node (starting from 1 ..)
-			Node node = new Node(i+1);
 			for (int j = 0; j < matrix[i].length; j++) {
+				//if a weightened edge is found
 				if (matrix[i][j] != 0 && matrix[i][j] != -1) {
-					//add succesor
-					successors.add(new Node(j+1));
+					//add the corresponding node at index j as successor
+					successors.add(nodes.get(j));
 				}
-				node.setSuccessors(successors);
+				//add successors to node
+				nodes.get(i).setSuccessors(successors);
 			}
-			nodes.add(node);
 		}
 		//set Indegree
-		for (Node node : nodes) {
-			
-			for (Node suc : node.getSuccessors()) {
-				int indegreeIncrement = suc.getIndegree()+1;
-				int id = suc.getId();
-				Node toChange = nodes.get(id-1);
-				toChange.setIndegree(toChange.getIndegree() + indegreeIncrement);
-			}
-			
-			
-		}
+		setIndegrees(nodes);
+		
 		return nodes;
 		
+	}
+
+	private void setIndegrees(List<Node> nodes) {
+		//iterate over every successor of each Node
+		for (Node node : nodes) {
+			List<Node> sucs = node.getSuccessors();
+			for (Node suc : sucs) {
+				//Get the index of the successor in nodes
+				int index = nodes.indexOf(suc);
+				//safe the node you want to increase the indegree in variable
+				Node toChange = nodes.get(index);
+				//increment the node by 1
+				toChange.setIndegree(toChange.getIndegree() + 1);
+			}
+		}
 	}
 	
 	/**
 	 * Sorts the given list according to their indegree (from lowest to highest)
 	 */
-	private void sortNodesWithIndegree(List<Node> nodes) {
+	private void sortNodesByIndegree(List<Node> nodes) {
 		// TODO implementieren
 		Comparator<Node> comp = new IndegreeComparator();
 		nodes.sort(comp);
@@ -143,6 +171,14 @@ public class GraphImpl implements IGraph{
 		}
 		scan.close();
 		return adjacencyMatrix;
+	}
+	
+	private static void print(List<Node> nodes) {
+		System.out.println("Topologic Sorting: \n");
+		for (Node node : nodes) {
+			System.out.println("Node: " + node + " Successors: " + node.getSuccessors() + " indegree: " + node.getIndegree());
+		}
+		System.out.println();
 	}
 
 }
