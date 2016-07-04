@@ -32,7 +32,7 @@ public class GraphImpl implements IGraph{
 			print(nodes);
 			
 			//add nodes that will be deleted to topArray
-			topArray.addAll(nodes.stream().filter(e -> e.getIndegree() == 0).collect(Collectors.toList()));
+			topArray.addAll(nodes.stream().filter(node -> node.getIndegree() == 0).collect(Collectors.toList()));
 			
 			nodes = deleteNodeswithIndegreeZero(nodes);
 			updateIndegrees(nodes);
@@ -42,12 +42,14 @@ public class GraphImpl implements IGraph{
 	}
 	
 	private void updateIndegrees(List<Node> nodes) {
-		nodes.stream().forEach(e -> e.setIndegree(0));
+		//set all indegrees to zero
+		nodes.stream().forEach(node -> node.setIndegree(0));
+		//calculate new indegrees
 		setIndegrees(nodes);
 	}
 
 	private List<Node> deleteNodeswithIndegreeZero(List<Node> nodes) {
-		return nodes.stream().filter(e -> e.getIndegree()!=0).collect(Collectors.toList());
+		return nodes.stream().filter(node -> node.getIndegree()!=0).collect(Collectors.toList());
 	}
 
 	/**

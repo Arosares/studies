@@ -10,6 +10,6 @@ public class Main {
 		IGraph iGraph = new GraphImpl();
 		List<Node> topArray = iGraph.topSortGraph();
 		
-		System.out.println("The Top Array is: \n" + topArray);
+		System.out.println("The Topologic Sorted Graph is: \n" + topArray);
 	}
 }
