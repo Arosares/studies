@@ -34,6 +34,11 @@ public class HyperSorter {
 	 */
 	private static void recQuickSort(int left, int right, int[] S) {
 		// TODO implement
+		if (S.length < arraySizeLimit) {
+			selectionSort(left, right, S);
+		} else {
+			
+		}
 	}
 	
 	/**
