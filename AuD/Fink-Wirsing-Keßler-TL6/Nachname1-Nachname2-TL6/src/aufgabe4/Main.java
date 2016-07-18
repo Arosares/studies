@@ -40,12 +40,12 @@ public class Main {
 
 	public static void main(String[] args) {
 		//BottomUpHeapsort
-//		int[] arr = generateRandomArray(10);
-//		System.out.println("Before BottomUp");
-//		printArray(arr);
-//		System.out.println("After BottomUp");
-//		BottomUpHeapsort.sort(arr);
-//		printArray(arr);
+		int[] arr = generateRandomArray(10);
+		System.out.println("Before BottomUp");
+		printArray(arr);
+		System.out.println("After BottomUp");
+		BottomUpHeapsort.sort(arr);
+		printArray(arr);
 		
 		//HyperSort
 		

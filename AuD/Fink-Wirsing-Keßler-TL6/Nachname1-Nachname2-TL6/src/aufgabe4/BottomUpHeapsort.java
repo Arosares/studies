@@ -17,7 +17,8 @@ public class BottomUpHeapsort {
 	 *            The array in question
 	 */
 	private static void heapdown(int i, int m, int[] S) {
-		reHeapBottomUp(i, S, getSinkingPath(i, m, S));
+		List<Integer> list = getSinkingPath(i, m, S);
+		reHeapBottomUp(i, S, list);
 	}
 
 	/**
@@ -44,20 +45,31 @@ public class BottomUpHeapsort {
 		List<Integer> path = new LinkedList<>();
 		// add first elem
 		path.add(i);
-		i = i * 2 + 1;
-		while (i <= m) {
+		int son;
+		while (i * 2 + 1 <= m) {
+			son = 2 * i + 1;
 			// if right son is bigger
 			try {
-				if (S[i] < S[i + 1]) {
-					i++;
+				if ((son < m) && (S[son] < S[son + 1])) { // if right son is
+															// bigger son =
+															// rightSon
+					
+					son = son + 1;
+				}
+				if (S[i] < S[son]) {
+					
+					swap(i, son, S);
+					i = son;
+				} else {
+					break;
 				}
 			} catch (IndexOutOfBoundsException e) {
-
+				e.printStackTrace();
 			} finally {
 				path.add(i);
-				i = i * 2 + 1;
 			}
 		}
+		System.out.println(path);
 		return path;
 	}
 
@@ -72,7 +84,8 @@ public class BottomUpHeapsort {
 	 * 
 	 * Pursue the <code>sinkingPath</code> from bottom-up until you find an
 	 * element bigger than the element at the root of the (logical) heap (= the
-	 * element at index position <code>i</code> of the array <code>S</code>). <br/>
+	 * element at index position <code>i</code> of the array <code>S</code>).
+	 * <br/>
 	 * <br/>
 	 * 
 	 * Afterwards, the remaining elements of the path must be pushed one level
@@ -118,14 +131,17 @@ public class BottomUpHeapsort {
 	 */
 	public static void sort(int[] S) {
 		// heapstructure
-		for (int i = S.length / 2; i >= 0; i++) {
+		System.out.println("Creating Heapstructure");
+		for (int i = (S.length / 2) - 1; i >= 0; i--) {
 			heapdown(i, S.length - 1, S);
 		}
-		// sort array
-		for (int i = S.length - 1; i > 0; i++) {
-			swap(i, 0, S);
-			heapdown(0, i - 1, S);
-		}
+
+//		  sort array
+		 System.out.println("Sorting array");
+		 for (int i = S.length - 1; i > 0; i--) {
+		 swap(i, 0, S);
+		 heapdown(0, i - 1, S);
+		 }
 	}
 
 	/**
@@ -135,5 +151,16 @@ public class BottomUpHeapsort {
 		int tmp = S[index1];
 		S[index1] = S[index2];
 		S[index2] = tmp;
+	}
+	
+	private static void printArray(int array[]) {
+		System.out.print("[");
+		if (array.length != 0) {
+			for (int i = 0; i < array.length - 1; i++) {
+				System.out.print(array[i] + ", ");
+			}
+			System.out.print(array[array.length - 1]);
+		}
+		System.out.println("]");
 	}
 }
