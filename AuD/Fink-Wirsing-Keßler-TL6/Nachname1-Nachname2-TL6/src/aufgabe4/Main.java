@@ -43,8 +43,9 @@ public class Main {
 		int[] arr = generateRandomArray(10);
 		System.out.println("Before BottomUp");
 		printArray(arr);
-		System.out.println("After BottomUp");
+		
 		BottomUpHeapsort.sort(arr);
+		System.out.println("After BottomUp");
 		printArray(arr);
 		
 		//HyperSort

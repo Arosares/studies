@@ -17,8 +17,12 @@ public class BottomUpHeapsort {
 	 *            The array in question
 	 */
 	private static void heapdown(int i, int m, int[] S) {
-		List<Integer> list = getSinkingPath(i, m, S);
-		reHeapBottomUp(i, S, list);
+		List<Integer> sinkingPath = getSinkingPath(i, m, S);
+		System.out.println("Before");
+		printArray(S);
+		reHeapBottomUp(i, S, sinkingPath);
+		System.out.println("After reHeap");
+		printArray(S);
 	}
 
 	/**
@@ -46,30 +50,25 @@ public class BottomUpHeapsort {
 		// add first elem
 		path.add(i);
 		int son;
-		while (i * 2 + 1 <= m) {
+		while (2 * i + 1 <= m) {
 			son = 2 * i + 1;
 			// if right son is bigger
-			try {
-				if ((son < m) && (S[son] < S[son + 1])) { // if right son is
-															// bigger son =
-															// rightSon
-					
-					son = son + 1;
-				}
-				if (S[i] < S[son]) {
-					
-					swap(i, son, S);
-					i = son;
-				} else {
-					break;
-				}
-			} catch (IndexOutOfBoundsException e) {
-				e.printStackTrace();
-			} finally {
-				path.add(i);
+			if ((son < m) && (S[son] < S[son + 1])) { // if right son is
+														// bigger son =
+														// rightSon
+
+				son = son + 1;
 			}
+			if (S[i] < S[son]) {
+				swap(i, son, S);
+				i = son;
+			} else {
+				break;
+			}
+			path.add(i);
+
 		}
-		System.out.println(path);
+		// System.out.println(path);
 		return path;
 	}
 
@@ -104,6 +103,7 @@ public class BottomUpHeapsort {
 	private static void reHeapBottomUp(int i, int[] S, List<Integer> sinkingPath) {
 		// elem to be sinked
 		int elem = S[i];
+		System.out.println("SinkingPath: " + sinkingPath);
 		int nextPosition = sinkingPath.size() - 1;
 		while (nextPosition >= 0) {
 			// if i is bigger than current elem, next is father
@@ -136,12 +136,12 @@ public class BottomUpHeapsort {
 			heapdown(i, S.length - 1, S);
 		}
 
-//		  sort array
-		 System.out.println("Sorting array");
-		 for (int i = S.length - 1; i > 0; i--) {
-		 swap(i, 0, S);
-		 heapdown(0, i - 1, S);
-		 }
+		// sort array
+		System.out.println("Sorting array");
+		for (int i = S.length - 1; i > 0; i--) {
+			swap(i, 0, S);
+			heapdown(0, i - 1, S);
+		}
 	}
 
 	/**
@@ -152,7 +152,7 @@ public class BottomUpHeapsort {
 		S[index1] = S[index2];
 		S[index2] = tmp;
 	}
-	
+
 	private static void printArray(int array[]) {
 		System.out.print("[");
 		if (array.length != 0) {
