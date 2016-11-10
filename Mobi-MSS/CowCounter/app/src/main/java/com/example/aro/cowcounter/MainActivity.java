@@ -3,9 +3,12 @@ package com.example.aro.cowcounter;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -17,15 +20,45 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        cowList = new ArrayList<>();
+
+        final EditText textFieldBreed = (EditText) findViewById(R.id.editText);
+        final EditText textFieldID = (EditText) findViewById(R.id.editText2);
         Button addButton = (Button) findViewById(R.id.button);
         addButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                cowList.add(new Cow(2,20));
-                System.out.println("Created Cow");
+                Editable breed = textFieldBreed.getText();
+                Editable cowID = textFieldID.getText();
+
+
+                Cow cow = new Cow(breed, cowID);
+                cowList.add(cow);
+                System.out.println("Created Cow:");
+                System.out.println("Breed: " + cow.getBreed() + " ID: " + cow.getCowID());
             }
         });
 
-        Table
+        Button rejButton = (Button) findViewById(R.id.button2);
+        rejButton.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                Editable breed = textFieldBreed.getText();
+                Editable cowID = textFieldID.getText();
+
+                Cow toDelete = new Cow(breed, cowID);
+                List<Cow> found = new ArrayList<Cow>();
+                for (Cow cow : cowList) {
+                    if (cow.equals(toDelete)){
+                        found.add(cow);
+                    }
+                }
+                cowList.removeAll(found);
+                System.out.println("Removed Cow(s)\n");
+                
+
+            }
+        });
+
+
     }
 
 

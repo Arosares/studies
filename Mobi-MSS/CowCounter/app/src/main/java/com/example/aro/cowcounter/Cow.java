@@ -1,23 +1,25 @@
 package com.example.aro.cowcounter;
 
+import android.text.Editable;
+
 /**
  * Created by aro on 04.11.16.
  */
 
 public class Cow {
-    private int breed;
-    private int cowID;
+    private Editable breed;
+    private Editable cowID;
 
-    public Cow(int breed, int cowID){
+    public Cow(Editable breed, Editable cowID){
         this.breed = breed;
         this.cowID = cowID;
     }
 
-    public int getBreed() {
+    public Editable getBreed() {
         return breed;
     }
 
-    public int getCowID() {
+    public Editable getCowID() {
         return cowID;
     }
 }
