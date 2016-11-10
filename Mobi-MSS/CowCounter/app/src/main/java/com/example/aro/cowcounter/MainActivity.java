@@ -9,18 +9,19 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private List<Cow> cowList;
+    private List<Cow> cowList = new LinkedList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        cowList = new ArrayList<>();
+
 
         final EditText textFieldBreed = (EditText) findViewById(R.id.editText);
         final EditText textFieldID = (EditText) findViewById(R.id.editText2);
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
                 cowList.add(cow);
                 System.out.println("Created Cow:");
                 System.out.println("Breed: " + cow.getBreed() + " ID: " + cow.getCowID());
+                System.out.println("CowList: "+ cowList);
             }
         });
 
@@ -47,12 +49,13 @@ public class MainActivity extends AppCompatActivity {
                 Cow toDelete = new Cow(breed, cowID);
                 List<Cow> found = new ArrayList<Cow>();
                 for (Cow cow : cowList) {
-                    if (cow.equals(toDelete)){
+                    if (cow.getBreed() == toDelete.getBreed() && cow.getCowID() == toDelete.getCowID()){
                         found.add(cow);
+                        System.out.println(cow);
                     }
                 }
                 cowList.removeAll(found);
-                System.out.println("Removed Cow(s)\n");
+                System.out.println("Removed Cow(s)\n" + cowList);
                 
 
             }

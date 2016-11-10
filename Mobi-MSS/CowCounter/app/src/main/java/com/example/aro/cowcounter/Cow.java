@@ -22,4 +22,9 @@ public class Cow {
     public Editable getCowID() {
         return cowID;
     }
+
+    @Override
+    public String toString(){
+        return "Cow [breed: " + breed + ", id: " + cowID + "]";
+    }
 }
