@@ -57,6 +57,6 @@ hs_err_pid*
 *.nlo
 *.nls
 *.out
-*.pdf
+ktr-sem/Semi-Tex-14.2/*.pdf
 *.synctex.gz
 *.toc
