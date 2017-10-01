@@ -21,4 +21,33 @@ Approximately 17 - 30 billion IoT devices are assumed to be online by 2020\footn
 
 \subsection{How Fog overcomes these challenges [working title]}
 
+\subsubsection{Dynamic discovery}
+The Internet of Things is a very heterogeneous field. There is a large variety in sensors, that output  different kinds of data over different kinds of communication protocols. That's why a adequate architecture needs to be capable of dynamic discovery and connection of edge devices while providing a high security standard.\\
+The discovering of edge nodes can function in two different ways (see )\autoref{img:2_way_discover}):
+\begin{itemize}
+	\item By letting the edge nodes search continuously for fog gateways which wait for a connection request
+	\item By letting the fog gateway search for edge nodes in range and leave the edge devices discoverable
+\end{itemize}
 
+\image{8cm}{2_way_discovery.PNG}{Two ways of discovering edge nodes\cite[p. 16]{Perera:2017:FCS:3101309.3057266}}{img:2_way_discover}
+
+Both methods usually use low power communication protocols which will be described in detail in section NOCH EINFÜGEN
+
+% In order to achieve this two things need to happen. First, the edge devices need to be connected to a fog node. Second, the fog node needs to be connected to a IoT cloud platform.\cite[p. 15]{Perera:2017:FCS:3101309.3057266}
+
+\subsubsection{Latency}
+
+Due to evaluating and gathering data closer to the end user, systems can react faster on changing circumstances. This way information does not need to travel to a distant server and back, saving bandwidth and time.
+
+\subsubsection{Network Bandwidth}
+
+Fog controller nodes are capable of distributing the workload along the edge node to cloud continuum in a optimal manner, resulting in less data being sent over the network.
+
+
+\subsubsection{Uninterrupted Service}
+
+A Fog node is independent of the Internet. It is still able to get data or distribute tasks to its connected edge devices while being disconnected from the rest of the world. This allows local services to stay up even if the node is disconnected.
+
+\subsubsection{Security}
+
+To ensure secure connections from an edge node to the cloud all "things" must "employ a hardware-based immutable root of trust."\cite[p.10]{OpenFog} i.e. to ensure security the hardware itself needs to be protected from unauthorized manipulation. Then on top of that software agents running throughout the infrastructure must be able to ensure the integrity of the root of trust. Due to the nature of edge nodes in being close to the end user, fog nodes often act as first node of access control and encryption enabling the user to decide what privacy-sensitive data should be aggregated before it leaves the node.\cite[p.10]{OpenFog}
