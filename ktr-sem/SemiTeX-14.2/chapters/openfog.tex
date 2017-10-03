@@ -9,12 +9,21 @@ The founding members were Arm, Cisco, Dell, Intel, Microsoft and the Princeton U
 
 \image{8cm}{openfog_infrastructure}{OpenFog Infrastacture View\cite[p. 8]{OpenFog}}{img:openfog_infrastracture}
 
-An OpenFog Fabric is consisting of nodes or layers and may be either centralized or distributed and may be implemented on dedicated hardware, software or both. No matter what of these possibilities is chosen, such fabric distributes resources across available devices, systems and clouds in order to achieve the goal while fulfilling all requirements.\cite[p. 7]{OpenFog}
+%An OpenFog Fabric is consisting of nodes or layers and may be either centralized or distributed and may be implemented on dedicated hardware, software or both. No matter what of these possibilities is chosen, such fabric distributes resources across available devices, systems and clouds in order to achieve the goal while fulfilling all requirements.\cite[p. 7]{OpenFog}
 
-As stated in Section~\ref{sec:def_fog} Fog's goal is to extend existing cloud architectures and not to replace them. Cloud infrastructures are usually offered as Platform as a Service (PaaS).
-In a PaaS you usually differ between a Service and a Fabric.
-Microsoft describes it like this for their Azure Cloud Framework\footnote{https://docs.microsoft.com/en-us/azure/service-fabric/service-fabric-cloud-services-migration-differences [03.10.2017]}:
+As stated in Section~\ref{sec:def_fog} Fog's goal is to extend existing cloud architectures and not to replace them. Such Cloud infrastructures are usually offered as Platform as a Service (PaaS).
+%In a PaaS you differ between a Service and a Fabric.
+%Microsoft, on of the consortium founders, describes it like this for their Azure Cloud Framework documentation\footnote{https://docs.microsoft.com/en-us/azure/service-fabric/service-fabric-cloud-services-migration-differences [03.10.2017]}:
 
-Cloud Services: Deploying applications as VMs 
+%Cloud Services: Deploying applications as VMs 
 
-Service Fabric: Deploying applications to existing VMs or machines running Service Fabric on Windows or Linux.
+%Service Fabric: Deploying applications to existing VMs or machines running Service Fabric on Windows or Linux.
+
+%Analogously OpenFog Fabric and Services are definded:
+
+\textbf{OpenFog Fabric} consists of nodes or layers and may be either centralized or distributed and may be implemented on dedicated hardware, software or both. No matter what of these possibilities is chosen, such fabric distributes resources across available devices, systems and clouds in order to achieve the goal while fulfilling all requirements.\cite[p. 7]{OpenFog}
+
+\textbf{OpenFog Services} are built upon the OpenFog fabric infrastructure. Example services are network accerleration, NFV, SDN, content delivery, device management, device topology, complex event processing, video encoding, field gateway, protocol bridging, traffic offloading, crypto, compression, analytics algorithms/libraries etc.\cite[p. 8]{OpenFog}
+
+\textbf{Devices/Applications} are sensors, microcontrollers, IoT devices running withing a fog deployment or spanning fog deployments.
+ 
