@@ -2,7 +2,7 @@
 \subsection{Cloud Computing}
 "The cloud is just someone else's computer" is a wide-spread joke. And while it can be correct, it is not complete. According to the NIST, cloud computing is a "model for enabling ubiquitous, convenient, on-demand network access to a shared
 pool of configurable computing resources (e.g., networks, servers, storage, applications, and services) that
-can be rapidly provisioned and released with minimal management effort or service provider interaction."\cite[S. 2]{CloudNIST11}
+can be rapidly provisioned and released with minimal management effort or service provider interaction."\cite[p. 2]{CloudNIST11}
 Additionally the model is defined by five essential characteristics, three service models and four deployment models:
 
 Essential Characteristics:
@@ -29,17 +29,16 @@ Deployment Models:
 	\item Community cloud: The cloud infrastructure is provisioned for exclusive use by a specific	community of consumers from organizations that have shared concerns (e.g., mission, security requirements, policy, and compliance considerations). It may be owned, managed, and operated by one or more of the organizations in the community, a third	party, or some combination of them, and it may exist on or off premises.
 	\item Public cloud: The cloud infrastructure is provisioned for open use by the general public. It may be owned, managed, and operated by a business, academic, or government organization, or some combination of them. It exists on the premises of the cloud provider.
 	\item Hybrid cloud: The cloud infrastructure is a composition of two or more distinct cloud infrastructures (private, community, or public) that remain unique entities, but are bound together by standardized or proprietary technology that enables data and application portability (e.g., cloud bursting for load balancing between clouds).
-\end{itemize}
-(\cite[see s. 2f]{CloudNIST11})
+\end{itemize}(\cite[p. 2f]{CloudNIST11})
 
-\newpage
+
 \subsection{Fog Computing}\label{sec:def_fog}
 
-"Fog is an emergent architecture  for computing, storage, control and networking that distributed these services closer to the end-users along the cloud-to-things continuum". \cite[S. 854]{DBLP:journals/iotj/ChiangZ16}. However, Fog Computing is not a strict architecture that has a clear definition, "instead it represents a notion that supports to push data analyrics towards leaves(i.e. edge nodes)"\cite[p. 3]{Perera:2017:FCS:3101309.3057266}. Chiang and Perera et al. both stress that the important part of the definition is that tasks are not supposed to be completed by the edge nodes only, but on every node on the path to the cloud server as needed by the use case.
+"Fog is an emergent architecture  for computing, storage, control and networking that distributed these services closer to the end-users along the cloud-to-things continuum". \cite[p. 854]{DBLP:journals/iotj/ChiangZ16}. However, Fog Computing is not a strict architecture that has a clear definition, "instead it represents a notion that supports to push data analyrics towards leaves(i.e. edge nodes)"\cite[p. 3]{Perera:2017:FCS:3101309.3057266}. Chiang and Perera et al. both stress that the important part of the definition is that tasks are not supposed to be completed by the edge nodes only, but on every node on the path to the cloud server as needed by the use case.
 
 
 
-\image{8cm}{fog-and-cloud.png}{Fog-interfaces}{img:fog}\cite[p. 862]{DBLP:journals/iotj/ChiangZ16}
+\image{8cm}{fog-and-cloud.png}{Fog-interfaces\cite[p. 862]{DBLP:journals/iotj/ChiangZ16}}{img:fog}
 
 As seen in \autoref{img:fog} Fog is not designed to replace the cloud, but to play along with it in order to solve rising challenges, especially in the field of IoT. The end point of such a network is called fog node and each one has at least one computing server to which all of its edge devices connect to. The Fog node controller than merges, stores, computes or redistributes data gathered or created by the edge devices. It is also capable of assigning tasks to the computing power of the edge devices. The node itself can either be controlled by another controller node that manages all edge nodes or commits to send selected results directly to a cloud server.
 
@@ -47,5 +46,5 @@ As seen in \autoref{img:fog} Fog is not designed to replace the cloud, but to pl
 
 A Fog Node describes the combination of multiple edge nodes/IoT devices/sensors and a fog node controller which acts as gateway. However Fog Nodes can also inherit multiple other fog nodes as seen in \autoref{img:f2c}. Since a sketch of a fog architecture often looks like a tree, fog nodes at the edge of a network are usually referred as leave nodes.
 
-\image{9cm}{f2c.png}{Fog2Cloud Architecture\cite{DBLP:journals/corr/Marin-TorderaMA16}}{img:f2c}
+\image{9cm}{f2c.png}{Fog2Cloud Architecture\cite[p. 4]{DBLP:journals/corr/Marin-TorderaMA16}}{img:f2c}
 
