@@ -7,7 +7,7 @@ The founding members were Arm, Cisco, Dell, Intel, Microsoft and the Princeton U
 
 \subsection{Fog as a Service}
 
-\image{8cm}{openfog_infrastructure}{OpenFog Infrastacture View\cite[p. 8]{OpenFog}}{img:openfog_infrastracture}
+\image{8cm}{openfog_infrastructure}{OpenFog Infrastructure View\cite[p. 8]{OpenFog}}{img:openfog_infrastracture}
 
 %An OpenFog Fabric is consisting of nodes or layers and may be either centralized or distributed and may be implemented on dedicated hardware, software or both. No matter what of these possibilities is chosen, such fabric distributes resources across available devices, systems and clouds in order to achieve the goal while fulfilling all requirements.\cite[p. 7]{OpenFog}
 
@@ -32,3 +32,64 @@ As stated in Section~\ref{sec:def_fog} Fog's goal is to extend existing cloud ar
 \textbf{Security} is important throughout all levels of the architecture as indicated through the vertical pillar in \autoref{img:openfog_infrastracture}. Every unit in every layer needs to participate in state of the art information security practices.\cite[p. 8]{OpenFog}
 
 \textbf{DevOps} (compund word for 'development' and operations') is a software engineering practice which main characteristic is to strongly advocate automation at all steps of software construction. In the OpenFog architecture an efficient set of standard DevOps processes and frameworks enable automation, providing the agility of software upgrades through controlled integration processes.\cite[p. 9]{OpenFog}
+
+\subsection{The Pillars of OpenFog}
+
+\image{15cm}{fog_pillars}{The Pillars of OpenFog\cite[p. 9]{OpenFog}}{img:fog_pillars}
+
+The OpenFog consortium defined eight pillars which build the foundation of OpenFog. These consist of: Security, Scalability, Open, Autonomy, RAS, Agility, Hierarchy, Programmability. Some of them were already mentioned in \autoref{sec:fog_challenges}.
+
+\subsubsection{Scalability}
+
+When providing Fog as a Service, you need to be able to scale up and down depending on your clients need. Fog is scalable through five different dimensions:
+\begin{itemize}
+	\item Scalable performance: Allows to respond to rising application demands
+	\item Scalable capacity: Allows fog networks to grow as more edge devices get connected to the network
+	\item Scalable reliability: Permits "inclusion of redundant fog capabilities to manage faults or overloads".
+	\item Scalable Security: While being its own pillar, security needs may be depending on the use case or change over time.
+	\item Scalability of software: By using VMs or infrastructures like docker software on nodes can be scaled up or down as load demands.
+\end{itemize}
+
+\subsubsection{Open}
+
+Proprietary solutions could lead to a walled garden limiting your choice or have negative impact on cost, quality and innovation. That's why fog is founded on a open architecture.
+
+\begin{itemize}
+	\item Composability allows portability of programs and services at instantiation. 
+	\item Interoperability ensures secure discovery of compute, network and storage and enables portability at execution time.
+	\item Open communication allows pooling of resources near edge networks in order to collect free processing, storage and sensing resources.
+	\item Location transparency ensures nodes can exist anywhere in the hierarchy.
+\end{itemize}
+
+\subsubsection{Autonomy}
+
+OpenFog relies on the ability to make information based decisions on the edge without waiting for confirmation or other decisions from the cloud. 
+
+\begin{itemize}
+	\item Autonomy of discovery
+	\item Autonomy of orchestration and management
+	\item Autonomy of security
+	\item Autonomy of operation
+\end{itemize}
+
+\subsection{Programmability}
+
+Through open APIs, frameworks and runtime containers fog nodes or clusters re-tasking can be done, allowing best use of all available resources.
+
+\begin{itemize}
+	\item Adaptive infrastructure
+	\item Resource efficient deployments
+	\item Multi-tenancy
+	\item Economical operations
+	\item Enhanced Security
+\end{itemize}
+
+\subsection{RAS(Reliability, Availability, Serviceability)}
+
+The architecture has to be stable and deliver results under normal as well as adverse conditons.
+To achieve high availability and serviceability  hardware, software and networking need to be run reliable alone and in conjunction.
+Availability enables continuous mangement and orchestration to ensure the task's goal.
+To achieve serviceability a highly automated installation, upgrade and repair process is essential.
+
+\subsection{Agility}
+
