@@ -41,7 +41,7 @@ The OpenFog consortium defined eight pillars which build the foundation of OpenF
 
 \subsubsection{Scalability}
 
-When providing Fog as a Service, you need to be able to scale up and down depending on your clients need. Fog is scalable through five different dimensions:
+When providing Fog as a Service, you need to be able to scale up and down depending on your clients need. Fog is scalable through five different dimensions:\cite[p. 10]{OpenFog}
 \begin{itemize}
 	\item Scalable performance: Allows to respond to rising application demands
 	\item Scalable capacity: Allows fog networks to grow as more edge devices get connected to the network
@@ -52,7 +52,7 @@ When providing Fog as a Service, you need to be able to scale up and down depend
 
 \subsubsection{Open}
 
-Proprietary solutions could lead to a walled garden limiting your choice or have negative impact on cost, quality and innovation. That's why fog is founded on a open architecture.
+Proprietary solutions could lead to a walled garden limiting your choice or have negative impact on cost, quality and innovation. That's why fog is founded on a open architecture.\cite[p. 11]{OpenFog}
 
 \begin{itemize}
 	\item Composability allows portability of programs and services at instantiation. 
@@ -63,25 +63,25 @@ Proprietary solutions could lead to a walled garden limiting your choice or have
 
 \subsubsection{Autonomy}
 
-OpenFog relies on the ability to make information based decisions on the edge without waiting for confirmation or other decisions from the cloud. 
+OpenFog relies on the ability to make information based decisions on the edge without waiting for confirmation or other decisions from the cloud.\cite[p. 12]{OpenFog}
 
 \begin{itemize}
-	\item Autonomy of discovery
-	\item Autonomy of orchestration and management
-	\item Autonomy of security
-	\item Autonomy of operation
+	\item Autonomy of discovery enables resource discovery
+	\item Autonomy of orchestration and management automates process of bringing services online
+	\item Autonomy of security provides authentication, authorization and accounting, InfoSec etc. allowing services and devices to authenticate themselves against security services.
+	\item Autonomy of operation enables localized decision making.
 \end{itemize}
 
 \subsection{Programmability}
 
-Through open APIs, frameworks and runtime containers fog nodes or clusters re-tasking can be done, allowing best use of all available resources.
+Through open APIs, frameworks and runtime containers fog nodes or clusters re-tasking can be done, allowing best use of all available resources.\cite[p. 13]{OpenFog}
 
 \begin{itemize}
-	\item Adaptive infrastructure
-	\item Resource efficient deployments
-	\item Multi-tenancy
-	\item Economical operations
-	\item Enhanced Security
+	\item Adaptive infrastructure for diverse deployment and changing business needs.
+	\item Resource efficient deployments to maximize efficiency on resources through use of container deployment
+	\item Multi-tenancy allowing multiple tenants in logically isolated runtime environments.
+	\item Economical operations resulting from high density and adaptive infrastructure
+	\item Enhanced Security to apply patches and react to upcoming threats.
 \end{itemize}
 
 \subsection{RAS(Reliability, Availability, Serviceability)}
@@ -89,7 +89,12 @@ Through open APIs, frameworks and runtime containers fog nodes or clusters re-ta
 The architecture has to be stable and deliver results under normal as well as adverse conditons.
 To achieve high availability and serviceability  hardware, software and networking need to be run reliable alone and in conjunction.
 Availability enables continuous mangement and orchestration to ensure the task's goal.
-To achieve serviceability a highly automated installation, upgrade and repair process is essential.
+To achieve serviceability a highly automated installation, upgrade and repair process is essential.\cite[p. 13]{OpenFog}
 
 \subsection{Agility}
 
+Sensors produce a lot of data. The OpenFog architecture allows to process the data at the edge to make informed decisions quickly to maximize performance. Tactical and quick decisions sould be made near the edge, while strategical, system-wide decisions are made higher up in the fog level hierarchy.\cite[p. 15]{OpenFog}
+
+\subsection{Hierarchy}
+
+Depending on the scale of the use case, the hierarchy may consist of a network of smart partitioned systems in either physical or logical layers, or it might be a single physical based system. Usually you will see cloud and fog combined, but there could also be exceptions where only cloud or only fog will be better suited. The cloud provides Infrastructure as a Service(IaaS), Platform as a Service(PaaS) and Software as a Service(SaaS) and all can easily be extend to the fog architecture.\cite[p. 16]{OpenFog}
