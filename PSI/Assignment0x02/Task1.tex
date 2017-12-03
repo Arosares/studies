@@ -1,0 +1,15 @@
+\section{Task 1: Understanding Assembly}
+
+First we tried out the binary and came to the conclusion that it computes the greatest common divisor of two numbers.
+We then inspected the assembly code of the dostuff function line by line and wrote comments to each line to understand its meaning. This is how it looked like:
+
+\lstinputlisting{Assignment0x02/dostuff_assembly.txt}
+
+Then we did the same with the main function but no so detailled. By using gdb with break main and nexti we found the address where the result is stored in is: 0x804857d
+In the corresponding file we found the source code for the main function.
+
+The reversed source Code is in the following file: \textattachfile[color= 0 0 0.5]{Assignment0x02/reversmeme.c}{reverseme.c}
+
+Below the source code readable:
+
+\lstinputlisting[language=C]{Assignment0x02/reversmeme.c}
