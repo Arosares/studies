@@ -60,3 +60,6 @@ hs_err_pid*
 ktr-sem/Semi-Tex-14.2/*.pdf
 *.synctex.gz
 *.toc
+
+#VS Code
+.vscode
