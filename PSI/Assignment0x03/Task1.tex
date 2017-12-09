@@ -1,0 +1,35 @@
+\section{A Ciphertext Only Attack on the Vigenère Cipher}
+
+First we used the Kaisiki-Test do determine the Key length:\\
+\newline
+\begin{tabular}{l | c | r}
+	letters & distance & prime factors\\
+	\hline
+	KC:&  41 & 41\\
+	CM:&  17 & 17\\
+	SY:& 66 & 2  *  3  * 11\\
+	XOC:& 140 & 2  *  2  *  5  *  7\\
+	OC:& 20 & 2  *  2  *  5\\
+	GK:& 12 & 2  *  2  *  3\\
+	JO:& 12 & 2  *  2  *  3\\
+	JO:& 42 &	2 * 3 * 7\\
+	JO:& 16 & 2 * 2 * 2 * 2\\
+	JO:& 74 & 2 * 37\\
+	JO:& 136 & 2*2*2*17\\	
+	LZKMP & 520 & 2*2*2*5*13\\
+	LZKMP & 178 & 2 * 89\\
+	LZKMP & 366 & 2*3*61\\
+	LKZMP & 1448 & 2*2*2*181\\  
+\end{tabular}\\
+\newline
+Because of the overwhelming amount of twos we decided to try 4 as key length.
+Then we did a frequency analysis on the partitions created by \url{https://cryptotools.psi.h4q.it/vigenere.html}.
+The most frequent letters for each partition were:\\
+\newline
+1) P, E, L, Z, S\\
+2) S, H, B, C, O\\
+3) G, V, Q, C, J, K\\
+4) O, D, K, Y, C\\
+
+
+After trying a little bit around, we discovered that the word L O C K is readable when taking one character from every partition. We tried it out and had success. The key for the text is LOCK and Alice finds a golden key!
