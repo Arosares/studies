@@ -1,0 +1,13 @@
+				prims:
+kc: abstand 41         		41
+cm: abstand 17			17
+sy: abstand 66			2  *        3  *           11
+xoc: abstand 140		2  *  2  *       5  *  7
+oc: abstand 20			2  *  2  *       5
+gk: abstand 12			2  *  2  *  3
+jo: abstand 12			2  *  2  *  3
+
+JO kommt 33 mal vor
+
+LZKMP abstand 520		2*2*2*           5  *           13
+YSEV  abstand 566	        2*283	
