@@ -1,0 +1,20 @@
+\section{Task 2: The RSA cryptosystem}
+
+
+\subsection{Using that private key, decrypt c}
+
+$PHI(n) = (p-1)(q-1) = (17 - 1) * (23 - 1) = 16 * 22 = 352$\\
+
+$e = 17; Z^*_{352}$\\
+(e * d) mod 352 = 1\\
+
+Using Excel we found the inverse using the formula above: d = 145\\
+
+m = $c^d$ mod n = 282\textsuperscript{145} mod 391 = 197
+
+\subsection{Did Donald choose reasonable parameters? Explain!}
+
+When e = 1, the message itself is encrypted just by applying the modulo with the public Key part N. Resulting in c = m mod N, which means that if m is smaller than N, the encrypted message is just the plain message $=>$ c = m
+ 
+\subsection{Find a value of e for which RSA encryption is the identity function}
+
