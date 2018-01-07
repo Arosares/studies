@@ -174,9 +174,91 @@ nmap -sT -T4 10.8.200-209.0-255
 
 \subsection{Explain how the disadvantages of the basic TCP connect scan can be overcome by other scan types.}
 
+You could do an Idle Scan using the -sl flag. 
+1) A SYN scan will send a SYN - packet to the port and the target will respond with SYN/ACK messages if the port is open and with RST if the port is closed.
+2) A machine that receives SYN/ACK packet will repond with a RST.
+3) Every IP packet on the Internet has a fragment identification number (IP ID). Since many operating systems simply increment this number for each packet they send, probing for the IPID can tell an attacker how many packets have been sent since the last probe.
 
+By combining these traits, it is possible to scan a target network while forging your identity so that it looks like an innocent zombie machine did the scanning
+
+Idle scan consists of three steps:
+\begin{itemize}
+	\item Probe zombie's IP ID and record it.
+	\item Forge SYN packet from zombie and send it to desired port. Depending on the target's reaction the IP ID may be incremented.
+	\item Repeat step 1 again and compare the recordings.
+\end{itemize}
+
+The zombie's IP ID should now have increased by either one or two. One means the zombie hasn't sent out any packets, except for its reply to the attacker's probe. This means the port is not open. Two indicates the zombie sent out a packet between the two probes. This usually means the port is open. Note that via this scan method closed and filtered ports can not be distinguished.
+
+See: \url{https://nmap.org/book/idlescan.html}
 
 \subsection{Perform a version detection scan to filter out the dummy ports. On which ports are real services running?}
+
+\begin{lstlisting}
+	nmap -sV -F -T4 10.8.200-209.0-255
+	Nmap scan report for 10.8.205.198
+	Host is up (0.00068s latency).
+	Not shown: 48 closed ports
+	PORT      STATE SERVICE    VERSION
+	7/tcp     open  tcpwrapped
+	9/tcp     open  tcpwrapped
+	13/tcp    open  tcpwrapped
+	21/tcp    open  tcpwrapped
+	22/tcp    open  ssh        OpenSSH 7.4p1 Debian 10+deb9u2 (protocol 2.0)
+	23/tcp    open  tcpwrapped
+	37/tcp    open  tcpwrapped
+	53/tcp    open  tcpwrapped
+	79/tcp    open  tcpwrapped
+	80/tcp    open  http       nginx 1.10.3
+	88/tcp    open  tcpwrapped
+	106/tcp   open  tcpwrapped
+	110/tcp   open  tcpwrapped
+	111/tcp   open  tcpwrapped
+	113/tcp   open  tcpwrapped
+	119/tcp   open  tcpwrapped
+	135/tcp   open  tcpwrapped
+	139/tcp   open  tcpwrapped
+	143/tcp   open  tcpwrapped
+	179/tcp   open  tcpwrapped
+	199/tcp   open  tcpwrapped
+	389/tcp   open  tcpwrapped
+	427/tcp   open  tcpwrapped
+	443/tcp   open  ssl/http   nginx 1.10.3
+	444/tcp   open  tcpwrapped
+	445/tcp   open  tcpwrapped
+	465/tcp   open  tcpwrapped
+	513/tcp   open  tcpwrapped
+	514/tcp   open  tcpwrapped
+	515/tcp   open  tcpwrapped
+	543/tcp   open  tcpwrapped
+	544/tcp   open  tcpwrapped
+	548/tcp   open  tcpwrapped
+	554/tcp   open  tcpwrapped
+	873/tcp   open  tcpwrapped
+	990/tcp   open  tcpwrapped
+	993/tcp   open  tcpwrapped
+	995/tcp   open  tcpwrapped
+	1433/tcp  open  tcpwrapped
+	2000/tcp  open  tcpwrapped
+	2049/tcp  open  tcpwrapped
+	2121/tcp  open  tcpwrapped
+	3306/tcp  open  tcpwrapped
+	4899/tcp  open  tcpwrapped
+	5051/tcp  open  tcpwrapped
+	5060/tcp  open  tcpwrapped
+	5190/tcp  open  tcpwrapped
+	5666/tcp  open  tcpwrapped
+	6000/tcp  open  tcpwrapped
+	6001/tcp  open  tcpwrapped
+	8081/tcp  open  tcpwrapped
+	10000/tcp open  tcpwrapped
+	Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+	
+\end{lstlisting}
+
+When receiving 'tcpwrapped' it indicates a valid TCP-handshake was performed but then closes the connection. Due to the high amount of tcpwrapped services we can assume that this is a defence mechanism to hide real services. In this case "tcpwrapped" indicates that the service is a dummy.
+
+Real services are running on ports 22, 80 and 443.
 
 \subsection{Scan the port range 10000 to 65535 and determine on which port the web application is running.}
 

@@ -8,4 +8,15 @@ Form contents are expressed as a property list of attribute names and values. Th
 
 \subsection{Analyze the login form with the developer tools of your browser.}
 
+First we created a ssh-tunnel via \verb|ssh -L 15900:10.8.205.198:55329 -l <user> 88.99.184.129| and connected to it from our browser via \verb|127.0.0.1:15900|
+
+When just reloading the page an error "Security token does not match" appears.
+
+
+
 \subsection{Your final objective is to find a working pair of username and password with which you can log into the web server.}
+
+Due to time limitations we were not able to find the correct username and password to log in.
+
+To bruteforce the password we would write a script with nested for loops going from 1 to 31 and from 1 to 12 respectively and appending m and f at each string.
+Then this will be inserted as password.
