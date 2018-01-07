@@ -18,3 +18,19 @@ When e = 1, the message itself is encrypted just by applying the modulo with the
  
 \subsection{Find a value of e for which RSA encryption is the identity function}
 
+I don'T know :(
+
+\subsection{How could the attacker Eve get the AES key without factoring?}
+
+Since $2^{4096} > 256^3$ the encrypted key will never have the modulo applied.
+So the resulting cipher will just be a 1234 bit long key (len($2^{4096}$)) with the first 256 bit being the AES-Key encrypted with potency e = 3. I'm not sure whether the rest are zeroes without padding or garbage bytes or non-existent at all, but the actual key should be well distinguishable. Now you just have to do $c^{-e}$ to get the message.
+
+\subsection{How could an adversary Eve get the combination for the lock if she intercepts the message?}
+
+Bob fills the entire message, up to the mod length, with 9s, plus a 5 digit number that is the actual message. As it's always just nines plus the number, they is insufficient randomness, which padding usually provides in RSA, allowing Eve to just repeatedly guess messages and encrypt them until one comes out similar. If she knows the subject of the message, she can just try tenthousand numbers with added nines
+
+
+
+
+
+
