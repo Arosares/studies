@@ -1,0 +1,10 @@
+    [N|0]  [N|1]
+
+k -> E  k -> E
+
+s -> random key stream
+
+m -> plaintext
+
+c -> ciphertext
+

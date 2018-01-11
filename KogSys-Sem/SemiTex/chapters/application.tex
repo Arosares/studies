@@ -1,0 +1,41 @@
+\section{Use case studies}
+
+In this section I will go over several use cases where fog has been or can be applied.
+
+Fog architecture consists of data plane and control plane\cite[p. 860]{DBLP:journals/iotj/ChiangZ16}. Data plane describes user driven data while the control plane is the part of the network that carries signaling data and is responsible for routing. Chiang and Zhang name several examples:\cite[p. 860]{DBLP:journals/iotj/ChiangZ16}
+
+Data Plane of Fog:
+\begin{itemize}
+	\item  pooling of clients idle computing/storage/bandwidth resources
+	\item content caching at the edge and bandwidth management at home
+	\item client-driven distributed beam-forming
+	\item client-to-client direct communications
+	\item cloudlets and micro data-centers
+\end{itemize}
+
+Control Plane of Fog:
+\begin{itemize}
+	\item over the top (OTT) content management
+	\item fog-RAN: Fog driven RAN
+	\item client-based HetNets control
+	\item session management and signaling load at the edge
+	\item crowd-sensing inference of network states
+	\item edge analytics and real-time stream-mining
+\end{itemize}
+
+\subsection{Data Plane Usecases}
+
+\textit{Smart Agriculture}: In agriculture a lot can be done to optimize the processes. Using sensors on the field to measure nutrition of earth, the level of dryness, monitor farm animals and countless more possible applications and processing them directly on the edge node it is possible to extract relevant information to achieve automation. A fog node could for example gather data about future weather from the cloud and data about current weather and humidity of earth from sensors and control if the field has to be watered. 
+
+\textit{Smart Health and Well-Being}: Arm bracelets measuring your pulse, jackets monitoring your heartbeats, your toilet analyzing your outputs. All these methods can have positive impacts on your well-being. Though the data is very sensitive and could be abused if fallen in false hands. Therefore you would not want to send it directly to a cloud where your doctor or your medical insurance could see it. By gathering the data on a local fog node and preprocessing it, letting a program suggest based on data whether you need medical aid, you are able to stay in control of your data. You decide what kind of information you want to share with your doctor.
+
+\textit{Smart Greenhouse Gases Control}: Controlling gases in our atmosphere is a task that needs a lot of forces working together. Fog can help in making smart, information-based decisions. In a smart city every unit that emits gases can measure it and store information in local fog nodes. These nodes could then give a warning to its location if needed or suggest measures to improve the situation. By then combining all these different data in a cloud, it is easier to detect the biggest factor in air pollution, allowing the government to make smart, information-based decisions.
+\subsection{Control Plan Usecases}
+
+\textit{Client-Based HetNets Control (in 3GPP Standards)}: Coexistence is very important in Cellular networks today. Each device is able to check its local conditions and based on them make decisions which network to join. "The fog-cloud interface allows real-time network configurations be carried out by clients themselves."\cite[p. 860]{DBLP:journals/iotj/ChiangZ16}
+
+\textit{"Shread and Spread" Client-Controlled Cloud storage}: Instead of sending a whole file to the cloud and let it do analysis, a file could be 'shredded' into several parts or bytes by the client and distributed to different cloud services. This way it can be ensured the information stays private even if the encryption key gets leaked.\cite[p. 861]{DBLP:journals/iotj/ChiangZ16}
+
+\textit{Bandwidth Management at Home Gateway}: The limited bandwidth capacity in a home gateway is allocated among users and application sessions based on each sessions priority and needs. "A protoype on a commodity router demonstrates a scalable, economical and accurate control of capacity allocation on the edge"\cite[p. 861]{DBLP:journals/iotj/ChiangZ16}
+
+\textit{Real-Time Stream Mining for Embedded AI}: Considering virtual reality tasks associated with Google glass. Some tasks could be done by the glass (a "wearable thing"), some on home storage (edge device) and the rest in the cloud. By refining information on each step to the cloud, tasks may be distributed in a intelligent manner.\cite[p. 861]{DBLP:journals/iotj/ChiangZ16}

@@ -1,0 +1,30 @@
+\section{Communication Protocols}\label{sec:comm}
+
+
+\image{13cm}{communication_comparison}{Comparison of communication protocols\cite[p. 20]{Perera:2017:FCS:3101309.3057266}}{img:com_comp}
+
+The needs of a Fog infrastructure depend heavily on the application and luckily there are plenty different communication protocols to choose from with different strengths and weaknesses. When talking about wireless communication in the IoT field you usually consider three main characteristics: Range, Bandwidth and power consumption. As you may notice in \autoref{img:com_comp}, most protocols are good in two of those categories but worse in the last one. For example LoRaWAN excels at range and power consumption but has very limited bandwidth.
+
+
+\textbf{Wi-Fi:} The most common network technology also known as WLAN and a lot of IoT devices use it to connect to the Internet. It provides high bandwidth but as a drawback it need relatively much power. It's best suited for in house coverage due to its range limit of about 20 meters. Wi-Fi is the implementation of the 802.11 IEEE standard\cite{Perera:2017:FCS:3101309.3057266}
+
+\textbf{Bluetooth:} Bluetooth is also implemented on a lot of devices. It is designed to enable communication over short distances. Bluetooth has 3 different classes. Class 1 providing the shortest range and therefore using the lowest power. Class 3 has the longest range but uses also a lot of power. It is widely used in IoT devices as it allows easy connection to a smart phone or other devices that can be used as a fog gateway. It's standard is the IEE 812.15.1.\cite{Perera:2017:FCS:3101309.3057266}
+
+\textbf{Bluetooth Low Energy / Bluetooth Smart:} As its name suggests Bluetooth Low Energy (BLE) is a variation of Bluetooth designed to draw very low power and in opposite of standard Bluetooth is not limited on how many devices connect. BLE allows communication with up to 1 Mbps and up to 100m range while consuming less than 10 mA.\cite{Perera:2017:FCS:3101309.3057266}
+
+\textbf{Zigbee/Zigbee PRO:} Zigbee is a protocol suite covering network, transport and application layer. It is used to build low-cost, low-throughput and low-power wireless mesh networks. The idea of a mesh network is to send data from one node to another until it reaches its destination. Zigbee needs a special application gateway, that needs to connect to the Zigbee network as a node and it needs to support the TCP/IP - Protocols.\cite{Perera:2017:FCS:3101309.3057266}
+
+\textbf{ANT:} In ANT networks every node can be master and slave, meaning every node can send and/or receive data to enable networking. It is designed for low bit-rate and low power sensor networks and can connect up to 65533 devices. It supports point-to-point, star, tree and mesh topologies. However, the protocol is proprietary.\cite{Perera:2017:FCS:3101309.3057266}
+
+\textbf{Z-Wave:} is a certification designed to run on low powered battery operated devices. In contrast to ANT, Z-Wave has explicit master and slave nodes. Z-Wave operates in mesh networks and can connect up to 232 nodes.\cite{Perera:2017:FCS:3101309.3057266}
+
+\textbf{WiMax:} Short for "Worldwide Interoperability for Microwave Access" and describes a set of standards for wireless communication. Its standard is IEEE 802.16. In comparison to Wi-Fi it provides higher bandwidth (up to 1 Gbps) over longer range (3 km) and can connect more nodes. It is a competitor to LTE.\cite{Perera:2017:FCS:3101309.3057266}
+
+\textbf{Cellular (GSM/HSPA):} High Speed Packet access protocol gives users the opportunity to send data over existing networks over a long range. However, you will have to pay to use it. Depending on the technology, data can be transmitted on different speeds. Ranging from 35-170 kbps (GPRS) to 3-10 Mbps (LTE).\cite{Perera:2017:FCS:3101309.3057266}
+
+\textbf{LPWAN (LoRaWAN):} Low Power Wide Are Network is designed to, as its name suggests, transmit data over long ranges and using low power. As drawback the bandwidth is quite low. Usually a Star-of-stars topology is used in LPWAN networks. It range and throughput is heavily dependent on the environment. In urban areas 2-5 km can be achieved and in suburban areas 15 km are possible. In perfect conditions (line of sight between nodes) more than 100 kms can be achieved.\cite{Perera:2017:FCS:3101309.3057266}
+
+
+\textbf{RFID:} Stands for Radio-frequency identification. It makes use if electromagnetic fields to transmit data. Tags contain electronically stored information. Active RFID can communicate up to 100 m and passive around 100 cm. RFID tags can be found on cards, stickers etc. and are used  in IoT applications to enrich non-electronic objects.\cite{Perera:2017:FCS:3101309.3057266}
+
+\textbf{NFC:} Near field communication enables data transfer between devices in range of 10 cm. It supports peer-to-peer communication. It is most commonly used to enable communication between smart devices.\cite{Perera:2017:FCS:3101309.3057266}
