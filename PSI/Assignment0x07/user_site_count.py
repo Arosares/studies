@@ -2,6 +2,9 @@ import re
 import operator
 
 def time_check(time):
+    """makes sure that the time is in the desired timerange:
+        20:14:30 - 20:15:30"""
+        
     hr, m, s = time.split(":")
     hr, m, s = int(hr), int(m), int(s)
     
@@ -12,12 +15,12 @@ def time_check(time):
     else:
         return False
 
-#regex = re.compile(r'http://(w+)"')
+regex = re.compile(r'(.+)\s.+(20:1[4-5]:\d+)')
 ips = {}
 with open('left.txt', 'r') as file:
     lines = file.readlines()
     for line in lines:
-        match = re.search(r'(.+)\s.+(20:1[4-5]:\d+)', line)
+        match = re.search(regex, line)
         if match:
             ip = match.group(1)
             time = match.group(2)

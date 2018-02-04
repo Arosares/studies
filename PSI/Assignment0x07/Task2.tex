@@ -1,0 +1,58 @@
+\section{Intersection Attacks on Mix Cascades}
+
+\subsection{Part 1}
+
+\subsubsection{How many requests are contained in the left-log and right-log, respectively?}
+
+In left-log there are 1191923 and in right-log 1192045 requests.
+
+\subsubsection{How many different users, identified by their IP address, exist, how many webservers?}
+
+There are 199 users and 29469 webservers.
+
+\subsubsection{What are the five most visited websites?} 
+
+We wrote a python script (\textattachfile[color= 0 0 0.5]{Assignment0x07/web_site_count.py}{web\_site\_count.py}) to count the websites. This is the result:\\
+
+\begin{tabular}{l r}
+	Webserver & Number of visits\\
+	\hline
+	static.cache.l.google.com & 37780\\
+	www.google-analytics.com & 28315\\
+	www.jetztspielen.de & 22410\\
+	tbn0.google.com & 21406\\
+	www.vtunnel.com & 19507\\
+\end{tabular}
+
+
+This is the script:
+
+\lstinputlisting[language=python]{Assignment0x07/web_site_count.py}
+
+\subsection{Part 2: Can you find out his IP address if you have no further information about the user? If not, list all candidate IP addresses.}
+
+It is not possible to find a unique user, but 30 candidates. The 31th most used ip address in this timeframe is used only 7 times.
+
+To find it out we used another script (\textattachfile[color= 0 0 0.5]{Assignment0x07/user_site_count.py}{user\_site\_count.py})
+
+This was the output:\\
+
+('10.1.2.54', 49), ('10.1.2.80', 48), ('10.1.2.73', 46), ('10.1.2.77', 46), ('10.1.2.62', 46), ('10.1.2.72', 46), ('10.1.2.76', 46), ('10.1.2.59', 45), ('10.1.2.74', 44), ('10.1.2.60', 44), ('10.1.2.66', 44), ('10.1.2.55', 43), ('10.1.2.64', 43), ('10.1.2.70', 43), ('10.1.2.65', 43), ('10.1.2.52', 43), ('10.1.2.68', 43), ('10.1.2.61', 42), ('10.1.2.67', 42), ('10.1.2.51', 41), ('10.1.2.58', 41), ('10.1.2.69', 40), ('10.1.2.79', 39), ('10.1.2.71', 39), ('10.1.2.75', 39), ('10.1.2.63', 39), ('10.1.2.53', 38), ('10.1.2.56', 36), ('10.1.2.78', 35), ('10.1.2.57', 34)
+('10.1.2.50', 7)\\
+
+And this the script:
+
+\lstinputlisting[language=python]{Assignment0x07/user_site_count.py}
+
+\subsection{Part 3: Can you uniquely identify Julia’s IP address if you assume that the delay of the whole mix cascade is only up to five seconds?}
+
+We checked all requests to tv-movie.de in right.txt (by Hand :P) and listed requesting IPs from 5 seconds earlier until the time of the request in the left.txt. After only 3 days, the IP 10.1.2.32 is the only one in all eligible timeslots. This means that this has to be Julia's IP address.
+
+T2 154430 - 154638\\
+Zeit: 22:00:11 - 22:00:16  (154629 - 154632)  (\textbf{32}, 61, 64, 75)\\
+T3 324846 - 325085\\
+Zeit: 22:00:18 - 22:00:23 (325079 - 325082) (10, \textbf{32}, 40, 64)\\
+T4 494813+\\
+Zeit: 22:00:47 - 22:00:52 (495077-495079) (10, \textbf{32}, 40)\\
+665241+\\
+Zeit: 21:59:47 - 21:59:52 (665447 - 665462) (57, 59, 101, 186, 53, 64, 69, 72, 37, 51, 56, \textbf{32}, 51, 70, 75, 65)
