@@ -1,0 +1,96 @@
+\documentclass[a4paper]{llncs}
+% Please do not change with the font size, line height, and the vertical spacing
+
+\usepackage{amssymb}
+\setcounter{tocdepth}{3}
+\usepackage{graphicx}
+\usepackage{booktabs} % please use booktabs for tables (toprule, midrule, bottomrule)
+
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{array}
+
+% using UTF-8 file format allows you to write umlauts into the document
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\urlstyle{rm}
+
+\usepackage[protrusion=true,expansion=false]{microtype}
+
+
+
+\begin{document}
+\mainmatter
+
+% the title of your topic in title case (special capitalization rules apply, see comment below)
+\title{What can (normal) users do to you protect your privacy online? Consider private browsing mode, VPNs, Tor, anti-tracking add-ons? What are relevant use cases and what risks are involved in the various approaches?} 
+
+% Capitalization rules taken from http://static.springer.com/sgw/documents/1121537/application/pdf/SPLNPROC+Author+Instructions_Feb2015.pdf:
+% Headings should be capitalized (i.e., nouns, verbs, and all other words except articles, prepositions, and conjunctions should be set with an initial capital) [...] Words joined by a hyphen are subject to a special rule. If the first word can stand alone, the second word should be capitalized. Here are some examples of headings: “Criteria to Disprove Context-Freeness of Collage Languages”, “On Correcting the Intrusion of Tracing Non-deterministic Pro- grams by Software”, “A User-Friendly and Extendable Data Distribution System”, “Multi-flip Networks: Parallelizing GenSAT”, “Self-determinations of Man”.
+
+% Insert your name and student number (only in the final seminar paper):
+% \author{Mary Miller (1231234) \and Richard Pollock (your student number)}
+\author{} % leave the author empty for surveys (double-blind review process) 
+\institute{} % the institute should always be left empty
+
+\maketitle
+
+
+
+% \begin{abstract}
+% This is not necessary for literature surveys
+% \end{abstract}
+
+% Sections are not necessary for literature surveys
+% \section{Introduction}
+% \label{sec:Introduction}
+
+% Please avoid \\, use paragraphs (two newlines instead)
+% Please avoid texttt (use \emph instead)
+% You can include figures in your survey (mostly not appropriate). Please use floats for that purpose and reference all figures.
+% Please do not start sentences with a \cite; use the name of the author or the first author et al. instead.
+% Please check your spelling, punctuation, and typography. For instance, use -- for dashes like this: This finding was -- according to the authors -- a significant finding.
+% Please use appropriate quotation marks if you cite text verbatim (mostly rephrasing is better). In LaTeX quoatation marks are not printed with " but as follows: ``text''
+
+% Start your survey here
+% Usability <-->
+
+To protect ones privacy, users have a multitude of methods available which complement each other to achieve the common goal.
+
+Nowadays, most modern browsers ships with a private browsing mode. However, it only works for your local machine. \textit{Firefox} states that visited pages, cookies, searches and temporary files are not saved, while bookmarks and downloads still are saved to your PC.(R) This helps users to protect their privacy from a local attack vector, for example when using shared computers.
+
+Another feature that modern browser provide to their users, either direct or indirect through add-ons, is anti-tracking protection. Users can get tracked by a variety of methods. \textit{Facebook Inc.} for example is able to collect user data on every website where their frames for liking or sharing are embedded. (More research) Anti-tracking protection tries to recognize said elements on a website and prohibit them from loading. The drawback is, that sometimes some features of a website could stop working.
+
+
+
+
+
+\vspace{20pt}
+
+There is a large number of publications on security issues of the Domain Name System (DNS), most of them are concerned with DNSSEC \cite{rfc4033}. Privacy issues have only recently been found to be interesting \cite{rfc7626}. An overview of security and privacy issues in the DNS is presented by Conrad \cite{Conrad12-dnssecurity}.
+
+The range query technique protects the privacy of users who submit DNS queries to a DNS resolver. The basic range query scheme was introduced by Zhao et al. in \cite{Zhao:2007a}; there is also an improved version \cite{Zhao:2007b} inspired by private information retrieval \cite{Chor:1995}.
+Although the authors suggest their schemes especially for web surfing applications, they fail to demonstrate their practicability using empirical results.
+
+Castillo-Perez and Garcia-Alfaro propose a variation of the original range query scheme \cite{Zhao:2007a} using multiple DNS resolvers in parallel \cite{Castillo-Perez:2008,Castillo-Perez:2009}. They evaluate its performance for ENUM and ONS, two protocols that store data within the DNS infrastructure. Finally, Lu and Tsudik propose PPDNS \cite{Lu:2010}, a privacy-preserving resolution service that relies on CoDoNs \cite{RamasubramanianS04-codons}, a next-generation DNS system based on distributed hash tables and a peer-to-peer infrastructure, which has not been widely adopted so far.
+
+The aforementioned publications study the security of range queries for singular queries issued independently from each other. In contrast, \cite{FederrathFHP11-dnsmixes} observes that consecutively issued queries that are dependent on each other have implications for security. They describe a timing attack that allows an adversary to determine the actually desired website and show that consecutive queries have to be serialized in order to prevent the attack.
+
+\bigskip
+\noindent\emph{Note: The LaTeX source of this document contains further remarks and hints.}
+
+
+
+% This template uses bibtex for the bibliography. You can also use biblatex.
+
+% Please include *complete* references (copy&paste the whole bibtex entries, i.e., for the paper as well as the cross-referenced conference as provided by dblp whenever possible)
+% These bibtex entries may need some further editing to make them homogenuous)
+
+\bibliography{literature}
+\bibliographystyle{splncs03}
+\end{document}
+
+
+
+
