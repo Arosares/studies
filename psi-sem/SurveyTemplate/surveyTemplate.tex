@@ -63,27 +63,9 @@ Aggarwal et. al. state that every modern browser ships with a private browsing m
 Another feature that modern browsers provide, either direct or indirect through add-ons, is anti-tracking protection. By web tracking it is possible to track a single user over multiple websites, allowing to create profiles or store interests of the user. Very often these trackers are found in advertisements. Bievola et. al. \cite{Bielova:2017:WTT:3133956.3136067} list several extensions that help minimizing the risk of getting tracked, though the first step should be to disable third party cookies, since the third party can identify users by the cookie id. This, however, can lead to inconvenience while browsing. If you don't want to disable all third party cookies at least one of these extensions should be installed: Adblock Plus, uBlock origin, Disconnect, Ghostery or Privacy Badger. These all use different methods to try to find trackers hidden in cookies and block them. Tough even when blocking all third party cookies, users could still get identified and tracked by their ip addresses.
 
 To help preventing that, virtual private networks (VPN) can be used. A VPN 
-is able to tunnel your traffic over a server, only letting the target see the VPN servers ip address. Unfortunately, you have no control over the VPN server when using a typical VPN provider, i.e. the provider is able to log everything you do on the Internet. On the other hand, the same holds for your Internet service provider (ISP), if you are not using a VPN.
+is able to tunnel your traffic over a server, only letting the target see the VPN servers ip address \cite{Feilner:2006:OBI:1202604}. Configuring your own VPN server can be a tedious task and when choosing a VPN service provider you have no control over the VPN server, i.e. the provider is able to log everything you do on the Internet. On the other hand, the same holds for your Internet service provider (ISP), if you are not using a VPN.
 
-To circumvent this single point of trust the Tor Project started in 2002 \cite{torproject}. Tor is a acronym for "The onion router". The idea is that whenever you target a website, your traffic gets routed through at least three different servers.
-
-
-
-
-\vspace{20pt}
-
-There is a large number of publications on security issues of the Domain Name System (DNS), most of them are concerned with DNSSEC \cite{rfc4033}. Privacy issues have only recently been found to be interesting \cite{rfc7626}. An overview of security and privacy issues in the DNS is presented by Conrad \cite{Conrad12-dnssecurity}.
-
-The range query technique protects the privacy of users who submit DNS queries to a DNS resolver. The basic range query scheme was introduced by Zhao et al. in \cite{Zhao:2007a}; there is also an improved version \cite{Zhao:2007b} inspired by private information retrieval \cite{Chor:1995}.
-Although the authors suggest their schemes especially for web surfing applications, they fail to demonstrate their practicability using empirical results.
-
-Castillo-Perez and Garcia-Alfaro propose a variation of the original range query scheme \cite{Zhao:2007a} using multiple DNS resolvers in parallel \cite{Castillo-Perez:2008,Castillo-Perez:2009}. They evaluate its performance for ENUM and ONS, two protocols that store data within the DNS infrastructure. Finally, Lu and Tsudik propose PPDNS \cite{Lu:2010}, a privacy-preserving resolution service that relies on CoDoNs \cite{RamasubramanianS04-codons}, a next-generation DNS system based on distributed hash tables and a peer-to-peer infrastructure, which has not been widely adopted so far.
-
-The aforementioned publications study the security of range queries for singular queries issued independently from each other. In contrast, \cite{FederrathFHP11-dnsmixes} observes that consecutively issued queries that are dependent on each other have implications for security. They describe a timing attack that allows an adversary to determine the actually desired website and show that consecutive queries have to be serialized in order to prevent the attack.
-
-\bigskip
-\noindent\emph{Note: The LaTeX source of this document contains further remarks and hints.}
-
+To circumvent this single point of trust the Tor Project started in 2002 \cite{torproject}. Tor is an acronym for "The onion router". The idea is that whenever you target a website, your message will get encrypted and forwarded over multiple relays \cite{Dingledine:2004:TSO:1251375.1251396}. Since each relay only knows its predecessor and its successor, the network itself is not able to identify you. However, the traffic from an exit node to your target server has to be unencrypted in order to be understood by the server, i.e. whenever you login or provide personal information of yourself that you also used when not browsing via the Tor network, it is possible to match your browsing identities. Therefore it is discouraged to use login services, when using the Tor network.
 
 
 % This template uses bibtex for the bibliography. You can also use biblatex.
