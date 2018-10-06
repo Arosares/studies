@@ -1,0 +1,89 @@
+\documentclass[a4paper]{article}
+% Please do not change with the font size, line height, and the vertical spacing
+
+\usepackage{amssymb}
+\setcounter{tocdepth}{3}
+\usepackage{graphicx}
+\usepackage{booktabs} % please use booktabs for tables (toprule, midrule, bottomrule)
+
+\usepackage{todonotes}
+
+\PassOptionsToPackage{hyphens}{url}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{array}
+
+% using UTF-8 file format allows you to write umlauts into the document
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\urlstyle{rm}
+
+\usepackage[protrusion=true,expansion=false]{microtype}
+
+\usepackage{adjustbox}
+\usepackage{tikz}
+\usetikzlibrary{positioning,arrows,fit,calc}
+\pgfdeclarelayer{bg}
+\pgfsetlayers{bg,main}
+\tikzset{
+    >=stealth'
+}
+
+\begin{document}
+	
+\input{includes/config}
+\input{includes/commands}
+
+\makeatletter
+\input{includes/titlepage}
+
+%\thispagestyle{empty}
+\tableofcontents
+\clearpage
+
+\setcounter{page}{1}
+
+
+% Sections are not necessary for literature surveys
+% \section{Introduction}
+% \label{sec:Introduction}
+
+% Please avoid \\, use paragraphs (two newlines instead)
+% Please avoid texttt (use \emph instead)
+% You can include figures in your survey (mostly not appropriate). Please use floats for that purpose and reference all figures.
+% Please do not start sentences with a \cite; use the name of the author or the first author et al. instead.
+% Please check your spelling, punctuation, and typography. For instance, use -- for dashes like this: This finding was -- according to the authors -- a significant finding.
+% Please use appropriate quotation marks if you cite text verbatim (mostly rephrasing is better). In LaTeX quoatation marks are not printed with " but as follows: ``text''
+
+% Start your survey here
+
+\include{content/introduction}
+
+\include{content/background}
+
+\include{content/approach}
+
+\include{content/evalutation}
+
+%\include{content/opensource}
+
+\include{content/related work}
+
+\include{content/future work}
+
+\include{content/conclusion}
+
+% This template uses bibtex for the bibliography. You can also use biblatex.
+
+% Please include *complete* references (copy&paste the whole bibtex entries, i.e., for the paper as well as the cross-referenced conference as provided by dblp whenever possible)
+% These bibtex entries may need some further editing to make them homogenuous)
+
+\clearpage
+\bibliography{literature}
+\bibliographystyle{splncs03}
+\end{document}
+
+
+
+

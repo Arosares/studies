@@ -1,0 +1,30 @@
+\section{Guide to Vulnerability Disclosure}\label{sec:guide}
+
+In this section we will sketch the essence of a practical guide to perform a coordinated vulnerability disclosure (CVD) based on the CERT/CC CVD guide. Though we will focus on the perspective of the finder and reporter. However, this is just a brief overview. Detailed information can be obtained from CERT/CC~\cite{CertGuideCVD}.
+
+\tikzimg{graphic/cvd_roles}
+        {CVD Role Relationships \cite{CertGuideCVD}}
+        {img:rolesCVD_fancy}
+
+The finder or discoverer finds the vulnerability and shares it with the reporter. Notice that often the reporter and the finder are the same person, but they don't have to be. The reporter proceeds to contact the software vendor and present his findings. Optimally, the vendor has a specific e-mail address or another type of channel that allows secure communication, e.g. via PGP encryption. If there is no encrypted communication method offered by the vendor, the reporter should establish one with the vendor before sending details.
+
+The vulnerability report should contain the following information:
+\begin{itemize}
+	\item The product version
+	\item How the vulnerability was discovered
+	\item A proof of concept or reproduction instructions
+	\item If possible, a patch or a hint how to fix the vulnerability.
+	\item The severity -- not only as number (see \autoref{sec:vuln_background_severity}), but also in text-form in case the vendor isn't used to receive such reports.
+	\item The attack vector/scenario.
+	\item Reasonable time constraints for deploying a patch.
+\end{itemize} 
+
+Optionally, as described in \autoref{sec:hybrid}, a coordinator can be involved in especially complex cases, acting as neutral party between different stakeholders.
+
+Upon receiving the report of a vulnerability, the vendor has to check if he is able to reproduce the vulnerability and develop a patch for it if needed. Once the vulnerability is successfully patched, it is the deployer's task to distribute the new, patched version of the software. 
+
+Eventually, the vulnerability as well as the remediation plan will be disclosed to the public. Though there are some edge cases where public disclosure is not benefiting the society and should be dismissed, for example if lives would be at risk should the details of the vulnerability go public.
+
+Additionally, it's good practice to create and share a draft document with the vendor, containing information you want to disclose. Doing so gives the vendor a fair chance to argue if some information should be included and eliminates unwanted surprises.
+
+Finally, reporters and vendors should try to synchronize their publications and confirm each other that disclosure went as planned, while providing URLs to the published reports.

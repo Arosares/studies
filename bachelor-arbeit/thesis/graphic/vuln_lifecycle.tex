@@ -1,0 +1,35 @@
+\begin{tikzpicture}[
+    auto,
+    node distance = 0.3cm,
+    thick,
+    every node/.style = {
+        font = \sffamily
+    },
+    state/.style = {
+        rectangle, 
+        draw,
+        align = center,
+        minimum height = 0.5cm,
+        text width = 2cm 
+    }
+]
+
+    \node[state] (rel)                                    {software released};
+    \node[state] (disc)      [right = 1.5cm of rel]       {Vulnerability discovered};
+    \node[state] (unpatched) [right = 1.0cm of disc]      {Vulnerability unpatched};
+    \node[state] (pub)       [above = 1.5cm of unpatched] {Vulnerability published};
+    \node[state] (unpub)     [below = 1.5cm of unpatched] {Vulnerability unpublished};
+    \node[state] (patched)   [right = 1.0cm of unpatched] {Vulnerability patched};
+    
+    \coordinate [above = 1cm of rel] (start);
+    
+    \draw[*->] (start) -- node [right] {injection}     (rel);
+    \draw[->]  (rel)   -- node [below] {discovery}     (disc);
+    \draw[->]  (disc)  |- node [above] {publishing}    (pub);
+    \draw[->]  (disc)  |- node [below] {no publishing} (unpub);
+    \draw[->]  (pub)   -| node [above] {patching}      (patched);
+    \draw[->]  (unpub) -| node [below] {patching}      (patched);
+    \draw[->]  (pub)   -- node [left]  {no patching}   (unpatched);
+    \draw[->]  (unpub) -- node [left]  {no patching}   (unpatched);
+
+\end{tikzpicture}

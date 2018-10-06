@@ -1,0 +1,30 @@
+\section{Disclosure Examples}\label{sec:examples}
+%Heartbleed, KRACK, Spectre/Meltdown, etc
+
+% Git May 2018: Arbitrary Code Execution Vulnerability CVE 2018-11235
+
+In this section we analyze recently disclosed vulnerabilities according to the findings of this paper. We found that due to the wide adoption of hybrid disclosure, and also due to the nature of full vendor disclosure, obtaining data of disclosures different than hybrid disclosure is difficult.
+
+\subsection{Git Remote Code Execution Vulnerability}
+
+One example for vulnerability disclosure is the remote code execution 
+vulnerability in the popular version control system Git \cite{Paganini2018}.
+This vulnerability was discovered by Etienne Stalmans as part of the bug bounty
+of the company GitHub.
+
+The vulnerability is tracked by MITRE under the identifier CVE-2018-11235 since
+May 18, 2018 \cite{MITRE2018}. 
+The exact dates of discovery and disclosure are not published.
+A patch for the vulnerability was released on May 29, 2018 \cite{Hamano2018}.
+
+The disclosure of this vulnerability is an example for the hybrid disclosure
+approach (see \autoref{sec:hybrid}) in free open-source software.
+The vulnerability was first disclosed to the vendors and only publicly disclosed
+after a patch was released.
+
+\subsection{Spectre and Meltdown}
+
+The Spectre \cite{Kocher2018spectre} and Meltdown \cite{Lipp2018meltdown} vulnerability shows that doing a coordinated vulnerability disclosure is not always easy.
+Both are types of side-channel attacks, allowing to read memory that an application is not supposed to access and were discovered by multiple parties independently, most notably: Horn from Google's Project Zero \cite{GoogleProjectZeroMeltdownSpectre}, Haas and Prescher from Cyberus Technology \cite{CyberusSpectreMeltdown} and  Gruss, Lipp,  Mangard and Schwarz from Graz University of Technology \cite{GrazSpectreMeltdown}. Since these vulnerabilities are the unforeseen result of a hardware design choice in CPUs, every operating system vendor had to implement patches. Originally it was planned to release information publicly on January 9th, 2018 and that patches will be available by that time, however, due to these patches mitigating performance and being implemented unreasonably for people without knowledge of these vulnerabilities, information on Spectre and Meltdown was published earlier as previously arranged on January 3rd \cite{GuardianMeltdownSpectre}.
+
+They are tracked by MITRE since February 1st, 2017 under CVE-2017-5753 and CVE-2017-5715 for Spectre and CVE-2017-5754 for Meltdown, all assigned to Intel, though Spectre also works on multiple AMD and ARM CPUs.

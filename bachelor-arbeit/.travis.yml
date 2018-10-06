@@ -1,0 +1,22 @@
+before_install:
+- sudo apt-get update && sudo apt-get install texlive-full
+before_script:
+- latexmk -version
+- pdflatex -version
+before_deploy:
+- git config --local user.name "Florian Beetz"
+- git config --local user.email "florian1.beetz@stud.uni-bamberg.de"
+- git tag "v-$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)"
+script:
+- make
+deploy:
+  provider: releases
+  api_key:
+    secure: UW8fQ3D4IvilWBf9YKvas/dLVvSpUBysKUELYU/rknDQGB8Oc5nEpW7hZsT2CQemt1aNJapLksyIwnh24mkWS7EHdRtC1xFBi+PTEjmX6Owpx5Tsas7rL65YB/1maLC0I8IMOqeJiZb9fTWGsjjh3f4GVab1uGaEB6zSyWU0khusdpWrB3QmTxAGYtwf7bEcr3SznPkftJEslmDD9fPKxPisI7dS3wftoPgvL4nnZX7bzUwXF1Gbni2w5a3TNWrfqbSG76bFG3w/zpvxW6bDLElI23qrOHSxsGbylkM3QaE22W9+yIqRtSbuPMFhTEvva/7+nt4sSYYdSvA0bRGpywyDIaH5gYq7B8Q6ntENIdD4PE0ljBjRwegcNXidg2fSrLkZG7+PGvzRgVCFt/W9R5UgFfrU/m2TXv6eGlr0Q06hkPT0W2wmHpoMPJChqfxQgYl1ginDaA7RRFzwfZAPAypLg/i3GarITdpsi2coKZ9czN7401SVNhwVJtzFcUClTs1PEUZ4nBZ4/Ca1AZYylyvI57EeojDb1BWs4AySFOjBvyp7oYh9yNdtwsV4eY9Q8qjXxLYnptPQaPQ6MhunedOWE2OH9SYniHCD5hvYf1x5HxeXhEVl9bgO+lsGxNA3WrFrDvezAf4ezG9fL0GnD84q9aBioQ3gwgqBQuYGdxw=
+  file: seminar.pdf
+  skip_cleanup: true
+
+notifications:
+  email:
+    on_success: never
+    on_failure: always

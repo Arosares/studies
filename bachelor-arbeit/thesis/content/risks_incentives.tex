@@ -1,0 +1,115 @@
+\section{Risks and Incentives of Disclosing Software Vulnerabilities}
+\label{sec:risks_incentives}
+
+When finding or disclosing software vulnerabilities, there are different incentives, but also risks, depending on the circumstances.
+
+\subsection{Incentives}
+Software vulnerabilities have a significant economic value, as they represent
+a critical security risk, should they be sold to malicious organizations or
+individuals \cite{Algarni2014}. 
+Algarni and Malaiya found that prices for zero-day
+vulnerabilities ranged up to \$250,000 in 2014 \cite{Algarni2014}. 
+Software vendors also discovered the possibility to buy vulnerabilities from 
+security researchers, while for many vulnerability discoverers the publicity 
+gained from associating their name with their research is enough incentive.
+
+\tikzimg{graphic/market_classification}
+        {Classification of Vulnerability Markets \cite{Algarni2014}}
+        {img:market_class}
+
+Vulnerability markets each have different attributes that are attractive to
+producers (discoverers) and consumers (buyers) depending on their long and short
+term objectives \cite{Algarni2014}.
+Discoverers can be differentiated by being internal or external to the software
+vendor.
+External discoverers often are free to offer their discovery in exchange for a
+suitable reward in an appropriate vulnerability market.
+Regulated markets are controlled by laws or conventions, preventing improper
+actions harming society.
+
+The following discusses the markets for vulnerabilities Algarni and Malaiya 
+identified in \cite{Algarni2014} as shown in \autoref{img:market_class}.
+
+\paragraph{Publicity}
+
+In this case discoverers submit their findings to an authority to be disclosed 
+responsibly.
+CERT/CC and similar organization offer such a market. 
+The reputation of discoverers may be enhanced due to the generated publicity, 
+which may lead to future economic opportunities.
+However, such a market would not be attractive for discoverers with economic
+incentives or who have already established their reputation.
+
+\paragraph{Captive Market}
+
+In this market discoverers are internal to an software vendor, so they are not
+permitted to publish the vulnerability externally. 
+Researchers of security service organizations are also part of this market.
+The government may be the only permitted buyer in some countries.
+
+\paragraph{Reward Programs}
+
+Some software vendors offer a reward program -- sometimes called bug bounties or
+bug challenges -- to provide discoverers an easy way to disclose vulnerabilities 
+in legitimate ways, while also offering financial compensation in addition to 
+appropriate credit.
+Rewarding security researchers making software products more secure is 
+important, although some software vendors might choose not to do so, especially when 
+economic incentives or competitors are missing.
+
+\paragraph{Security Companies}
+
+Companies that provide security services often also acquire vulnerabilities.
+They do so, to provide their customers a higher degree of safety or to 
+profitably disclose the vulnerability to the software vendor.
+
+\paragraph{Online Forums}
+
+Hacktivist groups are often organizing themselves in online forums. 
+The members usually have special private agendas to attack specific 
+organizations.
+Famous examples for such hacktivist groups are LulzSec or Anonymous.
+Such groups usually do not have access to zero-day vulnerabilities, as those
+are too valuable to reveal without financial gain.
+
+\paragraph{Gray Market}
+
+Vulnerability brokers are entities that buy and sell vulnerabilities and are 
+often considered as gray market, as their proceedings are legitimate, but only
+partially regulated. 
+This market comes closest to an open market, since buyers and sellers can 
+negotiate their prices, while the brokers ask for a commission.
+The vulnerability is usually sold to the highest bidder.
+Government agencies have become a significant buyer in recent years and 
+considering the amount of funding governments can raise, such markets will
+reduce the amount of public disclosures.
+
+\paragraph{Black Market}
+
+The vulnerability black market is an unregulated market, opening the possibility
+for any group or organization such as cyber criminals, terrorists, or government
+agencies to buy vulnerabilities.
+The price of vulnerabilities is said to be five to ten times higher than in 
+other markets, depending on the attributes of vulnerabilities.
+Due to the nature of this market the buyers of vulnerabilities stay largely
+anonymous, but it is speculated that government agencies might be a significant
+player in the vulnerability black market, as several countries have programs
+to develop new cyber weapons.
+
+\subsection{Risks}
+
+Householder et. al display several risks when finding or disclosing vulnerabilities~\cite{CertGuideCVD}.
+
+\paragraph{Operational Risks}
+
+When testing a certain product, you should make sure to not penetrate live production systems, but rather try to emulate a closed and controlled environment. The method of choice here usually are virtual machines. Though it is important to calculate for unintended consequences. If the impact of your penetration testing cannot be controlled, you should rather contact the vendor directly.
+
+\paragraph{Safety Risks}
+
+When dealing with safety-critical systems -- such as medical appliances, flight control systems or nuclear reactors -- it is given that you have to act with a special amount of caution, as a proof of concept exploit could put the lives of many in danger.
+
+\paragraph{Legal Risks}
+
+If the found vulnerability leads to access of sensitive user data, for example medical, financial or education data, one might fear a lawsuit based on laws such as the HIPAA \cite{law:HIPAA}, FERPA \cite{law:FERPA} or COPPA \cite{law:COPPA}. Therefore it is of greatest importance to only test products in a controlled environment using artificially generated data.
+
+

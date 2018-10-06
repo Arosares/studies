@@ -1,0 +1,39 @@
+\begin{tikzpicture}[
+    auto,
+    node distance = 0.4cm,
+    thick,
+    every node/.style = {
+        rectangle, 
+        draw,
+        align = center,
+        font = \sffamily,
+        minimum height = 0.5cm,
+        text width = 2.4cm 
+    }
+]
+    
+    \node (bug)         {bug};
+    \coordinate [below = 0.9cm of bug] (bugc);
+    \node (vuln)        [left   = 2mm of bugc]  {vulnerability};
+    \coordinate [below = 0.9cm of vuln] (vulnc);
+    \node (non-sec)     [right  = 2mm of bugc]  {non-security related};
+    \node (det)         [left   = 2mm of vulnc] {detected};
+    \coordinate [below = 0.9cm of det] (detc);
+    \node (undet)       [right  = 2mm of vulnc] {undetected};
+    \node (pub)         [left   = 2mm of detc]  {published};
+    \coordinate [below = 0.9cm of pub] (pubc);
+    \node (unpub)       [right  = 2mm of detc]  {unpublished};
+    \node (patched)     [left   = 2mm of pubc]  {patched};
+    \node (unpatched)   [right  = 2mm of pubc]  {unpatched};
+
+    \draw (bug) |- (vuln);
+    \draw (bug) |- (non-sec);
+    \draw (vuln) |- (det);
+    \draw (vuln) |- (undet);
+    \draw (det) |- (pub);
+    \draw (det) |- (unpub);
+    \draw (pub) |- (patched);
+    \draw (pub) |- (unpatched);
+
+
+\end{tikzpicture}

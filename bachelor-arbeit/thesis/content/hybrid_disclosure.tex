@@ -1,0 +1,26 @@
+\subsection{Hybrid Disclosure}
+\label{sec:hybrid}
+
+The third option for disclosing software vulnerabilities is a hybrid approach of 
+full vendor disclosure (see \autoref{sec:full-vendor}) and immediate public 
+disclosure (see \autoref{sec:immediate-public}) \cite{Cavusoglu2007}.
+Hybrid disclosure is also called \textit{responsible disclosure} 
+\cite{Cavusoglu2007} or \textit{coordinated vulnerability disclosure} (CVD) 
+\cite{CertGuideCVD}.
+Discovered vulnerabilities are not disclosed immediately to the public, but the
+software vendor is allowed a certain time frame to develop a patch for the 
+vulnerability.
+If the vulnerability is unpatched after the deadline has passed the finder publicly discloses the vulnerability.
+
+This disclosure policy has the benefit that neither the identifier of the
+vulnerability nor the software vendor can be accused of acting irresponsible
+\cite{Cavusoglu2007}.
+The software vendor also is given an incentive to patch the vulnerability before
+the deadline to not jeopardize companies using the vulnerable software.
+
+Often the Computer Emergency Response Team/Coordination Center -- short CERT/CC -- is
+included as an intermediate third party \cite{Cavusoglu2007}.
+An identifier first releases the vulnerability to CERT/CC, where the 
+vulnerability is verified and the affected vendors are notified.
+CERT/CC sets a 45-day grace period for the vendor to patch the vulnerability,
+after which it is publicly disclosed regardless of the availability of a patch.

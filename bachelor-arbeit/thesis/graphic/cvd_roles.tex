@@ -1,0 +1,33 @@
+\begin{tikzpicture}[
+    node distance = 2.5cm,
+    every node/.style = {
+        font = \sffamily\footnotesize,
+        text width = 2cm,
+        align = center
+    },
+    actor/.style = {
+        draw,
+        rectangle,
+        text width = 1.5cm,
+        minimum height = 1cm
+    }
+]
+
+\newcommand{\curve}[6]{
+    \draw[->] #1 .. controls #2 and #3 .. node [#4] {#5} #6;
+    \draw[red] #2 -- #3;
+}
+
+\node (finder) [actor] {Finder};
+\node (vendor) [actor, right = of finder] {Vendor};
+\node (deployer) [actor, right = of vendor] {Deployer};
+\node (reporter) [actor, below = of finder] {Reporter};
+\node (coordinator) [actor, below = of vendor] {Coordinator};
+
+\draw[->] (finder) -- node [left] {shares information with} (reporter);
+\draw[->] (reporter) .. controls ($ (reporter.north) + (0.41,1.5) $) and ($ (vendor.west) - (1,0.4) $) .. node [right, align = left] {reports to} (vendor);
+\draw[->, dashed] (reporter) -- node [above] {reports to} (coordinator);
+\draw[->] (vendor) -- node [above] {provides information and/or patch to} (deployer);
+\draw[->, dashed] (coordinator) .. controls ($ (coordinator.east) + (1.5,0.4) $) and ($ (deployer.south) + (-0.4,-1) $) .. node [left] {provides information to} (deployer);
+\draw[->, dashed] (reporter) .. controls ($ (coordinator.south) + (3,-2) $) and ($ (deployer.south) + (0,-2) $) .. node [right] {provides information to} (deployer);
+\end{tikzpicture} 

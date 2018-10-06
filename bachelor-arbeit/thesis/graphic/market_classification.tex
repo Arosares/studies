@@ -1,0 +1,104 @@
+\begin{tikzpicture}[
+    node distance = 2mm,
+    every node/.style = {
+        font = \sffamily\scriptsize
+    },
+    title/.style = {
+        font = \sffamily\bfseries\footnotesize,
+        text width = 0.24\textwidth,
+        align = center
+    },
+    swimlane/.style = {
+        draw, 
+        dashed,
+        minimum width = 0.24\textwidth,
+        minimum height = 6.7cm
+    },
+    actor/.style= {
+        draw,
+        fill = white,
+        text width = 0.24\textwidth - 1cm,
+        anchor = west,
+        align = center
+    }
+]
+
+\node (producers_sw) [swimlane] {};
+\node (producers_title) [title, below = 1mm of producers_sw.south] {Producers};
+
+\node (fdp) [actor, below = of producers_sw.north] {Freelance Discoverers};
+\node (cdp) [actor, below = of fdp] {Captive Discoverers};
+
+\coordinate [right = 2mm of fdp] (fdp_r);
+\coordinate [right = 5mm of cdp] (cdp_r);
+
+\node (markets_sw) at (0.24\textwidth, 0) [swimlane] {};
+\node (markets_title) [title, below = 1mm of markets_sw.south] {Vulnerability Markets};
+
+\node (pm) [actor, below = of markets_sw.north] {Publicity};
+\node (cm) [actor, below = of pm] {Captive};
+\node (rpm) [actor, below = of cm] {Reward Programs};
+\node (scm) [actor, below = of rpm] {Security Company};
+\node (regm) [below = of scm] {Regulated Markets};
+\begin{pgfonlayer}{bg}
+    \node (regm_b) [draw, fit = {(pm) (cm) (rpm) (scm) (regm)}, fill=black!2] {};
+\end{pgfonlayer}
+
+
+\node (ofm) [actor, below = of regm_b] {Online Forums};
+\node (gm) [actor, below = of ofm, fill = black!10] {Gray Markets ``Brokers''};
+\node (bm) [actor, below = of gm, fill=black, text=white] {Black Market};
+
+\node (consumers_sw) at (0.48\textwidth, 0) [swimlane] {};
+\node (consumers_title) [title, below = 1mm of consumers_sw.south] {Consumers};
+
+\node (sdc) [actor, below = 1mm of consumers_sw.north] {Software Developers};
+\node (hc) at (ofm -| sdc) [actor, anchor = center] {Hacktivists};
+\node (gac) [actor, below = of hc] {Government agencies};
+\node (ac) [actor, below = of gac] {Attackers};
+
+\coordinate [left = 5mm of sdc] (sdc_l);
+\coordinate [left = 2mm of gac] (gac_l);
+
+\node (attacks_sw) at (0.72\textwidth, 0) [swimlane] {};
+\node (attacks_title) [title, below = 1mm of attacks_sw.south] {Attacks/Resolutions};
+
+\node (pr) [actor, below = 1mm of attacks_sw.north] {Patches};
+\node (or) at (hc -| pr) [actor, anchor = center] {Organizations};
+\node (ocr) [actor, below = of or] {Organizations or other countries};
+\node (tor) [actor, below = of ocr] {Targeted Organizations};
+
+\draw (fdp) -- (fdp_r);
+\draw[->] (fdp_r) |- (pm);
+\draw[->] (fdp_r) |- (rpm);
+\draw[->] (fdp_r) |- (scm);
+\draw[->] (fdp_r) |- node [left, rotate = 90, anchor = south] {vulnerability information} (ofm);
+\draw[->] (fdp_r) |- (gm);
+\draw[->] (fdp_r) |- (bm);
+
+\draw (cdp) -- (cdp_r);
+\draw[->] (cdp_r) |- (cm);
+
+\draw[olive] (sdc) -- (sdc_l);
+\draw[->, olive] (sdc_l) |- (pm);
+\draw[->, olive] (sdc_l) |- (cm.5);
+\draw[->, olive] (sdc_l) |- (rpm);
+\draw[->, olive] (sdc_l) |- (scm);
+\draw[->, olive] (sdc_l) |- (gm.15);
+
+\draw[->, olive] (hc) -- (ofm);
+
+\draw[olive] (gac) -- (gac_l);
+\draw[->, olive] (gac_l) |- (gm);
+\draw[->, olive] (gac_l) |- (bm.5);
+\draw[->, olive] (gac_l) |- node [right, rotate = 90, anchor = north east] {money} (cm.355);
+
+\draw[->, olive] (ac) -- (bm.358);
+
+\draw[->] (sdc.9) -- (pr);
+
+\draw[->, red] (hc) -- node [above] {attack} (or);
+\draw[->, red] (gac) -- (ocr);
+\draw[->, red] (ac) -- (tor.173);
+
+\end{tikzpicture}

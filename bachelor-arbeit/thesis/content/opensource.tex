@@ -1,0 +1,18 @@
+\section{Open Source vs Proprietary Vendors}
+\label{sec:open_vs_prop}
+In this section we highlight the difference of disclosing vulnerabilities to open source or proprietary vendors.
+
+\subsection{Patch Release Time}
+
+There is an ongoing debate whether open-source software is really faster at providing patches than proprietary vendors. Arora et. al conducted an empirical study and randomly chose 131 vulnerabilities published by CERT or SecurityFocus or both and conclude that open source vendors do release patches quicker than closed source vendors \cite{Arora10_Patch_Release}. Schryen, however, chose 17 open source and closed source packages with roughly the same functionality and found that there is no meaningful difference in patching behavior \cite{Schryen2011}. Though one could argue that Schryen's findings are less significant due to a limited number of samples.
+
+\subsection{Disclosing Vulnerabilities in Open Source Software}
+
+``There is no security through obscurity'' is a common mantra in open source software, suggesting that open source vendors don't fear a vulnerability disclosure, but rather welcome one. Though according to Swire there are some cases, where secrecy is preferred, because a potential attacker would get more relevant information, such as passwords and secret keys used for authorization, than the defender \cite{Swire06TheoryOfDisclosure}.
+
+Additionally intrusion detection systems used to detect attackers, especially in the form of so called ``honeypot'' (a trap in a system made to lure attackers), can lose their effectiveness when bad actors know of their existence.
+Lastly Swire mentions secrecy in nonstandard configurations and settings when using open source software. For example SSL is a protocol that provides secure communication among multiple parties. By tweaking it, it is achievable that only machines that know the tweak are able to communicate with each other.
+
+\subsection{Disclosing Vulnerabilities in Proprietary Software}
+
+For vendors of proprietary software there is always an incentive to keep disclosure out of the public, as open vulnerabilities could harm their sales, though if such information gets public afterwards the image of the vendor could be damaged long-term. Hence most vendors are very likely to take part in responsible disclosure \cite{Swire06TheoryOfDisclosure}.
