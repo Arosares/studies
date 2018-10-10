@@ -1,26 +1,8 @@
-\begin{abstract}
-In this paper, we analyze the different ways to disclose software vulnerabilities. Based on our reviewed literature, we found that the hybrid disclosure method is most often the preferred one as it benefits society and software vendors the most, as it's goal is to combine the advantages of other disclosure policies. Additionally we present a short overview on how to disclose a vulnerability based on the CERT/CC disclosure guide. We then continue to show differences in patch behavior between open source and proprietary software vendors and show the risks and incentives when disclosing vulnerabilities. Finally, we give examples of recent vulnerabilities and their disclosures and analyze them according to the findings of this paper.
-\end{abstract}
-
 \section{Introduction}
 
-The word vulnerability origins from the Latin word vulnus, or ``wound''. If a human is wounded, it is quite obvious to see a doctor, but if a computer is wounded, nobody might even notice. Therefore, whenever someone encounters a ``wound'', they should disclose it to the corresponding authorities to provide a patch. Similar to our health care system, where many parties need to work together to ensure the patient's health, it is important that software vendors cooperate with researchers, academics, penetration testers or any user of their product to improve their software's security.
 
-%Everyday more and more software based devices are built and distributed in our environment. While they provide useful services or are just very convenient, every one could contain a flaw, allowing adversaries to break into such devices and steal valuable, private information. Therefore it is of greatest importance that software vendors work together with researchers, academics, penetration testers or any user of their product to improve its software security. Since computers became dominant in our lives, different ways to disclose vulnerabilities have emerged. 
+Quality control in software development is a fundamental step to a reliable product. Especially in safety critical area, software is not allowed to malfunction. However, the longer tests take, the more expensive the products get. If you know the test cost of your product, you can coordinate man hours in the most effective way, minimizing costs while keeping the quality high.
 
-In this paper we introduce three different types of disclosure (\autoref{sec:types_disclosure}) after we establish the terminology in \autoref{sec:vuln_background}. In \autoref{sec:guide} we present a guide for coordinated vulnerability disclosure from the perspective of the discoverer of the vulnerability. We proceed with a short comparison between open source and closed source software vendors in terms of disclosure (\autoref{sec:open_vs_prop}) and provide several incentives and risks for disclosure in \autoref{sec:risks_incentives}. Lastly we give some examples of vulnerability disclosure happened in recent times in \autoref{sec:examples}.
+In this thesis a tool is developed to analyze model-based software in order to estimate a test cost. In the process three different approaches emerged. The Halstead Software Metrics \autoref{sec:approach-halstead}, McCabe's cyclomatic complexity \autoref{sec:approach-cyclomatic} and a newly introduced custom approach \autoref{sec:approach-sda}. Tp evaluate all approaches experts reviewed the model-based software, grading it on a scale from 0 to 10 according to its complexity to understand \autoref{sec:eval}.
 
 
-%\vspace{50pt}
-%\todo{possible quotes for intro?}
-
-%"Vulnerability disclosure is a process through which vendors and vulnerability finders may work
-%cooperatively in finding solutions that reduce the risks associated with a vulnerability. It encompasses
-%actions such as reporting, coordinating, and publishing information about a vulnerability and its
-%resolution." \cite{ISO29147:2014}
-
-%\vspace{50pt}
-
-%Reports that say that something hasn’t happened are always interesting to me, because as we know, there are known knowns; there are things we know we know. We also know there are known unknowns; that is to say we know there are some things we do not know. But there are also unknown unknowns – the ones we don’t know we don’t know. – Donald Rumsfeld
-
-% What is Vulnerability / Bug? Lifecycle Schryen 2011

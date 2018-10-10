@@ -25,11 +25,11 @@ Function blocks are interpreted as operators, the inputs of a function group as 
 
 
 
-\subsection{Cyclomatic-Complexity} \label{sec:approach-cyclomatic}
+\subsection{Cyclomatic-Complexity} \label{sec:approach-}
 
 Cyclomatic complexity is a graph-theoretic complexity measure introduced by McCabe \cite{McCabe:1976}. He defines the cyclomatic number \(v(G) = e - n + 2p\) of a graph G, where n is the number of vertices, e the amount of edges and p the number of connected components. When looking for connected components only the specific function ID or function group is considered. This decision was made for two reasons. First, the algorithm to find all connected components takes quite a long time when considering the whole program, secondly the result will mostly always be p = 1. For the function group in \autoref{fig:example_halstead} the result would be \(v(G) = 11 - 3 + 2*1 = 10\). \(p = 1\), since the function blocks 'LFRDY\_1' and 'LFRDY\_2' are connected via the signal 'LFRDYA' to 'LFRDY\_0'.
 
-\subsection{Custom Approach: Signal Depth Analysis} \label{sec:approach-sda}
+\subsection{Custom Approach: Signal Depth Analysis}
 
 When testing the software, it is currently only possible to manipulate global signals (global variables) of a function package, as local signals are overwritten each cycle in the simulation. Hence, the longer the path from the signal that shall be validated to its global signals is, the more complex it is to understand which values produce a specific result. F.e when considering the function group in \autoref{fig:example_halstead}, the outgoing signals are 'LFRDYA', 'LFRDYG1' and 'LFRDYG1'. For each of these signals Algorithm \ref{alg:signalDepth} is executed, that takes the first function block (fb) before the signal as parameter and counts the visited function blocks along the path until a global signal is reached. The resulting difficulty for that function group is defined as: \( D = \log_2(S_a * g * G)\), where \( S_a = \) the average signal depth of all outgoing signals, \(g = \) number of unique global signals and \(G = \) the number of all global signals needed. All three parameters are equally weighted in this function because it is not obvious which parameter has the biggest impact on complexity. The logarithmic function is applied to the product to prevent linear scaling. This is inspired by Stürmer et. al, which concluded similar for the amount of inputs and function blocks \cite{Stuermer:2010}.
 

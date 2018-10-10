@@ -1,7 +1,11 @@
 \documentclass[a4paper]{article}
 % Please do not change with the font size, line height, and the vertical spacing
 
+
 \usepackage{amssymb}
+\usepackage{amsmath} %math environment
+\usepackage{algorithm} %pseudo code algorithm
+\usepackage{algpseudocode}
 \setcounter{tocdepth}{3}
 \usepackage{graphicx}
 \usepackage{booktabs} % please use booktabs for tables (toprule, midrule, bottomrule)
@@ -39,10 +43,13 @@
 \input{includes/titlepage}
 
 %\thispagestyle{empty}
+\pagenumbering{Roman}
 \tableofcontents
 \clearpage
+\listoffigures
+\clearpage
 
-\setcounter{page}{1}
+
 
 
 % Sections are not necessary for literature surveys
@@ -57,10 +64,14 @@
 % Please use appropriate quotation marks if you cite text verbatim (mostly rephrasing is better). In LaTeX quoatation marks are not printed with " but as follows: ``text''
 
 % Start your survey here
+\pagenumbering{arabic}
+\setcounter{page}{1}
 
 \include{content/introduction}
 
 \include{content/background}
+
+\include{content/test_cost_estimation}
 
 \include{content/approach}
 
@@ -68,11 +79,13 @@
 
 %\include{content/opensource}
 
-\include{content/related work}
+\include{content/related_work}
 
-\include{content/future work}
+\include{content/future_work}
 
 \include{content/conclusion}
+\newpage
+\include{content/declaration}
 
 % This template uses bibtex for the bibliography. You can also use biblatex.
 

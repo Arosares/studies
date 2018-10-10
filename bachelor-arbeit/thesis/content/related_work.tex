@@ -1,0 +1,23 @@
+\section{Related Work}
+
+
+\subsection{Empirical Study of Software Metrics}
+
+In 1987 Li and CHEUNG published their empirical study of software metrics \cite{LI:1987-Study-of-Software-Metrics}. They wrote a static Fortran source code analyzer to automatically analyze 255 different programs (student assignments) and compared 31 different metrics including a new introduced metric. They divide these static measures in three categories: Volume, measuring the size of a product, Data Organization, measuring usage and visibility of data, and Control Organization, measuring the comprehensibility of control structures. Halstead metrics would be in the first category, while McCabe's cyclomatic complexity fits the second one. LI and Cheng propose to first use Halstead metrics to put the analyzed software in different categories and then use cyclomatic complexity to a more fine-grained estimation in each category. He concludes that the validity of any tested measure cannot be asserted with precision and that a metric is valid if it succeeds to reflect what it it meant to measure.
+
+\subsection{Calculation and Visualization of Model Complexity in Model-based, Safety-relevant Software}
+
+Stürmer et al. estimate complexity of model-based software by applying the Halstead metrics on a model \cite{Stuermer:2010}. They argue against cyclomatic complexity in their usecase as the model complexity is not significantly affected by control flow, but by the amount of blocks and how they are connected with their corresponding signals. As parameters used for the Halstead metrics they chose mostly similar values as shown here in \autoref{sec:approach-halstead}, though for \(N_2\) they decided to choose the amount of outgoing signals for a function block.
+
+
+
+%\vspace{3cm}
+%Neural Network
+%https://ascelibrary.org/doi/abs/10.1061/(ASCE)0733-9364(1998)124:3(210)
+
+
+%An Assessment and Comparison of Common Software Cost
+%Estimation Modeling Techniques
+%https://dl.acm.org/citation.cfm?id=302647
+%http://www.ehealthinformation.ca/wp-content/uploads/2014/07/isern-98-27.pdf
+

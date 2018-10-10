@@ -15,7 +15,7 @@ This section briefly explains terms used in the SIBAS G programming language.
 
 \paragraph{Function Block} Function blocks are predefined methods that can take multiple inputs and have multiple outputs.
 
-\paragraph{Signal} The variables of the program are projected as signals. Visually they are either represented by a flag when they don't origin in the current function group or otherwise as a line between two function blocks.
+\paragraph{Signal} The variables of the program are projected as signals. Visually they are either represented by a flag when they don't origin in the current function group or otherwise as a line between two function blocks. There are different types of signals. For this context most importantly, global signals and local signals. Global signals origin from another function package or are created to be read from different function packages. They are only allowed to be written to by one actor and can be identified by an '\$' in front of the signal name. Local variables are only write and readable from the same function package. 
 
 \paragraph{Function ID} Function IDs are unique identifiers that are assigned by the developer to function groups that implement a common function. A function ID consists of at least one function group, though more complex functions are spread over multiple IDs.
 
@@ -36,7 +36,7 @@ It is written in Java but is distributed to use in Python 2.7 via Jython\footnot
 	\label{fig:samapi}
 \end{figure}
 
-\autoref{fig:samapi} describes the structure of the API.
+\autoref{fig:samapi} describes the structure of the API. First, either a function package file or a program file has to be loaded, returning a SgFunctionPackage or SgProgram object respectively. On this object several methods can be called, e.g. 'getFunctionBlocks' or 'getFunctionGroups', returning a set of specified objects. Whenever calling a function on an object, ot only returns objects that are in its context.
 
 
 
